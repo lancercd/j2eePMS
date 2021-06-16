@@ -45,8 +45,8 @@
         <!--数据库连接信息-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/j2ee?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;verifyServerCertificate=false&amp;useSSL=false"
-                        userId="j2ee"
-                        password="123456"/>
+                        userId="root"
+                        password="root"/>
 
         <javaTypeResolver>
             <property name="useJSR310Types" value="true"/>
@@ -79,7 +79,10 @@
 <!--                            typeHandler="com.goodstuff.mall.db.mybatis.JsonIntegerArrayTypeHandler"/>-->
 
 <!--        </table>-->
-        <table tableName="nine_student">
+<!--        <table tableName="nine_student">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+        <table tableName="tb_test">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

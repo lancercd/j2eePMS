@@ -9,8 +9,8 @@ spring:
     druid:
       url:  jdbc:mysql://127.0.0.1:3306/j2ee?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
       driver-class-name:  com.mysql.jdbc.Driver
-      username:  j2ee
-      password:  123456
+      username:  root
+      password:  root
       initial-size:  10
       max-active:  50
       min-idle:  10
