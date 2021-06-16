@@ -82,7 +82,7 @@ public class StudentService {
     }
 
 
-//    public int delete(Integer id) {
-//        return studentMapper.
-//    }
+    public int delete(Integer id) {
+        return studentMapper.logicalDeleteByPrimaryKey(id);
+    }
 }
