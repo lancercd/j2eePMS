@@ -16,8 +16,12 @@ import java.util.List;
 public class SemesterService {
 
 
+    /**
+     * mapper of semester
+     */
     @Resource
     private SemesterMapper semesterMapper;
+
 
     /**
      * 通过id查新
@@ -36,6 +40,26 @@ public class SemesterService {
     public List<Semester> queryAll(){
         SemesterExample example = new SemesterExample();
         return semesterMapper.selectByExample(example);
+    }
+
+
+    /**
+     * 添加学期
+     * @param semester 学期信息
+     * @return int
+     */
+    public int add(Semester semester){
+        return semesterMapper.insert(semester);
+    }
+
+
+    /**
+     * 通过id删除学期
+     * @param id 学期id
+     * @return int
+     */
+    public int deleteById(Integer id) {
+        return semesterMapper.deleteByPrimaryKey(id);
     }
 
 }
