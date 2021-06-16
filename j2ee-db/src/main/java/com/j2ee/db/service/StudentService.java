@@ -35,6 +35,37 @@ public class StudentService {
     }
 
 
+    /**
+     * 通过用户名查找
+     * @param name 用户名
+     * @return Student
+     */
+    public Student findByName(String name) {
+        StudentExample example = new StudentExample();
+        StudentExample.Criteria criteria = example.createCriteria();
+
+        criteria.andLogicalDeleted(false);
+        criteria.andNameEqualTo(name);
+
+        return studentMapper.selectOneByExample(example);
+    }
+
+
+    /**
+     * 通过学号查找
+     * @param number 学号
+     * @return Student
+     */
+    public Student findByNumber(String number) {
+        StudentExample example = new StudentExample();
+        StudentExample.Criteria criteria = example.createCriteria();
+
+        criteria.andLogicalDeleted(false);
+        criteria.andNumberEqualTo(number);
+
+        return studentMapper.selectOneByExample(example);
+    }
+
 
     /**
      * 查询所有学生信息(未删除的)
@@ -82,7 +113,14 @@ public class StudentService {
     }
 
 
+    /**
+     * 删除(逻辑删除)
+     * @param id student id
+     * @return int
+     */
     public int delete(Integer id) {
         return studentMapper.logicalDeleteByPrimaryKey(id);
     }
+
+    
 }
