@@ -45,8 +45,8 @@
         <!--数据库连接信息-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/j2ee?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;verifyServerCertificate=false&amp;useSSL=false"
-                        userId="root"
-                        password="root"/>
+                        userId="j2ee"
+                        password="123456"/>
 
         <javaTypeResolver>
             <property name="useJSR310Types" value="true"/>
