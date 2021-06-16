@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: db
+  messages:
+    encoding: UTF-8
+
+server:
+  port: 10087
