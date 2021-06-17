@@ -2,7 +2,6 @@ package com.j2ee.web.service;
 
 
 import com.j2ee.db.domain.StuTeaCh;
-import com.j2ee.db.domain.Teacher;
 import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +39,24 @@ public class StudentTeacherChoiceService {
     private DocumentService documentService;
 
 
+
+    /**
+     * 通过id查询
+     * @param id id
+     * @return StuTeaCh
+     */
+    public StuTeaCh findById(@NotNull Integer id) {
+        return stuTeaChService.findById(id);
+    }
+
+
     /**
      * 通过id查询
      * @param id id
      * @return StuTeaChDto
      */
-    public StuTeaChDto findById(@NotNull Integer id) {
-        StuTeaCh stc = stuTeaChService.findById(id);
+    public StuTeaChDto findDtoById(@NotNull Integer id) {
+        StuTeaCh stc = this.findById(id);
         return this.convertToDto(stc);
     }
 
