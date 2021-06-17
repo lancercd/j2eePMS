@@ -31,7 +31,7 @@ public class StudentService {
      * @return stu
      */
     public Student findById(Integer id) {
-        return studentMapper.selectByPrimaryKey(id);
+        return studentMapper.selectByPrimaryKeyWithLogicalDelete(id, false);
     }
 
 
