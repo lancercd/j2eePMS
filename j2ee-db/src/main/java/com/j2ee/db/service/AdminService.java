@@ -54,7 +54,7 @@ public class AdminService {
 
     /**
      * 查询所有管理员信息
-     * @return list of student
+     * @return list of admin
      */
     public List<Admin> queryAll(){
         AdminExample example = new AdminExample();
@@ -65,42 +65,42 @@ public class AdminService {
 
 
     /**
-     * 添加学生
-     * @param student Admin
+     * 添加管理员
+     * @param admin Admin
      * @return int
      */
-    public int add(Admin student) {
-        student.setAddTime(LocalDateTime.now());
+    public int add(Admin admin) {
+        admin.setAddTime(LocalDateTime.now());
 
-        return adminMapper.insert(student);
+        return adminMapper.insert(admin);
     }
 
 
 
     /**
-     * 添加学生
-     * @param student Admin
+     * 添加管理员
+     * @param admin Admin
      * @return int
      */
-    public int insert(Admin student) {
-        return add(student);
+    public int insert(Admin admin) {
+        return add(admin);
     }
 
 
 
     /**
-     * 添加学生
-     * @param student Admin
+     * 添加管理员
+     * @param admin Admin
      * @return int
      */
-    public int save(Admin student) {
-        return add(student);
+    public int save(Admin admin) {
+        return add(admin);
     }
 
 
     /**
      * 删除(逻辑删除)
-     * @param id student id
+     * @param id admin id
      * @return int
      */
     public int delete(Integer id) {
