@@ -77,7 +77,7 @@ public class StuTeaChDto {
      * 老师是否接受成为导师
      *      0等待回复  1同意  -1不同意
      */
-    Short isAccept;
+    Byte isAccept;
 
     /**
      * 是否逻辑删除
