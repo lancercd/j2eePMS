@@ -17,6 +17,9 @@ import java.util.List;
 public class DocumentTypeService {
 
 
+    /**
+     * mapper of docType
+     */
     @Resource
     private DocumentTypeMapper documentTypeMapper;
 
