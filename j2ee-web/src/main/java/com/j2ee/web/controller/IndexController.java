@@ -12,24 +12,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
+    @Autowired
+    private StudentTeacherChoiceService STCS;
 
     @Autowired
     private StudentService studentService;
 
-<<<<<<< HEAD
     @GetMapping("/setTeacher")
-    public String setTeacher(){
+    public String setTeacher() {
 
         return "setTeacher";
-=======
-    @Autowired
-    private StudentTeacherChoiceService STCS;
+    }
 
     @ResponseBody
     @GetMapping("/index")
     public String index(){
         return "ok";
->>>>>>> 92b246029ca2d258b917918f240089b6050c9f1c
     }
 
     @GetMapping("/setNews")
