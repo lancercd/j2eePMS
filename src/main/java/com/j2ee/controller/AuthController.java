@@ -20,8 +20,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(){
-        System.out.println("ok");
-        return "/auth/login";
+        return "auth/login";
     }
 
 
