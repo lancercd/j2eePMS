@@ -173,14 +173,14 @@ section .container .user .formBx {
 	width: 100%;
 }
 
-@media (max-width: 991px) {
-	section .container {
-		max-width: 400px;
-	}
-	section .container .imgBx {
-		display: none;
-	}
-	section .container .user .formBx {
-		width: 100%;
-	}
-}
+/*@media (max-width: 991px) {*/
+/*	section .container {*/
+/*		max-width: 400px;*/
+/*	}*/
+/*	section .container .imgBx {*/
+/*		display: none;*/
+/*	}*/
+/*	section .container .user .formBx {*/
+/*		width: 100%;*/
+/*	}*/
+/*}*/
