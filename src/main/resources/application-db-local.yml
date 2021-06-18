@@ -1,0 +1,7 @@
+
+spring:
+  datasource:
+    druid:
+      url:  jdbc:mysql://127.0.0.1:3306/j2ee?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+      username:  j2ee
+      password:  123456

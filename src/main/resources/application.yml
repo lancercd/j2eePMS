@@ -1,0 +1,14 @@
+server:
+  port: 9527
+
+
+spring:
+  profiles:
+    # Activate your database configuration
+    # The local `db-local`
+    # The online `db-online`
+    active: mvc, db, db-local
+  messages:
+    encoding: UTF-8
+
+
