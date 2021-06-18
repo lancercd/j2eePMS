@@ -1,9 +1,13 @@
 package com.j2ee.controller;
 
 
+import com.j2ee.utils.ResponseUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -16,13 +20,27 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(){
-        return "auth/login";
+        System.out.println("ok");
+        return "/auth/login";
     }
 
+
+    @ResponseBody
     @PostMapping("/login")
-    public String loginApi(){
+    public Object loginApi(@NotNull String username, @NotNull String pwd){
+
+        String tmpUsername = "123";
+        String tmpPwd = "123456";
+
+        if(tmpUsername.equals(username)){
+            if(tmpPwd.equals(pwd)){
+                return ResponseUtil.ok("登录成功");
+            }
+            return ResponseUtil.fail(-1, "密码错误");
+        }
 
 
-        return null;
+        return ResponseUtil.fail(-1, "用户名不存在");
+
     }
 }
