@@ -14,8 +14,5 @@ spring:
     #static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
 
 server:
-<<<<<<< HEAD
-  port: 10087
-=======
   port: 9528
->>>>>>> 92b246029ca2d258b917918f240089b6050c9f1c
+
