@@ -3,7 +3,6 @@ package com.j2ee.config;
 
 import com.j2ee.annotation.support.LoginInfoHandlerMethodArgumentResolver;
 import com.j2ee.annotation.support.LoginUidHandlerMethodArgumentResolver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

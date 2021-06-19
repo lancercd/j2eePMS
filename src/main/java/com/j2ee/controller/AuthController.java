@@ -6,7 +6,6 @@ import com.j2ee.dto.LoginType;
 import com.j2ee.dto.UserLoginInfo;
 import com.j2ee.utils.ResponseUtil;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
