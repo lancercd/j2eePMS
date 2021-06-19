@@ -1,9 +1,9 @@
 package com.j2ee.annotation.support;
 
 import com.j2ee.annotation.LoginInfo;
+import com.j2ee.dto.LoginType;
 import com.j2ee.dto.UserLoginInfo;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 /**
  * uid参数解析
  */
-@Component
 public class LoginInfoHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 
@@ -40,6 +39,20 @@ public class LoginInfoHandlerMethodArgumentResolver implements HandlerMethodArgu
 
         HttpSession session = request.getSession();
 
-        return (Integer)session.getAttribute("uid");
+        UserLoginInfo userInfo = new UserLoginInfo();
+
+        Integer uid = (Integer)session.getAttribute("uid");
+        String username = (String)session.getAttribute("username");
+        LoginType type = (LoginType)session.getAttribute("type");
+
+        if(uid == null || username == null || type == null){
+            return null;
+        }
+
+        userInfo.setUid(uid);
+        userInfo.setType(type);
+        userInfo.setUsername(username);
+
+        return userInfo;
     }
 }

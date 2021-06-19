@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 获取登录用户信息
+ *      若用户未登录则获取信息为null
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
