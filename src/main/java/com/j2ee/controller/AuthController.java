@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
 
@@ -26,13 +27,16 @@ public class AuthController {
 
     @ResponseBody
     @PostMapping("/login")
-    public Object loginApi(@NotNull String username, @NotNull String pwd){
+    public Object loginApi(@NotNull String username, @NotNull String pwd, HttpSession session){
 
         String tmpUsername = "123";
         String tmpPwd = "123456";
 
         if(tmpUsername.equals(username)){
             if(tmpPwd.equals(pwd)){
+                session.setAttribute("uid", 1);
+                session.setAttribute("type", 1);
+                session.setAttribute("username", username);
                 return ResponseUtil.ok("登录成功");
             }
             return ResponseUtil.fail(-1, "密码错误");
