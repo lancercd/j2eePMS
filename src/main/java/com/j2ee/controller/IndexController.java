@@ -1,11 +1,10 @@
 package com.j2ee.web.controller;
 
 
-import com.j2ee.core.utils.ResponseUtil;
-import com.j2ee.db.dao.NewsMapper;
 import com.j2ee.db.domain.News;
 import com.j2ee.db.service.NewsService;
 import com.j2ee.db.service.StudentService;
+import com.j2ee.utils.ResponseUtil;
 import com.j2ee.web.service.StudentTeacherChoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
