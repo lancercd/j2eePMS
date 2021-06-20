@@ -42,7 +42,7 @@ public class Convertor {
      * @param target StuTeaCh
      * @return StuTeaChDto
      */
-    private StuTeaChDto convertToStuTeaChDto(StuTeaCh target){
+    public StuTeaChDto convertToStuTeaChDto(StuTeaCh target){
         if(target == null) return null;
 
         StuTeaChDto el = new StuTeaChDto();
@@ -64,8 +64,8 @@ public class Convertor {
     }
 
 
-    
-    private AdviserInfoDto convertToAdviserInfoDto(AdviserInfo adviserInfo) {
+
+    public AdviserInfoDto convertToAdviserInfoDto(AdviserInfo adviserInfo) {
         if(adviserInfo == null) return null;
 
         AdviserInfoDto el = new AdviserInfoDto();
