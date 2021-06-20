@@ -62,6 +62,7 @@
                         <td th:text="${list.getTeacher().getName()}"></td>
                         <td th:text="${list.getSemester().getName()}"></td>
                         <td th:text="${list.getDocType().getName()}"></td>
+                        <td th:text="${list.getReqInfo()}"></td>
                         <td th:text="${list.getAddTime()}"></td>
                         <td>
                             <span class="input-group-addon btn btn-primary select-adviser-btn" th:data-id="${list.getId()}" style="border: none">选择</span>
