@@ -1,178 +1,139 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <base href="<%=basePath%>">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>update student information</title>
-    <meta name="description" content="">
-    <meta name="author" content="templatemo">
-    <!--
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>教学秘书</title>
 
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
-    <link th:href="@{/bootstrap/css/font-awesome.min.css}" rel="stylesheet">
-    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/bootstrap/css/templatemo-style.css}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <!-- Bootstrap core CSS-->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link th:href="@{/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link th:href="@{/vendor/datatables/dataTables.bootstrap4.css}" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
 
 </head>
-<body>
-<!-- Left column -->
-<div class="templatemo-flex-row">
-    <div class="templatemo-sidebar">
-        <header class="templatemo-site-header">
-            <!--<div class="square"></div>
-          <h1><s:property value="#session.userId"/></h1>-->
-        </header>
-        <div class="profile-photo-container">
-            <img src="images/profile-photo.jpg" alt="Profile Photo" class="img-responsive">
-            <div class="profile-photo-overlay"></div>
-        </div>
-        <!-- Search box -->
-        <form action="stu/searchStu.action" class="templatemo-search-form" role="search">
-            <div class="input-group">
-                <button type="submit" class="fa fa-search"></button>
-                <input type="text" class="form-control" placeholder="搜索学生" name="search" id="srch-term">
-            </div>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<!-- 教学秘书导航模块 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <a class="navbar-brand" href="index.html">后台管理</a>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+          <i class="fa fa-fw fa-file"></i>
+          <span class="nav-link-text">教学秘书</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+          <li>
+            <a href="login.html">信息发布</a>
+          </li>
+          <li>
+            <a href="register.html">设置老师</a>
+          </li>
+          <li>
+            <a href="forgot-password.html">查询统计</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="navbar-nav sidenav-toggler">
+      <li class="nav-item">
+        <a class="nav-link text-center" id="sidenavToggler">
+          <i class="fa fa-fw fa-angle-left"></i>
+        </a>
+      </li>
+    </ul>
+    <!-- 导航栏 -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <form class="form-inline my-2 my-lg-0 mr-lg-2">
+          <div class="input-group">
+            <input class="form-control" type="text" placeholder="请输入查询内容...">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+          </div>
         </form>
-        <div class="mobile-menu-icon">
-            <i class="fa fa-bars"></i>
-        </div>
-        <nav class="templatemo-left-nav">
-            <ul>
-                <li><a href="welcome.jsp" ><i class="fa fa-home fa-fw"></i>首页</a></li>
-                <li><a href="stu/queryall.action"><i class="fa fa-bar-chart fa-fw"></i>学生信息一览表</a></li>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+          <i class="fa fa-fw fa-sign-out"></i>注销</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-                <li><a href="stu/queryStu.action" class="active"><i class="fa fa-users fa-fw"></i>学生信息管理</a></li>
-                <li><a href="addStuInfo.jsp"><i class="fa fa-sliders fa-fw"></i>添加学生信息</a></li>
-                <li><a href="login.jsp"><i class="fa fa-eject fa-fw"></i>返回 登录</a></li>
-            </ul>
-        </nav>
+<div class="content-wrapper">
+
+  <!--页面核心内容-->
+  <div class="container-fluid">
+
+  </div>
+  <!--页面注脚-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright &copy; 重庆师范大学.第九小组</small>
+      </div>
     </div>
-    <!-- Main content -->
-    <div class="templatemo-content col-1 light-gray-bg">
-        <div class="templatemo-top-nav-container">
-            <div class="row">
-                <nav class="templatemo-top-nav col-lg-12 col-md-12">
-                    <ul class="text-uppercase">
-                        <li><a  class="active">管理员视角</a></li>
+  </footer>
 
-                        <li><a href="#">刷新</a></li>
-                        <li><a href="login.jsp">登录</a></li>
-                        <li><a href="index.jsp" onClick="window.close();" >安全退出</a></li>
-                    </ul>
-                </nav>
-            </div>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">确定离开？</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
         </div>
-        <div class="templatemo-content-container">
-            <div class="templatemo-content-widget white-bg">
-                <h2 class="margin-bottom-10">修改学生信息</h2>
-                <p>学号：<s:property  value="#session.s.id"/>（不可修改）</p>
-                <form name="update" action="stu/updateStu.action" class="templatemo-login-form" method="post" enctype="multipart/form-data">
-                    <div class="row form-group">
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label for="inputFirstName">学号</label>
-                            <input type="text" class="form-control"name="id" id="inputFirstName" value="${s.id}" readonly="readonly">
-                        </div>
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label for="inputFirstName">姓名</label>
-                            <input type="text" class="form-control"name="name" id="inputFirstName" value="${s.name}">
-                        </div>
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label class="control-label templatemo-block">专业</label>
-                            <select class="form-control" name="major" >
-
-                                <option value="信息管理与信息系统">信息管理与信息系统</option>
-                                <option value="${s.major}" selected="selected">${s.major}</option>
-                                <option value="软件工程">软件工程</option>
-                                <option value="计算机与科学技术">计算机与科学技术</option>
-                                <option value="电子商务">电子商务</option>
-                                <option value="计师">计师</option>
-                                <option value="中美">中美</option>
-                                <option value="智科">智科</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label class="control-label templatemo-block">成绩1</label>
-                            <input type="text" class="form-control" name="sex" id="inputUsername" value="${s.sex}">
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label for="inputUsername">成绩2</label>
-                            <input type="text" class="form-control" name="age" id="inputUsername" value="${s.age}">
-                        </div>
-
-
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label for="inputUsername">成绩3</label>
-                            <input type="text" class="form-control"name="conPhone" id="inputUsername" value="${s.conPhone}">
-                        </div>
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" name="email" id="inputEmail" value="${ s.email}">
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-lg-12 form-group">
-                            <label class="control-label" for="inputNote">备注说明</label>
-                            <textarea class="form-control"  name="describe" id="inputNote" rows="3" >${ s.describe}  </textarea>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-
-                        <div class="col-lg-6 col-md-6 form-group">
-                            <div class="templatemo-block margin-bottom-5">
-                                <input type="checkbox" name="emailOptions" id="c1" value="new" checked>
-                                <label for="c1" class="font-weight-400"><span></span>Email me when you have any question.</label>
-                            </div>
-                            <div class="templatemo-block margin-bottom-5">
-                                <input type="checkbox" name="emailOptions" id="c2" value="weekly">
-                                <label for="c2" class="font-weight-400"><span></span>Author-emial on the footer</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-lg-12">
-                            <label class="control-label templatemo-block">选择文件</label>
-                            <!-- <input type="file" name="fileToUpload" id="fileToUpload" class="margin-bottom-10"> -->
-                            <input type="file" name="fileToUpload" id="fileToUpload" class="filestyle" data-buttonName="btn-primary" data-buttonBefore="true" data-icon="false">
-                            <p>最大值： 5 MB.</p>
-                        </div>
-                    </div>
-                    <div class="form-group text-right">
-                        <button type="submit" class="templatemo-blue-button" onclick="update(updateInfo)">更新</button>
-                        <button type="reset" class="templatemo-white-button">重置</button>
-                    </div>
-                </form>
-            </div>
-            <footer class="text-right">
-                <p>Copyright &copy; 2021 重庆师范大学
-                    | 更多信息- <a href="https://www.cqnu.edu.cn/" target="_blank" title="重师官网">学校官网</a> -Author- LY Author-emial <a href="" title="开发人员邮箱" target="_blank">1903116768@qq.com</a></p>
-            </footer>
+        <div class="modal-body">确定工作完成后，点击注销离开</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+          <a class="btn btn-primary" href="login.html">注销</a>
         </div>
+      </div>
     </div>
+  </div>
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- Core plugin JavaScript-->
+  <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+  <!-- Page level plugin JavaScript-->
+  <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+  <script th:src="@{/vendor/datatables/jquery.dataTables.js}"></script>
+  <script th:src="@{/vendor/datatables/dataTables.bootstrap4.js}"></script>
+  <!-- Custom scripts for all pages-->
+  <script th:src="@{/js/sb-admin.min.js}"></script>
+  <!-- Custom scripts for this page-->
+  <script th:src="@{/js/sb-admin-datatables.min.js}"></script>
+  <script th:src="@{/js/sb-admin-charts.min.js}"></script>
+
 </div>
-
-<!-- JS -->
-<script type="text/javascript">
-    function updateInfo(form){
-        return '<s:property value="#request.update"/>'
-
-    }
-</script>
-<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>        <!-- jQuery -->
-<script type="text/javascript" src="js/bootstrap-filestyle.min.js"></script>  <!-- http://markusslima.github.io/bootstrap-filestyle/ -->
-<script type="text/javascript" src="js/templatemo-script.js"></script>        <!-- Templatemo Script -->
 </body>
+
 </html>
