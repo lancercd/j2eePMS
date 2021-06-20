@@ -54,6 +54,22 @@ public class AdviserInfoService {
 
 
 
+    /**
+     * 通过学期id查找已接受的信息
+     * @return list of AdviserInfo
+     */
+    public List<AdviserInfo> queryBySemesterId(Integer semesterId){
+        AdviserInfoExample example = new AdviserInfoExample();
+        AdviserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andIsAcceptEqualTo((byte)1);
+        criteria.andSemesterIdEqualTo(semesterId);
+
+        return adviserInfoMapper.selectByExample(example);
+    }
+
+
+
 
     /**
      * 查询所有指导老师信息

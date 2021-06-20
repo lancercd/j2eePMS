@@ -24,11 +24,9 @@
 
     <div class="row">
         <div class="input-group column" style="display: flex; align-items: center; justify-content: center;width: 500px;margin-left: 15px">
-            <select class="form-control" id="exampleFormControlSelect1" >
+            <select class="form-control" id="semester" >
                 <option value="">所有学期</option>
-                <option value="">第一学期</option>
-                <option>第二学期</option>
-                <option>第三学期</option>
+                <option th:each="semester:${semesters}" th:value="${semester.getId}" th:text="${semester.getName}" th:selected="${semesterId} == ${semester.getId}">第一学期</option>
             </select>
 <!--            <input type="text" class="form-control input-small" name="userName" id="userName" placeholder="请输入要搜索的用户名" autocomplete="off">-->
             <span class="input-group-addon btn btn-primary" id="seach" style="background-color:#e67e22; border: none">搜索</span>
@@ -49,24 +47,25 @@
                 <thead class="">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Score01</th>
-                    <th scope="col">Score02</th>
-                    <th scope="col">Score02</th>
+                    <th scope="col">老师姓名</th>
+                    <th scope="col">学期</th>
+                    <th scope="col">资料类型</th>
+                    <th scope="col">要求</th>
+                    <th scope="col">时间</th>
                     <th scope="col">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <div each="">
+                <div th:each="list:${lists}">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
+                        <th scope="row" th:text="${list.getId()}"></th>
+                        <td th:text="${list.getTeacher().getName()}"></td>
+                        <td th:text="${list.getSemester().getName()}"></td>
+                        <td th:text="${list.getDocType().getName()}"></td>
+                        <td th:text="${list.getAddTime()}"></td>
                         <td>
-                            <a class="btn btn-primary" th:href="@{'/toAddScore/'+${1}}" style="background-color:#e67e22; border: none">修改</a>
-                            <a class="btn btn-danger" th:href="@{'/delete/'+${1}}">删除</a>
+                            <span class="input-group-addon btn btn-primary select-adviser-btn" th:data-id="${list.getId()}" style="border: none">选择</span>
+<!--                            <a class="btn btn-primary" th:href="@{'/toAddScore/'+${1}}" style="background-color:#e67e22; border: none">修改</a>-->
                         </td>
                     </tr>
                 </div>
@@ -79,9 +78,8 @@
 <script>
 
     $('#seach').click(function () {
-        console.log("点击");
-        var userName = $("#userName").val();
-        $('#div1').load("/getByUsername?userName="+userName);
+        var semester = $("#semester").val();
+        window.location.href = "/student/selectAdviser?semesterId="+semester;
     });
 
 </script>

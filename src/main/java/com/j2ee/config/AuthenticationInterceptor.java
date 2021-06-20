@@ -71,6 +71,11 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         Integer uid = (Integer) session.getAttribute("uid");
         String username = (String) session.getAttribute("username");
         LoginType type = (LoginType) session.getAttribute("type");
+
+        System.out.println(uid);
+        System.out.println(username);
+        System.out.println(type);
+        System.out.println("---------------------");
         if(uid == null || username == null || type == null){
             return false;
         }
@@ -110,7 +115,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
 
         }
-        return false;
+        return true;
     }
 
 

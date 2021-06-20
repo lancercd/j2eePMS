@@ -1,13 +1,19 @@
-package com.j2ee.web.service;
+package com.j2ee.service;
 
 
+import com.j2ee.db.domain.AdviserInfo;
+import com.j2ee.db.domain.Semester;
 import com.j2ee.db.domain.StuTeaCh;
+import com.j2ee.db.dto.AdviserInfoDto;
 import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.*;
+import com.j2ee.db.utils.Convertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,6 +22,9 @@ import javax.validation.constraints.NotNull;
 @Service
 public class StudentTeacherChoiceService {
 
+
+    @Autowired
+    private Convertor convertor;
 
     @Autowired
     private StuTeaChService stuTeaChService;
@@ -55,33 +64,55 @@ public class StudentTeacherChoiceService {
      */
     public StuTeaChDto findDtoById(@NotNull Integer id) {
         StuTeaCh stc = this.findById(id);
-        return this.convertToDto(stc);
+        return convertor.convertToStuTeaChDto(stc);
+    }
+
+
+
+    /**
+     * 查询所有学期信息
+     * @return list of Semester
+     */
+    public List<Semester> getAllSemester(){
+        return semesterService.queryAll();
     }
 
 
     /**
-     * entity convert to Dto
-     * @param target StuTeaCh
-     * @return StuTeaChDto
+     * 获取所有已接受的导师信息
+     * @return list of adviserInfo
      */
-    private StuTeaChDto convertToDto(StuTeaCh target){
-        if(target == null) return null;
-
-        StuTeaChDto el = new StuTeaChDto();
-        el.setId(target.getId());
-        el.setTeacher(teacherService.findById(target.getTeacherId()));
-        el.setStudent(studentService.findById(target.getStudentId()));
-        el.setAdviserInfo(adviserInfoService.findById(target.getAdviserInfo()));
-        el.setSemester(semesterService.findById(target.getSemesterId()));
-        el.setAppraiseTeacher(appraiseTeacherService.findById(target.getAppraiseId()));
-        el.setIntro(target.getIntro());
-        el.setSuggestion(target.getSuggestion());
-        el.setScore(target.getScore());
-        el.setDocument(documentService.findById(target.getDocumentId()));
-        el.setIsAccept(target.getIsAccept());
-        el.setIsDel(target.getIsDel());
-        el.setAddTime(target.getAddTime());
-
-        return el;
+    public List<AdviserInfoDto> getAllStuTeaCh(){
+        List<AdviserInfo> adviserInfos = adviserInfoService.queryByIsAccept(1);
+        return this.convertAdviserInfo(adviserInfos);
     }
+
+
+    /**
+     * 获取所有已接受的导师信息
+     * @return list of adviserInfoDto
+     */
+    public List<AdviserInfoDto> getAllStuTeaChBySemester(Integer semesterId){
+        List<AdviserInfo> adviserInfos = adviserInfoService.queryBySemesterId(semesterId);
+
+        return this.convertAdviserInfo(adviserInfos);
+    }
+
+    /**
+     * list转换
+     * @param adviserInfos 指导老师信息
+     * @return list of adviserInfoDto
+     */
+    private List<AdviserInfoDto> convertAdviserInfo(List<AdviserInfo> adviserInfos) {
+        if(adviserInfos == null) return null;
+
+        ArrayList<AdviserInfoDto> dtoInfos = new ArrayList<>(adviserInfos.size());
+        for (AdviserInfo info : adviserInfos) {
+            dtoInfos.add(convertor.convertToAdviserInfoDto(info));
+        }
+        return dtoInfos;
+    }
+
+
+
 }
