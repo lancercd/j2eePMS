@@ -18,6 +18,8 @@
   <link th:href="@{/css/sb-admin.css}" rel="stylesheet">
   <!--自定义css-->
   <link rel="stylesheet" th:href="@{/css/my-center.css}">
+  <link rel="stylesheet" th:href="@{/css/com/message.css}">
+  <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
   <!--添加公告必须要的文件-->
 
   <!--开始-->
@@ -39,7 +41,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <!-- 教学秘书导航模块 -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" style="z-index:10">
   <a class="navbar-brand" href="index.html">后台管理</a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -111,7 +113,7 @@
         </div>
         <!--核心内容-->
         <hr>
-        <form th:action="@{/addOrUpdate}" method="post">
+        <form id="newsAddForm">
           <!--填写文章标题-->
           <div class="form-group">
             <label for="title"><h4>文章标题:</h4></label>
@@ -120,7 +122,7 @@
           <!--填写文章内容-->
           <div class="form-group">
             <label for="description"><h4>拟写文章内容:</h4></label>
-            <textarea id="description" name="description" class="form-control" rows="12" cols="10"></textarea>
+            <textarea id="description" name="content" class="form-control" rows="12" cols="10"></textarea>
           </div>
           <div class="form-group">
             <label><h4>是否启用:</h4></label>
@@ -198,6 +200,9 @@
   <!-- Custom scripts for this page-->
   <script th:src="@{/js/sb-admin-datatables.min.js}"></script>
   <script th:src="@{/js/sb-admin-charts.min.js}"></script>
+
+
+  <script type="module" th:src="@{/js/news/addNews.js}"></script>
 
 </div>
 </body>

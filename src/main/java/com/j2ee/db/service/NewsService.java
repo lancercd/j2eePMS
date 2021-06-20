@@ -5,6 +5,7 @@ import com.j2ee.db.dao.NewsMapper;
 import com.j2ee.db.domain.News;
 import com.j2ee.db.domain.NewsExample;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -107,6 +108,14 @@ public class NewsService {
      * @return int
      */
     public int add(News news) {
+        if(StringUtils.isEmpty(news.getTitle())){
+            return 0;
+        }
+
+        if(StringUtils.isEmpty(news.getContent())){
+           return 0;
+        }
+
         news.setAddTime(LocalDateTime.now());
         news.setIsActive(true);
         news.setIsDel(false);
