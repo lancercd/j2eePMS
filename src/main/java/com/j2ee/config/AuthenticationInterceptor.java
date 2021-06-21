@@ -72,6 +72,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         String username = (String) session.getAttribute("username");
         LoginType type = (LoginType) session.getAttribute("type");
 
+        System.out.println("the session");
         System.out.println(uid);
         System.out.println(username);
         System.out.println(type);
