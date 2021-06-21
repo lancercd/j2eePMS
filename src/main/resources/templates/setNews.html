@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>教学秘书</title>
+  <title>发布公告</title>
 
   <!-- Bootstrap core CSS-->
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -21,20 +21,6 @@
   <link rel="stylesheet" th:href="@{/css/com/message.css}">
   <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
   <!--添加公告必须要的文件-->
-
-  <!--开始-->
-  <!--<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}">
-
-  <link rel="stylesheet" th:href="@{/kindeditor/themes/default/default.css}"/>
-  <script charset="utf-8" th:src="@{/kindeditor/kindeditor-all.js}"></script>
-  <script charset="utf-8" th:src="@{/kindeditor/lang/zh-CN.js}"></script>
-
-  <script th:src="@{/js/bootstrap/bootstrap.js}"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
--->
-  <!--结束-->
 
 </head>
 
@@ -103,25 +89,25 @@
 
   <!--页面核心内容-->
   <div class="container-fluid ">
-
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">教学秘书</a>
+      </li>
+      <li class="breadcrumb-item active">发布公告</li>
+    </ol>
+    <hr>
     <!--添加内容-->
     <div class="row main myCenter">
       <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-        <div class="row">
-          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><h3><i class="fa fa-fw fa-pencil "></i>&nbsp;拟写内容</h3></div>
-          <div class="col-lg-3 col-md-3 col-sm-3"></div>
-        </div>
-        <!--核心内容-->
-        <hr>
         <form id="newsAddForm">
           <!--填写文章标题-->
           <div class="form-group">
-            <label for="title"><h4>文章标题:</h4></label>
+            <label for="title"><h4><i class="fa fa-fw fa-paper-plane"></i>文章标题:</h4></label>
             <input type="text" class="form-control" id="title" name="title" placeholder="填写文章标题......">
           </div>
           <!--填写文章内容-->
           <div class="form-group">
-            <label for="description"><h4>拟写文章内容:</h4></label>
+            <label for="description"><h4><i class="fa fa-fw fa-pencil"></i>文章内容:</h4></label>
             <textarea id="description" name="content" class="form-control" rows="12" cols="10"></textarea>
           </div>
           <div class="form-group">
@@ -148,9 +134,13 @@
         </form>
       </div>
     </div>
-
   </div>
+
+
+
+
   <!--页面注脚-->
+
   <footer class="sticky-footer">
     <div class="container">
       <div class="text-center">
@@ -164,7 +154,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fa fa-angle-up"></i>
   </a>
-
 
   <!-- Logout Modal-->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
