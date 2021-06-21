@@ -67,6 +67,45 @@ public class StudentTeacherChoiceService {
         return convertor.convertToStuTeaChDto(stc);
     }
 
+
+
+    public int delStuTeaCh(@NotNull Integer stuTeaChId){
+        return stuTeaChService.delete(stuTeaChId);
+    }
+
+
+    /**
+     * 通过学生id查询
+     * @param stuId 学生id
+     * @return list of StuTeaChDto
+     */
+    public List<StuTeaChDto> selectStuTeachDtoByStuId(@NotNull Integer stuId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByStuId(stuId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
+    /**
+     * 通过学生id查询
+     * @param stuId 学生id
+     * @return list of StuTeaChDto
+     */
+    public List<StuTeaChDto> selectStuTeachDtoByStuIdAndSemester(@NotNull Integer stuId, @NotNull Integer semesterId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByStuIdAndSemester(stuId, semesterId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
     /**
      * 通过指导老师id查找
      * @param adviserId 指导老师id

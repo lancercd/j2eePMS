@@ -5,16 +5,16 @@ package com.j2ee.controller;
 import com.j2ee.annotation.LoginUid;
 import com.j2ee.annotation.StudentLogin;
 import com.j2ee.db.domain.StuTeaCh;
+import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.AdviserInfoService;
 import com.j2ee.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.j2ee.service.StudentTeacherChoiceService;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 
 @Controller
@@ -33,6 +33,7 @@ public class StudentController {
 
     /**
      * 学生选择导师页面(根据学期选择)
+     *            导师列表
      * @param semesterId 学期id
      * @return String
      */
@@ -101,5 +102,63 @@ public class StudentController {
     }
 
 
+    /**
+     * 学生查看  已选择信息
+     * @param uid   学生id 用户id
+     * @param model model
+     * @return  page
+     */
+    @StudentLogin
+    @GetMapping("/selected")
+    public String selectedAdviserList(@LoginUid Integer uid, Integer semesterId, Model model){
+
+        model.addAttribute("semesters", studentTeacherChoiceService.getAllSemester());
+        model.addAttribute("semesterId", semesterId);
+
+
+        if (semesterId != null && semesterId != 0) {
+            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByStuIdAndSemester(uid, semesterId));
+        }else{
+            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByStuId(uid));
+        }
+
+
+        return "student/selected";
+    }
+
+
+
+    /**
+     * 删除学生选择信息
+     * @param uid 学生id
+     * @param id  选择表id
+     * @return Json
+     */
+    @ResponseBody
+    @StudentLogin
+    @PostMapping("/del/{id}")
+    public Object delAdviser(@LoginUid Integer uid, @PathVariable Integer id){
+        StuTeaCh stuTeachById = studentTeacherChoiceService.findStuTeachById(id);
+        if (!stuTeachById.getStudentId().equals(uid)) {
+            return ResponseUtil.fail("未找到该记录!");
+        }
+
+        studentTeacherChoiceService.delStuTeaCh(id);
+        return ResponseUtil.ok("删除成功!");
+    }
+
+
+    @StudentLogin
+    @GetMapping("/edit/{id}")
+    public String edit(@LoginUid Integer uid, @PathVariable Integer id, Model model){
+        StuTeaChDto info = studentTeacherChoiceService.findStuTeachDtoById(id);
+        System.out.println(id);
+        System.out.println(info);
+
+        model.addAttribute("id", id);
+        model.addAttribute("info", info);
+
+        return "student/edit";
+    }
 
 }

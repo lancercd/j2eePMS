@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的选择信息</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap4/bootstrap.css}">
+
+    <script th:src="@{/bootstrap4/bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/com/message.css}">
+    <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
+    <link rel="stylesheet" th:href="@{/css/student/selected.css}">
+</head>
+<body>
+
+<div th:replace="~{components/com::topbar}"></div>
+
+
+<div class="container-fluid">
+    <div class="title"><h3>已选择导师列表</h3></div>
+
+    <div class="row">
+        <div class="input-group column" style="display: flex; align-items: center; justify-content: center;width: 500px;margin-left: 15px">
+            <select class="form-control" id="semester" >
+                <option value="">所有学期</option>
+                <option th:each="semester:${semesters}" th:value="${semester.getId}" th:text="${semester.getName}" th:selected="${semesterId} == ${semester.getId}">第一学期</option>
+            </select>
+            <span class="input-group-addon btn btn-primary" id="seach" style="background-color:#e67e22; border: none">搜索</span>
+        </div>
+        <div class="input-group col-3 column">
+        </div>
+
+    </div>
+
+    <br>
+    <div class="row clearfix">
+        <div class="col-md-12 column" th:fragment="div1" th:id="div1" >
+            <table class="table align-content-center" id="scoreTable" style="text-align: center">
+                <thead class="">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">老师姓名</th>
+                    <th scope="col">学期</th>
+                    <th scope="col">资料类型</th>
+                    <th scope="col" style="width: 200px">要求</th>
+                    <th scope="col">自我介绍</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">时间</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="list:${lists}">
+                        <th scope="row" th:text="${list.getId()}"></th>
+                        <td th:text="${list.getTeacher().getName()}"></td>
+                        <td th:text="${list.getSemester().getName()}"></td>
+                        <td th:text="${list.getAdviserInfo().getDocTypeId()}"></td>
+                        <td th:text="${list.getAdviserInfo().getReqInfo()}"></td>
+                        <td th:text="${list.getIntro()}"></td>
+                        <td th:if="${list.getIsAccept() == 0}" style="color: #3498db;">待回复</td>
+                        <td th:if="${list.getIsAccept() == 1}" style="color: #1abc9c;">同意</td>
+                        <td th:if="${list.getIsAccept() == -1}" style="color: #dc3545;">不同意</td>
+                        <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td>
+                            <span th:if="${list.getIsAccept() != 1}" class="input-group-addon btn btn-danger del-adviser-btn" th:data-id="${list.getId()}" style="border: none">删除</span>
+                            <a th:if="${list.getIsAccept() == 1}" class="input-group-addon btn btn-success edit-adviser-btn" th:href="@{'/student/edit/'+${1}}" style="border: none">编辑</a>
+<!--                            <a class="btn btn-primary" th:href="@{'/toAddScore/'+${1}}" style="background-color:#e67e22; border: none">修改</a>-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script type="module" th:src="@{/js/student/selected.js}"></script>
+</html>

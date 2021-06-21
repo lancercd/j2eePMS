@@ -70,6 +70,38 @@ public class StuTeaChService {
 
 
 
+    /**
+     * 通过学生id查找
+     * @param stuId 学生id
+     * @return list of StuTeaCh
+     */
+    public List<StuTeaCh> queryByStuId(Integer stuId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andStudentIdEqualTo(stuId);
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
+    /**
+     * 通过学生id和学期id查找
+     * @param stuId         学生id
+     * @param semesterId    学期id
+     * @return list of StuTeaCh
+     */
+    public List<StuTeaCh> queryByStuIdAndSemester(Integer stuId, Integer semesterId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andStudentIdEqualTo(stuId);
+        criteria.andSemesterIdEqualTo(semesterId);
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
 
     /**
      * 查询所有学生选择导师信息
