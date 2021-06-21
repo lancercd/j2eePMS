@@ -29,6 +29,24 @@ public class NewsController {
     private NewsService newsService;
 
 
+    @GetMapping("/detail")
+    public Object detail(Integer id, Model model){
+        if(id == null || id == 0){
+            return "redirect:index";
+        }
+        News news = newsService.findById(id);
+
+        if(news == null){
+            return "redirect:index";
+        }
+
+
+        model.addAttribute("item", news);
+
+        return "news/viewDetail";
+    }
+
+
 
     @GetMapping("/setNews")
     public String setNews(){

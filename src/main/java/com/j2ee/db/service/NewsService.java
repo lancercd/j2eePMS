@@ -87,6 +87,22 @@ public class NewsService {
     }
 
 
+    /**
+     * 通过title查询
+     * @param title 标题
+     * @return list of news
+     */
+    public List<News> queryByTitleIsActive(String title){
+        NewsExample example = new NewsExample();
+        NewsExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andIsActiveEqualTo(true);
+        criteria.andTitleEqualTo(title);
+
+        return newsMapper.selectByExample(example);
+    }
+
+
 
     /**
      * 查询所有新闻信息
