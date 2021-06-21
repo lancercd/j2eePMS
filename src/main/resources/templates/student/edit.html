@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>新闻首页</title>
+    <title>上传资料</title>
 
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap4/bootstrap.css}">
 
-
-    <script th:src="@{/js/bootstrap/bootstrap.js}"></script>
+    <script th:src="@{/bootstrap4/bootstrap.js}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 
-
-    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/com/message.css}">
+    <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
+    <link rel="stylesheet" th:href="@{/css/student/selectAdviser.css}">
 </head>
 <body>
 
@@ -22,40 +22,49 @@
 
 <div class="container">
 
-    <form >
+    <div class="title" style="width: 100%; align-items: center; margin: 30px 0;">
+        <h2 style="display: flex; align-items: center; justify-content: center;">编辑信息</h2>
+    </div>
+
+    <form>
         <input hidden="hidden" class="form-control" name="id" id="id" th:value="${id}">
         <div class="form-group row" style="margin-bottom: 25px;">
             <label class="col-sm-2 col-form-label">导师姓名</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" disabled>
+                <input type="text" class="form-control" th:value="${info.getTeacher().getName()}" disabled>
             </div>
         </div>
-        <fieldset class="form-group row" style="margin-bottom: 25px;">
-            <legend class="col-form-label col-sm-2 float-sm-left pt-0">是否启用</legend>
+
+        <div class="form-group row" style="margin-bottom: 25px;">
+            <label class="col-sm-2 col-form-label">学生姓名</label>
             <div class="col-sm-10">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isActive" id="gridRadios1" value="1" checked>
-                    <label class="form-check-label" for="gridRadios1">
-                        启用
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="isActive" id="gridRadios2" value="0">
-                    <label class="form-check-label" for="gridRadios2">
-                        关闭
-                    </label>
-                </div>
+                <input type="text" class="form-control" th:value="${info.getStudent().getName()}" disabled>
             </div>
-        </fieldset>
+        </div>
+        <div class="form-group row" style="margin-bottom: 25px;">
+            <label class="col-sm-2 col-form-label">学生学号</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:value="${info.getStudent().getNumber()}" disabled>
+            </div>
+        </div>
         <div class="form-group row" disabled style="margin-bottom: 25px;">
-            <label for="addTime" class="col-sm-2 col-form-label">添加时间</label>
+            <label for="addTime" class="col-sm-2 col-form-label">学期</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="addTime" name="addTime" disabled>
+                <input type="text" class="form-control" id="addTime" th:value="${info.getSemester().getName()}" disabled>
             </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">资料</label>
+            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">自我介绍</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:value="${info.getIntro()}"></textarea>
         </div>
         <div class="form-group row" style="margin-bottom: 25px; padding: 0 10px">
             <button type="submit" style="width: 100%;" class="btn btn-primary">提交</button>
         </div>
+
     </form>
 
 </div>
