@@ -6,11 +6,15 @@ import com.j2ee.db.service.NewsService;
 import com.j2ee.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -30,7 +34,6 @@ public class NewsController {
     public String setNews(){
         return "/setNews";
     }
-
 
 
     @ResponseBody
@@ -55,5 +58,15 @@ public class NewsController {
         return ResponseUtil.ok("成功");
     }
 
+    @GetMapping("/indexNews")
+    public String indexNews(){
+        return "/indexNews";
+    }
 
+    @GetMapping("/browseNews")
+    public Object browseNews(String title,String content){
+        List<News> news;
+
+        return "";
+    }
 }

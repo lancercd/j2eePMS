@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻首页</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<div th:replace="~{components/com::topbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="input-group col-3 column">
+            <input type="text" class="form-control input-small" name="title" th:value="${title}"  id="title" placeholder="请输入要搜索的广告标题" autocomplete="off">
+            <span class="input-group-addon btn btn-primary" id="titleBtn" style="background-color:#e67e22; border: none">搜索</span>
+        </div>
+    </div>
+    </div>
+    <br />
+    <br />
+    <div class="jumbotron" th:each="item:${lists}">
+
+        <div class="d-flex w-100 justify-content-between">
+            <h1 class="display-4 mb-1" th:text="${item.get('title')}"></h1>
+            <small th:text="${item.get('add_time')}"></small>
+        </div>
+        <div class="lead overflow-hidden" style="max-height: 50px;" th:utext="${item.get('content')}"></div>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" th:href="@{/detail} + '?id=' + ${item.get('id')}" role="button">more</a>
+    </div>
+</div>
+</body>
+<script>
+    $('#titleBtn').click(function () {
+        const title = $("#title").val();
+        console.log(title)
+        if(title !== ''){
+            window.location.href = "/news/indexNews?title="+title;
+        }else{
+            window.location.href = "/news/indexNews";
+        }
+    });
+</script>
+</html>
