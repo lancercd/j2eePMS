@@ -74,6 +74,13 @@ public class ResponseUtil {
         return obj;
     }
 
+    public static Object fail(String errmsg) {
+        Map<String, Object> obj = new HashMap<String, Object>();
+        obj.put("code", 400);
+        obj.put("msg", errmsg);
+        return obj;
+    }
+
     public static Object badArgument() {
         return fail(401, "参数不对");
     }
