@@ -52,7 +52,7 @@ public class StudentTeacherChoiceService {
      * @param id id
      * @return StuTeaCh
      */
-    public StuTeaCh findById(@NotNull Integer id) {
+    public StuTeaCh findStuTeachById(@NotNull Integer id) {
         return stuTeaChService.findById(id);
     }
 
@@ -62,10 +62,38 @@ public class StudentTeacherChoiceService {
      * @param id id
      * @return StuTeaChDto
      */
-    public StuTeaChDto findDtoById(@NotNull Integer id) {
-        StuTeaCh stc = this.findById(id);
+    public StuTeaChDto findStuTeachDtoById(@NotNull Integer id) {
+        StuTeaCh stc = this.findStuTeachById(id);
         return convertor.convertToStuTeaChDto(stc);
     }
+
+    /**
+     * 通过指导老师id查找
+     * @param adviserId 指导老师id
+     * @return 学生选择指导老师信息
+     */
+    public StuTeaCh findStuTeachByStuIdAndTeaId(Integer adviserId) {
+        return stuTeaChService.queryByAdviserId(adviserId);
+    }
+
+
+
+    /**
+     * 添加学生选择指导老师信息
+     * @param adviserInfo   指导老师信息
+     * @param stuId         学生id
+     * @return int
+     */
+    public int addSelectInfo(AdviserInfo adviserInfo, @NotNull Integer stuId){
+        StuTeaCh stuTeaCh = new StuTeaCh();
+        stuTeaCh.setTeacherId(adviserInfo.getTeacherId());
+        stuTeaCh.setStudentId(stuId);
+        stuTeaCh.setAdviserInfo(adviserInfo.getId());
+        stuTeaCh.setSemesterId(adviserInfo.getSemesterId());
+
+        return stuTeaChService.add(stuTeaCh);
+    }
+
 
 
 

@@ -54,6 +54,22 @@ public class StuTeaChService {
 
 
 
+    /**
+     * 通过指导老师id查找
+     * @param adviserId 指导老师id
+     * @return list of StuTeaCh
+     */
+    public StuTeaCh queryByAdviserId(Integer adviserId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andAdviserInfoEqualTo(adviserId);
+
+        return stuTeaChMapper.selectOneByExample(example);
+    }
+
+
+
 
     /**
      * 查询所有学生选择导师信息
