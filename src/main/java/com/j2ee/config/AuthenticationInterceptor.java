@@ -53,6 +53,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (annotation != null) {
             if(!handle(annotation, request.getSession())){
                 forwardToLogin(request, response);
+                return false;
             }
         }
 
@@ -83,24 +84,16 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
 
         if (annotation instanceof StudentLogin) {
-            if(type != LoginType.STUDENT) {
-                return false;
-            }
+            return type == LoginType.STUDENT;
 
         }else if (annotation instanceof TeacherLogin) {
-            if(type != LoginType.TEACHER) {
-                return false;
-            }
+            return type == LoginType.TEACHER;
 
         }else if (annotation instanceof AdminLogin) {
-            if(type != LoginType.ADMIN) {
-                return false;
-            }
+            return type == LoginType.ADMIN;
 
         }else if (annotation instanceof TeachingSecretaryLogin) {
-            if(type != LoginType.SECRETARY) {
-                return false;
-            }
+            return type == LoginType.SECRETARY;
 
         }else if (annotation instanceof Login) {
             if(type != LoginType.STUDENT) {
