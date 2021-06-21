@@ -1,5 +1,6 @@
 import request from '../utils/request.js';
 import Message from '../utils/Message.js';
+import { isLoginPage } from '../utils/url.js';
 
 const loginForm = document.getElementById("login");
 const registerForm = document.getElementById("register");
@@ -10,6 +11,17 @@ function toggleForm(){
 }
 
 const message = new Message();
+
+const isLoginUrl = isLoginPage();
+
+function redirect(){
+    if(isLoginUrl){
+        window.location.href="/index";
+    }else{
+        window.location.reload();
+    }
+}
+
 
 function onLogin(){
     const username = loginForm.username.value;
@@ -35,7 +47,7 @@ function onLogin(){
     }).then(
         msg => {
             console.log(msg);
-            window.location.href="/index";
+            redirect()
         },
         err => {
             message.show({msg: err.msg, type: 'error', closeable: true});
@@ -43,9 +55,10 @@ function onLogin(){
         }
     )
 
-
     return false;
 }
+
+
 
 
 loginForm.onsubmit = onLogin;
