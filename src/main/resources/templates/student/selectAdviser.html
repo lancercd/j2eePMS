@@ -11,7 +11,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 
-
+    <link rel="stylesheet" th:href="@{/css/com/message.css}">
+    <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
     <link rel="stylesheet" th:href="@{/css/student/selectAdviser.css}">
 </head>
 <body>
@@ -50,38 +51,29 @@
                     <th scope="col">老师姓名</th>
                     <th scope="col">学期</th>
                     <th scope="col">资料类型</th>
-                    <th scope="col">要求</th>
+                    <th scope="col" style="width: 200px">要求</th>
                     <th scope="col">时间</th>
                     <th scope="col">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <div th:each="list:${lists}">
-                    <tr>
+                    <tr th:each="list:${lists}">
                         <th scope="row" th:text="${list.getId()}"></th>
                         <td th:text="${list.getTeacher().getName()}"></td>
                         <td th:text="${list.getSemester().getName()}"></td>
                         <td th:text="${list.getDocType().getName()}"></td>
                         <td th:text="${list.getReqInfo()}"></td>
-                        <td th:text="${list.getAddTime()}"></td>
+                        <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
                             <span class="input-group-addon btn btn-primary select-adviser-btn" th:data-id="${list.getId()}" style="border: none">选择</span>
 <!--                            <a class="btn btn-primary" th:href="@{'/toAddScore/'+${1}}" style="background-color:#e67e22; border: none">修改</a>-->
                         </td>
                     </tr>
-                </div>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 </body>
-<script>
-
-    $('#seach').click(function () {
-        var semester = $("#semester").val();
-        window.location.href = "/student/selectAdviser?semesterId="+semester;
-    });
-
-</script>
+<script type="module" th:src="@{/js/student/selectAdviser.js}"></script>
 </html>
