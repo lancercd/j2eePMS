@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.j2ee.service.StudentTeacherChoiceService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -159,6 +161,23 @@ public class StudentController {
         model.addAttribute("info", info);
 
         return "student/edit";
+    }
+
+
+    @ResponseBody
+    @StudentLogin
+    @PostMapping("/edit")
+    public Object editSubmit(@LoginUid Integer uid, Integer id, String intro, MultipartFile file) throws IOException {
+
+        //TODO 验证信息 存进数据库
+        System.out.println(uid);
+        System.out.println(id);
+        System.out.println(intro);
+        System.out.println(file.getName());
+        System.out.println(file.getOriginalFilename());
+
+
+        return ResponseUtil.ok("添加成功!");
     }
 
 }
