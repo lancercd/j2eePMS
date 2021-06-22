@@ -107,5 +107,12 @@ public class TeachingSecretaryService {
         return teachingSecretaryMapper.logicalDeleteByPrimaryKey(id);
     }
 
-    
+    /**
+     * 更新教学助理（by id）
+     * @param teachingSecretary
+     * @return
+     */
+    public int updateById(TeachingSecretary teachingSecretary){
+        return teachingSecretaryMapper.updateByPrimaryKey(teachingSecretary);
+    }
 }

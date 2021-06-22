@@ -39,6 +39,10 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private TeachingSecretaryService teachingSecretaryService;
+
+
     /**
      * 学期管理界面
      * @param model
@@ -111,6 +115,11 @@ public class AdminController {
      */
     @GetMapping("/adUser/secretary")
     public String secretaryType(Integer id, Model model){
+        if(id != null && id != 0){
+            model.addAttribute("secretaries", teachingSecretaryService.findById(id));
+        } else {
+            model.addAttribute("secretaries", teachingSecretaryService.queryAll());
+        }
         return "admin/adUser/secretary";
     }
 
@@ -195,6 +204,38 @@ public class AdminController {
     }
 
     /**
+     * 删除管理员类型
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/adUser/del/admin/{id}")
+    public Object delAdmin(@PathVariable Integer id){
+        Admin byId = adminService.findById(id);
+        if(byId == null){
+            return ResponseUtil.fail("未找到该记录！");
+        }
+        adminService.delete(id);
+        return ResponseUtil.ok("删除成功！");
+    }
+
+    /**
+     * 删除教学助理
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/adUser/del/secretary/{id}")
+    public Object delSecretary(@PathVariable Integer id){
+        TeachingSecretary byId = teachingSecretaryService.findById(id);
+        if(byId == null){
+            return ResponseUtil.fail("未找到该记录！");
+        }
+        teachingSecretaryService.delete(id);
+        return ResponseUtil.ok("删除成功！");
+    }
+
+    /**
      * 修改学期
      * @param id
      * @param model
@@ -243,6 +284,30 @@ public class AdminController {
     }
 
     /**
+     * 修改管理员类型
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/adUser/edit/admin/{id}")
+    public String adminEdit(@PathVariable Integer id, Model model){
+        model.addAttribute("admin", adminService.findById(id));
+        return "admin/adUser/admin_edit";
+    }
+
+    /**
+     * 修改教学助理类型
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/adUser/edit/secretary/{id}")
+    public String secretaryEdit(@PathVariable Integer id, Model model){
+        model.addAttribute("secretary", teachingSecretaryService.findById(id));
+        return "admin/adUser/secretary_edit";
+    }
+
+    /**
      * 添加学期
      * @param model
      * @return
@@ -280,6 +345,26 @@ public class AdminController {
     @GetMapping("/adUser/addTeacher")
     public String teacherEdit(Model model){
         return "admin/adUser/teacher_add";
+    }
+
+    /**
+     * 添加管理员类型
+     * @param model
+     * @return
+     */
+    @GetMapping("/adUser/addAdmin")
+    public String adminEdit(Model model){
+        return "admin/adUser/admin_add";
+    }
+
+    /**
+     * 添加教学助理类型
+     * @param model
+     * @return
+     */
+    @GetMapping("/adUser/addSecretary")
+    public String secretaryEdit(Model model){
+        return "admin/adUser/secretary_add";
     }
 
     /**
@@ -353,6 +438,38 @@ public class AdminController {
     }
 
     /**
+     * 修改管理员信息
+     * @param admin
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/adUser/edit/admin")
+    public Object adminEditSubmit(Admin admin) throws IOException{
+        Admin byId = adminService.findById(admin.getId());
+        admin.setIsDel(byId.getIsDel());
+        admin.setAddTime(byId.getAddTime());
+        adminService.updateById(admin);
+        return ResponseUtil.ok("修改成功！");
+    }
+
+    /**
+     * 修改教学助理信息
+     * @param teachingSecretary
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/adUser/edit/secretary")
+    public Object secretaryEditSubmit(TeachingSecretary teachingSecretary) throws IOException{
+        TeachingSecretary byId = teachingSecretaryService.findById(teachingSecretary.getId());
+        teachingSecretary.setIsDel(byId.getIsDel());
+        teachingSecretary.setAddTime(byId.getAddTime());
+        teachingSecretaryService.updateById(teachingSecretary);
+        return ResponseUtil.ok("修改成功！");
+    }
+
+    /**
      * 添加学期
      * @param name
      * @return
@@ -407,6 +524,34 @@ public class AdminController {
     public Object studentAddSubmit(Teacher teacher) throws IOException{
         teacher.setIsDel(false);
         teacherService.add(teacher);
+        return ResponseUtil.ok("修改成功");
+    }
+
+    /**
+     * 添加管理员
+     * @param admin
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/adUser/addAdmin")
+    public Object adminAddSubmit(Admin admin) throws IOException{
+        admin.setIsDel(false);
+        adminService.add(admin);
+        return ResponseUtil.ok("修改成功");
+    }
+
+    /**
+     * 添加教学助理
+     * @param teachingSecretary
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/adUser/addSecretary")
+    public Object secretaryAddSubmit(TeachingSecretary teachingSecretary) throws IOException{
+        teachingSecretary.setIsDel(false);
+        teachingSecretaryService.add(teachingSecretary);
         return ResponseUtil.ok("修改成功");
     }
 }
