@@ -85,7 +85,6 @@
         </ul>
     </div>
 </nav>
-
 <div class="content-wrapper">
     <!--页面核心内容-->
     <div class="container-fluid">
@@ -98,29 +97,29 @@
         <hr>
 
         <div class="container">
-            <div class="card  mx-auto mt-md-4">
+            <div class="card card-register mx-auto mt-5">
                 <div class="card-body">
                     <form id="setTeacherForm">
                         <div class="form-group">
-                            <label class="">担任学期:</label>
-                            <input type="text" >
+                            <div class="col-sm-6">
+                            <label class="col-form-label" >担任学期:</label>
+                            <select class="custom-select"  name="addSemester" id="addSemester">
+                                <option th:each="semseter:${semesters}" th:value="${semseter.id}" th:text="${semseter.name}"></option>
+                            </select>
+                            </div>
                         </div>
-                        <!--填写文章内容-->
                         <div class="form-group">
+                            <div class="col-sm-6">
                             <label>导师编号:</label>
                             <input type="text" id="number" name="number">
+                            </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-6">
                             <label>导师姓名:</label>
                             <input type="text" name="name" id="name">
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label>导师密码:</label>
-                            <input type="password" name="pwd" id="pwd">
-                        </div>
-
-                        <div></div>
                         <div>
                             <button type="submit" class="btn btn-primary btn-publish myCenter" style="width: 100px;">
                                 确定
@@ -131,8 +130,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <!--页面注脚-->
     <footer class="sticky-footer">

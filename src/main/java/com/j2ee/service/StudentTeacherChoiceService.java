@@ -134,8 +134,6 @@ public class StudentTeacherChoiceService {
     }
 
 
-
-
     /**
      * 查询所有学期信息
      * @return list of Semester

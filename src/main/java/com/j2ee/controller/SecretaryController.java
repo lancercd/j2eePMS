@@ -2,17 +2,23 @@ package com.j2ee.controller;
 
 
 import com.j2ee.db.dao.TeacherMapper;
+import com.j2ee.db.domain.Semester;
 import com.j2ee.db.domain.Teacher;
 import com.j2ee.db.domain.TeachingSecretary;
+import com.j2ee.db.service.SemesterService;
 import com.j2ee.db.service.TeacherService;
 import com.j2ee.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,6 +30,9 @@ public class SecretaryController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private SemesterService semesterService;
 
 
     @GetMapping("/setTeacher")
@@ -38,25 +47,35 @@ public class SecretaryController {
     }
 
 
+    @GetMapping("/showSemester")
+    public Object showSemester(Model model){
+
+        List<Semester> semesters = semesterService.queryAll();
+        for (Semester semester : semesters) {
+            System.out.println(semester.getName());
+        }
+        if(semesters == null){
+            return "redirect:teachingSecretary";
+        }
+        model.addAttribute("semesters",semesters);
+        return "/setTeacher";
+    }
+
     @ResponseBody
     @PostMapping("/setTeacherForm")
     public Object setTeacherForm(Teacher teacher){
-
         if(StringUtils.isEmpty(teacher.getNumber())){
             return ResponseUtil.fail(400, "请填写教师编号");
         }
-
         if(StringUtils.isEmpty(teacher.getName())){
             return ResponseUtil.fail(400, "请填写教师姓名");
         }
-
         if(StringUtils.isEmpty(teacher.getPwd())){
             return ResponseUtil.fail(400, "请填写教师密码");
         }
         if(teacher.getId() == null){
             teacherService.insert(teacher);
         }
-
         return ResponseUtil.ok("成功");
     }
 
