@@ -45,6 +45,10 @@ public class AuthController {
     @GetMapping("/login/student")
     public String loginStudent(Model model){
         model.addAttribute("type", LoginType.STUDENT);
+
+        //提前显示用户名密码  方便登录
+        model.addAttribute("preUsername", "10010");
+        model.addAttribute("prePwd", "123456");
         return "auth/login";
     }
 
@@ -56,6 +60,10 @@ public class AuthController {
     @GetMapping("/login/teacher")
     public String loginTeacher(Model model){
         model.addAttribute("type", LoginType.TEACHER);
+
+        //提前显示用户名密码  方便登录
+        model.addAttribute("preUsername", "10010");
+        model.addAttribute("prePwd", "123456");
         return "auth/login";
     }
 
@@ -67,6 +75,10 @@ public class AuthController {
     @GetMapping("/login/secretary")
     public String loginSecretary(Model model){
         model.addAttribute("type", LoginType.SECRETARY);
+
+        //提前显示用户名密码  方便登录
+        model.addAttribute("preUsername", "secretary");
+        model.addAttribute("prePwd", "123456");
         return "auth/login";
     }
 
@@ -78,6 +90,10 @@ public class AuthController {
     @GetMapping("/login/admin")
     public String loginAdmin(Model model){
         model.addAttribute("type", LoginType.ADMIN);
+
+        //提前显示用户名密码  方便登录
+        model.addAttribute("preUsername", "admin");
+        model.addAttribute("prePwd", "123456");
         return "auth/login";
     }
 
