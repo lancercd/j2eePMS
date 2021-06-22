@@ -68,10 +68,9 @@ public class TeacherController {
         return ResponseUtil.ok();
     }
 
-
+    @TeacherLogin
     @GetMapping("/guidanceAgree")
-    public String guidanceAgree(Model md,Integer teacherId){//ht123
-        teacherId = 1;
+    public String guidanceAgree(Model md,@LoginUid Integer teacherId){//指导教师确认页面
         Teacher teacher = teacherService.findById(teacherId);
         int semesterIdNow = semesterService.getSemesterIdNow();
         AdviserInfo adviserInfo = adviserInfoService.queryAdviserInfo(teacherId, semesterIdNow);
@@ -89,44 +88,18 @@ public class TeacherController {
         return "<script>alert('您未被教学秘书指派为指导教师');window.history.go(-1)</script>";
     }
 
-    @GetMapping("/guidanceSelect")
-    public String guidanceSelect(Model md,Integer adviserId){//ht123
-        adviserId = 2;
-        Integer teacherId = 1;
-        List<Semester> semesters = semesterService.queryAll();
-        md.addAttribute("semesters",semesters);
-        int semesterIdNow = semesterService.getSemesterIdNow();
-        List<Integer> ids = stuTeaChService.queryStudentIdByAdviserId(adviserId,semesterIdNow);
-        if (ids.size()==0) return "/teacher/teacher_select";
-        List<Student> students = studentService.findById(ids);
-        md.addAttribute("students",students);
-        List<DocumentType> documentTypes = documentTypeService.queryAll();
-        md.addAttribute("documentTypes",documentTypes);
-        List<Teacher> teachers = teacherService.queryAppraiser(teacherId);
-        md.addAttribute("adviserId",adviserId);
 
-        List<Integer> list = new ArrayList<>();
-        if (teachers.size()==0)  return "/teacher/teacher_select";
-
-        for (Teacher temp:teachers){
-            list.add(temp.getId());
-        }
-        md.addAttribute("appraiseTeachers",teacherService.findById(list));
-        return "/teacher/teacher_select";
-    }
-
-//    @TeacherLogin
+    @TeacherLogin
     @ResponseBody
     @PostMapping("/updateTeacherReq")
-    public Object updateTeacherReq(String content,Integer teacherId){//ht123
-        teacherId = 1;
+    public Object updateTeacherReq(String content,@LoginUid Integer teacherId){//ht123
         int semesterIdNow = semesterService.getSemesterIdNow();
         Integer res = adviserInfoService.updateReqInfo(teacherId, semesterIdNow, content);
         if (res==0) return ResponseUtil.updatedDataFailed();
         return ResponseUtil.ok();
     }
 
-    @GetMapping("/guidanceInfo")
+    @GetMapping("/guidanceInfo") //指导教师确认信息页面
     public String guidanceInfo(Model md,Integer semesterId){
         if (semesterId==null) semesterId = semesterService.getSemesterIdNow();
         List<Semester> semesters = semesterService.queryAll();
@@ -147,7 +120,7 @@ public class TeacherController {
         return "/teacher/teacher_adviserInfo";
     }
 
-    @GetMapping("/gudianceQuery")
+    @GetMapping("/gudianceQuery") //指导教师查询页面
     public String gudianceQuery(Model md,Integer semesterId){
         if (semesterId==null) semesterId=semesterService.getSemesterIdNow();
         List<Semester> semesters = semesterService.queryAll();
