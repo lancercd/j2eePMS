@@ -2,6 +2,7 @@ package com.j2ee.config;
 
 
 import com.j2ee.annotation.*;
+import com.j2ee.dto.Forward;
 import com.j2ee.dto.LoginType;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
@@ -48,11 +49,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
 
         Annotation[] declaredAnnotations = method.getDeclaredAnnotations();
+        Forward forward = new Forward();
 
         Object annotation = detectHasLoginAnnotations(declaredAnnotations);
         if (annotation != null) {
-            if(!handle(annotation, request.getSession())){
-                forwardToLogin(request, response);
+            if(!handle(forward, annotation, request.getSession())){
+                String page = forward.getPage();
+                if(page != null){
+                    forwardToLogin(page, request, response);
+                }else{
+                    forwardToLogin(request, response);
+                }
+
                 return false;
             }
         }
@@ -67,7 +75,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
      * @param session     session
      * @return  boolean
      */
-    private boolean handle(Object annotation, HttpSession session) {
+    private boolean handle(Forward forward, Object annotation, HttpSession session) {
 
         Integer uid = (Integer) session.getAttribute("uid");
         String username = (String) session.getAttribute("username");
@@ -78,35 +86,50 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         System.out.println(username);
         System.out.println(type);
         System.out.println("---------------------");
+
+        boolean flag = true;
         if(uid == null || username == null || type == null){
-            return false;
+            flag = false;
         }
 
 
         if (annotation instanceof StudentLogin) {
-            return type == LoginType.STUDENT;
+            forward.setType(LoginType.STUDENT);
+            forward.setPage("student");
+            return flag && type == LoginType.STUDENT;
 
         }else if (annotation instanceof TeacherLogin) {
-            return type == LoginType.TEACHER;
+            forward.setType(LoginType.TEACHER);
+            forward.setPage("teacher");
+            return flag && type == LoginType.TEACHER;
 
         }else if (annotation instanceof AdminLogin) {
-            return type == LoginType.ADMIN;
+            forward.setType(LoginType.ADMIN);
+            forward.setPage("admin");
+            return flag && type == LoginType.ADMIN;
 
         }else if (annotation instanceof TeachingSecretaryLogin) {
-            return type == LoginType.SECRETARY;
+            forward.setType(LoginType.SECRETARY);
+            forward.setPage("secretary");
+            return flag && type == LoginType.SECRETARY;
 
         }else if (annotation instanceof Login) {
-            if(type != LoginType.STUDENT) {
-                return false;
-            }
 
             LoginType[] types = ((Login)annotation).type();
+            if(types.length == 0) return true;
+
+            if(!flag){
+                forward.setType(types[0]);
+                forward.setPage("secretary");
+            }
 
             for (LoginType value : types) {
                 if(value == type){
                     return true;
                 }
             }
+
+            return false;
 
         }
         return true;
@@ -145,5 +168,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     ) throws ServletException, IOException {
 
         request.getRequestDispatcher("/login").forward(request, response);
+    }
+
+    private void forwardToLogin(
+            String page,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) throws ServletException, IOException {
+
+        request.getRequestDispatcher("/login/" + page).forward(request, response);
     }
 }
