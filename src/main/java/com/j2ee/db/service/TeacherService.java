@@ -125,11 +125,23 @@ public class TeacherService {
     }
 
     /**
+<<<<<<< HEAD
      * 修改教师信息（by id）
      * @param teacher
      * @return
      */
     public int updateById(Teacher teacher){
         return teacherMapper.updateByPrimaryKey(teacher);
+=======
+     * 查询评阅老师
+     * @param id 指导老师id
+     * @return int
+     */
+    public List<Teacher> queryAppraiser(Integer id){
+        TeacherExample teacherExample = new TeacherExample();
+        TeacherExample.Criteria criteria = teacherExample.createCriteria();
+        criteria.andLogicalDeleted(false).andIdNotEqualTo(id);
+        return teacherMapper.selectByExample(teacherExample);
+>>>>>>> c1a0e8d0f002553964b231aa9bb1ffcb5c25bc42
     }
 }

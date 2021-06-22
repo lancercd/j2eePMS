@@ -62,8 +62,23 @@ public class SemesterService {
         return semesterMapper.deleteByPrimaryKey(id);
     }
 
+
     public int updateById(Semester semester){
         return semesterMapper.updateByPrimaryKey(semester);
+    }
+
+    /**
+     * 获取当前学期
+     * @return int
+     */
+    public int getSemesterIdNow() {
+        SemesterExample example = new SemesterExample();
+        example.orderBy("id desc");
+        List<Semester> semesters = semesterMapper.selectByExample(example);
+        if (semesters.size() == 0) {
+            return 0;
+        }
+        return semesters.get(0).getId();
     }
 
 }

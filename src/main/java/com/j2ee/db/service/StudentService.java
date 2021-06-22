@@ -33,6 +33,16 @@ public class StudentService {
     public Student findById(Integer id) {
         return studentMapper.selectByPrimaryKeyWithLogicalDelete(id, false);
     }
+    /**
+     * 通过id查询学生
+     * @param list 学生id的list
+     * @return stu
+     */
+    public List<Student> findById(List<Integer> list) {
+        StudentExample example = new StudentExample();
+        example.createCriteria().andIdIn(list).andLogicalDeleted(false);
+        return studentMapper.selectByExample(example);
+    }
 
 
     /**
@@ -65,6 +75,7 @@ public class StudentService {
 
         return studentMapper.selectOneByExample(example);
     }
+
 
 
     /**
@@ -122,6 +133,7 @@ public class StudentService {
         return studentMapper.logicalDeleteByPrimaryKey(id);
     }
 
+<<<<<<< HEAD
     /**
      * 更新（按id）
      * @param student
@@ -130,4 +142,6 @@ public class StudentService {
     public int updateById(Student student){
         return studentMapper.updateByPrimaryKey(student);
     }
+=======
+>>>>>>> c1a0e8d0f002553964b231aa9bb1ffcb5c25bc42
 }
