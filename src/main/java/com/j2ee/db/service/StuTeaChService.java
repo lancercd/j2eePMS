@@ -207,4 +207,10 @@ public class StuTeaChService {
         return stuTeaChMapper.updateByPrimaryKeySelective(stuTeaCh);
     }
 
+    public Integer selectAppraiser(Integer teacherId,Integer stuId){
+        StuTeaCh stuTeaCh = new StuTeaCh();
+        stuTeaCh.setId(stuId);
+        stuTeaCh.setAppraiseId(teacherId);
+        return stuTeaChMapper.updateByPrimaryKeySelective(stuTeaCh);
+    }
 }
