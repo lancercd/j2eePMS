@@ -1,7 +1,9 @@
 package com.j2ee.controller;
 
 import com.j2ee.db.domain.*;
+import com.j2ee.db.dto.AdviserInfoDto;
 import com.j2ee.db.service.*;
+import com.j2ee.service.StudentTeacherChoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,9 @@ public class SearchStatistics {
     @Autowired
     private DocumentTypeService documentTypeService;
 
+    @Autowired
+    private StudentTeacherChoiceService studentTeacherChoiceService;
+
     /*@RequestMapping("/queryStatisticsByType")
     public String queryStatisticsByType(){
 
@@ -59,8 +64,11 @@ public class SearchStatistics {
     }
 
     @RequestMapping("/queryStatisticsByCondition")
-    public String queryStatisticsByCondition(Integer semesterId,Integer documentId,Integer documentTypeId,Integer teacherId,Integer studentId){
+    public String queryStatisticsByCondition(Integer semesterId,Integer documentId,Integer studentId){
 
+
+        List<AdviserInfoDto> allStuTeaChBySemester = studentTeacherChoiceService.getAllStuTeaChBySemester(semesterId);
+        
         return "";
     }
 }

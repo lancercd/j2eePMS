@@ -8,11 +8,13 @@ import com.j2ee.db.domain.*;
 
 import com.j2ee.db.domain.Teacher;
 import com.j2ee.db.domain.TeachingSecretary;
+import com.j2ee.db.dto.AdviserInfoDto;
 import com.j2ee.db.service.AdviserInfoService;
 
 import com.j2ee.db.service.DocumentTypeService;
 import com.j2ee.db.service.SemesterService;
 import com.j2ee.db.service.TeacherService;
+import com.j2ee.service.StudentTeacherChoiceService;
 import com.j2ee.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -52,12 +49,9 @@ public class SecretaryController {
     @Autowired
     private DocumentTypeService documentTypeService;
 
-//    @TeachingSecretaryLogin
-    @GetMapping("/setTeacher")
-    public String setTeacher() {
-        return "/setTeacher";
-    }
 
+    @Autowired
+    private StudentTeacherChoiceService studentTeacherChoiceService;
 
 
     @GetMapping("/teachingSecretary")
@@ -68,16 +62,8 @@ public class SecretaryController {
     @GetMapping("/setAdviserManager")
     public String setAdviserManager(Model model){
 
-        /*List<Semester> semesters = semesterService.queryAll();
-        List<DocumentType> documentTypes = documentTypeService.queryAll();
-        List<Teacher> teachers = teacherService.queryAll();*/
-
-        List<AdviserInfo> adviserInfos = adviserInfoService.queryAll();
-//        semesterService.findById(adviserInfos);
-        ArrayList<String> list = new ArrayList<>();
-
-
-
+        List<AdviserInfoDto> allStuTeaChAll = studentTeacherChoiceService.getAllStuTeaChAll();
+        model.addAttribute("allStuTeaChAll",allStuTeaChAll);
         return "/setAdviserManager";
     }
 
