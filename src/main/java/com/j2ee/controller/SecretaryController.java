@@ -1,6 +1,7 @@
 package com.j2ee.controller;
 
 
+import com.j2ee.annotation.TeachingSecretaryLogin;
 import com.j2ee.db.dao.TeacherMapper;
 import com.j2ee.db.domain.Teacher;
 import com.j2ee.db.domain.TeachingSecretary;
@@ -26,6 +27,7 @@ public class SecretaryController {
     private TeacherService teacherService;
 
 
+    @TeachingSecretaryLogin
     @GetMapping("/setTeacher")
     public String setTeacher() {
         return "/setTeacher";
