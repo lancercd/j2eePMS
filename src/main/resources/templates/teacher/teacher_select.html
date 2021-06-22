@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>指导教师确认</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div th:replace="~{components/com::topbar}"></div>
+
+
+<div class="container-fluid">
+
+    <div style="border: 1px black solid">
+        <div class="templatemo-content-container">
+            <div class="templatemo-content-container">
+                <div class="templatemo-content-widget white-bg">
+                    <div class="panel panel-default no-border">
+                        <div class="panel-heading border-radius-10 text-center">
+                            <h2>指导教师确认学生&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 学期选择：<select name="学期选择"
+                                                                                     style="background-color:#39ADB4;border:1px solid white;">
+                                <div th:each="semester:${semesters}">
+                                    <option th:text="${semester.name}" th:value="${semester.id}"></option>
+                                </div>
+                            </select></h2>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="templatemo-flex-row flex-content-row margin-bottom-30">
+                                <div class="col-12">
+                                    <div id="gauge_div" class="templatemo-chart">
+                                        <table class="table table-striped table-bordered templatemo-user-table">
+                                            <thead>
+                                            <tr>
+                                                <td style="width:25%"><a class="white-text templatemo-sort-by">学生姓名
+                                                    <span class="caret"></span></a></td>
+                                                <td style="width:25%"><a
+                                                        class="white-text templatemo-sort-by">选择上传资料类型<span
+                                                        class="caret"></span></a></td>
+                                                <td style="width:25%"><a class="white-text templatemo-sort-by">状态<span
+                                                        class="caret"></span></a></td>
+                                                <td style="width:25%"><a
+                                                        class="white-text templatemo-sort-by">指导评阅教师<span
+                                                        class="caret"></span></a></td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <form method="post">
+                                            <input type="hidden" th:value="${adviserId}" id="adviserId">
+                                            <tr th:each="student:${students}" th:id="'student'+${student.id}">
+                                                <td th:text="${student.name}"></td>
+                                                <td>
+                                                    <select name="docType" style="border:1px solid white;width:300px">
+                                                        <option value="null"></option>
+                                                        <div th:each="documentType:${documentTypes}">
+                                                            <option th:text="${documentType.name}" th:value="${documentType.id}"></option>
+                                                        </div>
+                                                </td>
+                                                <td>
+
+                                                        <input type="submit" value="确认" class="btn btn-warning" id="confirm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="submit" value="不确认" class="btn btn-warning" id="unconfirm">
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <select name="评阅教师选择" style="border:1px solid white;width:300px">
+                                                        <option value="null"></option>
+                                                        <div th:each="appraiseTeacher:${appraiseTeachers}">
+                                                            <option th:text="${appraiseTeacher.name}" th:value="${appraiseTeacher.id}"></option>
+                                                        </div>
+                                                </td>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+<script>
+
+
+    $('#confirm').click(function () {
+        var data = {adviserId: $('#adviserId').val()}
+        $.ajax({
+            url: "/adviser/agreeAdviser",
+            type: "post",
+            data, data,
+            success: function (result) {
+                alert("已成为该学生指导教师")
+            }
+        })
+    })
+    $('#unconfirm').click(function () {
+        var data = {adviserId: $('#adviserId').val()}
+        $.ajax({
+            url: "/adviser/disagreeAdviser",
+            type: "post",
+            data: data,
+            success: function (result) {
+                alert("已拒绝成为该学生指导教师")
+            }
+        })
+    })
+
+</script>
+</html>

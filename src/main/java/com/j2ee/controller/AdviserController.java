@@ -1,11 +1,9 @@
 package com.j2ee.controller;
 
 import com.j2ee.db.domain.AdviserInfo;
+import com.j2ee.db.domain.AppraiseTeacher;
 import com.j2ee.db.domain.Student;
-import com.j2ee.db.service.AdviserInfoService;
-import com.j2ee.db.service.SemesterService;
-import com.j2ee.db.service.StuTeaChService;
-import com.j2ee.db.service.StudentService;
+import com.j2ee.db.service.*;
 import com.j2ee.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,9 +29,12 @@ public class AdviserController {
     @Autowired
     SemesterService semesterService;
 
+    @Autowired
+    AppraiseTeacherService appraiseTeacherService;
+
     @ResponseBody
     @PostMapping("/agreeAdviser")
-    public Object agreeAdviser(Integer adviserId){
+    public Object agreeAdviser(Integer adviserId,Integer studentId){
         int num = adviserInfoService.agreeAdviser(adviserId);
         if (num==0) return ResponseUtil.updatedDataFailed();
         return ResponseUtil.ok();
@@ -41,7 +42,7 @@ public class AdviserController {
 
     @ResponseBody
     @PostMapping("/disagreeAdviser")
-    public Object disagreeAdviser(Integer adviserId){
+    public Object disagreeAdviser(Integer adviserId,Integer studentId){
         int num = adviserInfoService.disagreeAdviser(adviserId);
         if (num==0) return ResponseUtil.updatedDataFailed();
         return ResponseUtil.ok();
@@ -72,8 +73,11 @@ public class AdviserController {
     @ResponseBody
     @PostMapping("/selectAppraiser")
     public Object selectAppraiser(Integer teacherId,Integer stuTeaChId){
-        Integer num = stuTeaChService.selectAppraiser(teacherId, stuTeaChId);
-        if (num==0) return ResponseUtil.updatedDataFailed();
+        AppraiseTeacher teacher = new AppraiseTeacher();
+        teacher.setTeacherId(teacherId);
+        teacher.setStuTeaCh(stuTeaChId);
+        int num = appraiseTeacherService.add(teacher);
+        if (num==0) return ResponseUtil.fail();
         return ResponseUtil.ok();
     }
 }

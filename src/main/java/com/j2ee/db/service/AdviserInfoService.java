@@ -4,6 +4,7 @@ package com.j2ee.db.service;
 import com.j2ee.db.dao.AdviserInfoMapper;
 import com.j2ee.db.domain.AdviserInfo;
 import com.j2ee.db.domain.AdviserInfoExample;
+import com.j2ee.db.domain.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -167,4 +168,19 @@ public class AdviserInfoService {
         return adviserInfoMapper.selectByExample(example);
     }
 
+    public Integer updateReqInfo(Integer teacherId,Integer semesterId,String reqInfo){
+        AdviserInfoExample example = new AdviserInfoExample();
+        AdviserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andSemesterIdEqualTo(semesterId).andTeacherIdEqualTo(teacherId);
+        AdviserInfo adviserInfo = new AdviserInfo();
+        adviserInfo.setReqInfo(reqInfo);
+        return adviserInfoMapper.updateByExampleSelective(adviserInfo,example);
+    }
+    public AdviserInfo queryAdviserInfo(Integer teacherId,Integer semesterId){
+        AdviserInfoExample example = new AdviserInfoExample();
+        AdviserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andTeacherIdEqualTo(teacherId).andSemesterIdEqualTo(semesterId);
+        return adviserInfoMapper.selectOneByExample(example);
+
+    }
 }

@@ -187,7 +187,7 @@ public class StuTeaChService {
 
     public List<Integer> queryStudentIdByAdviserId(Integer adviserId,Integer semesterId){
         StuTeaChExample stuTeaChExample = new StuTeaChExample();
-        stuTeaChExample.createCriteria().andSemesterIdEqualTo(semesterId).andIdEqualTo(adviserId).andIsDelEqualTo(false);
+        stuTeaChExample.createCriteria().andSemesterIdEqualTo(semesterId).andAdviserInfoEqualTo(adviserId).andIsDelEqualTo(false);
         List<StuTeaCh> stuTeaChes = stuTeaChMapper.selectByExample(stuTeaChExample);
         List<Integer> res = new ArrayList<>();
         for(StuTeaCh temp:stuTeaChes){
@@ -212,5 +212,17 @@ public class StuTeaChService {
         stuTeaCh.setId(stuId);
         stuTeaCh.setAppraiseId(teacherId);
         return stuTeaChMapper.updateByPrimaryKeySelective(stuTeaCh);
+    }
+
+    public List<Integer> queryStudentIdByTeacherId(Integer adviserId,Integer semesterId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andSemesterIdEqualTo(semesterId).andAdviserInfoEqualTo(adviserId);
+        List<StuTeaCh> stuTeaChes = stuTeaChMapper.selectByExample(example);
+        List<Integer> list = new ArrayList<>();
+        for (StuTeaCh temp:stuTeaChes){
+            list.add(temp.getId());
+        }
+        return list;
     }
 }

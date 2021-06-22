@@ -33,6 +33,12 @@ public class TeacherService {
     public Teacher findById(Integer id) {
         return teacherMapper.selectByPrimaryKeyWithLogicalDelete(id, false);
     }
+    public List<Teacher> findById(List<Integer> ids) {
+        TeacherExample example = new TeacherExample();
+        TeacherExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIn(ids);
+        return teacherMapper.selectByExample(example);
+    }
 
 
     /**

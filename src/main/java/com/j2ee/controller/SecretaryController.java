@@ -36,7 +36,7 @@ public class SecretaryController {
     private SemesterService semesterService;
 
 
-    @TeachingSecretaryLogin
+//    @TeachingSecretaryLogin
     @GetMapping("/setTeacher")
     public String setTeacher() {
         return "/setTeacher";

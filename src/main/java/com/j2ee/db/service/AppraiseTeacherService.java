@@ -65,6 +65,11 @@ public class AppraiseTeacherService {
         return appraiseTeacherMapper.selectByExample(example);
     }
 
+    public List<AppraiseTeacher> queryAll(Integer id){
+        AppraiseTeacherExample example = new AppraiseTeacherExample();
+        example.createCriteria().andTeacherIdNotEqualTo(id);
+        return appraiseTeacherMapper.selectByExample(example);
+    }
 
 
 

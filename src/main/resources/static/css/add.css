@@ -1,0 +1,65 @@
+@charset "UTF-8";
+body{
+	margin:0;
+	padding:0;
+	overflow:scroll;
+	background:url(../images/login_02.jpg) no-repeat top center ;
+	background-size:cover;
+	text-align:center;
+	
+}
+#add_div{	
+	margin:150px auto;
+	width:80%;
+	height:340px;
+	background: rgba(255,255,255,0.2);
+	border-radius:8px;
+	box-shadow:0 0 5px #000;
+	text-align:center;
+	font-family: "幼圆";
+	color:#fff;
+	
+}
+.add_tdme{
+	font-family: "隶书";
+	font-size:24px;
+	font-color:#E6E6FA;
+}
+.add_input{
+	width:200px;
+	height:25px;
+	font-size:18px;
+	margin-top:10px;
+	
+}
+.add_input:hover{
+	dispaly:block;
+	width:203px;
+	height:26px;
+	border-radius:2px;
+	border-bottom:-2px solid #BEBEBE;
+	box-shadow:2px 1px 2px 1px rgba(135, 206 ,250,0.5),-1px 1px 1px -1px rgba(211 ,211 ,211,0.3);
+}
+#add_div h2{
+	margin:10px;
+}
+#submit_input{
+	position:relative;
+	margin:10px;
+	left:50px;
+	text-align:center;
+	width:100px;
+	height:28px;
+	font-family: "隶书";
+	font-size:20px;
+	color:#FFF;
+	border:0;
+	background:#ff5050!important;
+	cursor:pointer;
+}
+#submit_input:hover{
+	background:rgba(205,92,92,0.9)!important;
+	border-radius:6px;
+	width:102px;
+	transition:all 1s;
+}
