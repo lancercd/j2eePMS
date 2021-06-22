@@ -8,6 +8,7 @@ import com.j2ee.db.domain.Teacher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +83,23 @@ public class StuTeaChService {
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andStudentIdEqualTo(stuId);
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
+    /**
+     * 通过学期id 文档类型查询
+     * @param semesterId 学期id
+     * @param docId    文档类型
+     * @return list of StuTeaCh
+     */
+    public List<StuTeaCh> queryBySemesterIdDocId(@NotNull Integer semesterId, @NotNull Integer docId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andSemesterIdEqualTo(semesterId);
+        criteria.andDocumentIdEqualTo(docId);
 
         return stuTeaChMapper.selectByExample(example);
     }

@@ -18,6 +18,39 @@
 </div>
 
 
+<!--老师的菜单-->
+<div th:if="${session.type} + '' eq 'TEACHER'" class="menu-wrap" th:fragment="size-menu-bar-teacher">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>菜单名</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--教学秘书的菜单-->
+<div th:if="${session.type} + '' eq 'SECRETARY'" class="menu-wrap" th:fragment="size-menu-bar-secertary">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>菜单名</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+    </div>
+</div>
+
+
 
 <!--管理员的菜单-->
 <div th:if="${session.type} + '' eq 'ADMIN'" class="menu-wrap" th:fragment="size-menu-bar-admin">
@@ -46,13 +79,18 @@
 
 
 
+
+
 <div class="menu-wrap" th:fragment="size-menu-bar">
     <link rel="stylesheet" th:href="@{/css/com/side-menu/normalize.css}" />
     <link rel="stylesheet" th:href="@{/css/com/side-menu/demo.css}" />
     <link rel="stylesheet" th:href="@{/css/com/side-menu/menu_sideslide.css}" />
     <nav class="menu">
-        <div  th:replace="~{components/side-menu::size-menu-bar-admin}"></div>
         <div  th:replace="~{components/side-menu::size-menu-bar-student}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-teacher}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-secertary}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-admin}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-unLogin}"></div>
     </nav>
     <button class="close-button" id="close-button">Close Menu</button>
     <script th:src="@{/js/com/side-menu/classie.js}"></script>
