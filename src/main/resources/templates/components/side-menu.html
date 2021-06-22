@@ -55,23 +55,27 @@
 <!--管理员的菜单-->
 <div th:if="${session.type} + '' eq 'ADMIN'" class="menu-wrap" th:fragment="size-menu-bar-admin">
     <div class="icon-list">
-        <a th:href="@{/}">
-            <span>选择指导老师</span>
+        <a th:href="@{/admin/adUserType}">
+            <span>用户类型管理</span>
         </a>
-        <a th:href="@{/}">
-            <span>教师管理</span>
+        <!-- 用户管理（可以做成子菜单吗） -->
+        <a th:href="@{/admin/adUser/student}">
+            <span>学生信息管理</span>
         </a>
-        <a th:href="@{/}">
-            <span>Messages</span>
+        <a th:href="@{/admin/adUser/teacher}">
+            <span>教师信息管理</span>
         </a>
-        <a th:href="@{/}">
-            <span>Comments</span>
+        <a th:href="@{/admin/adUser/admin}">
+            <span>管理员信息管理</span>
         </a>
-        <a th:href="@{/}">
-            <span>Analytics</span>
+        <a th:href="@{/admin/adUser/secretary}">
+            <span>教学助理信息管理</span>
         </a>
-        <a th:href="@{/}">
-            <span>Reading List</span>
+        <a th:href="@{/admin/adSemester}">
+            <span>学期管理</span>
+        </a>
+        <a th:href="@{/admin/adDocumentType}">
+            <span>上传资料管理</span>
         </a>
     </div>
 </div>
