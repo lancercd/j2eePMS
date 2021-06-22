@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -19,7 +18,7 @@ public class IndexController {
     @Autowired
     private NewsService newsService;
 
-    @GetMapping("/index")
+    @GetMapping({"", "/", "/index", "/index.html"})
     public Object index(String title, Model model){
         List<News> lists;
         if(StringUtils.isEmpty(title)){
