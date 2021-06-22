@@ -124,30 +124,29 @@ public class TeacherController {
     }
 
     @GetMapping("/gudianceQuery") //指导教师查询页面
-    public String gudianceQuery(Model md,Integer semesterId){
-        if (semesterId==null) semesterId=semesterService.getSemesterIdNow();
+    public String gudianceQuery(Model md,Integer semesterId) {
+        if (semesterId == null) semesterId = semesterService.getSemesterIdNow();
         List<Semester> semesters = semesterService.queryAll();
-        md.addAttribute("semesters",semesters);
+        md.addAttribute("semesters", semesters);
         List<AdviserInfo> adviserInfos = adviserInfoService.queryAdviserInfoBySemesterId(semesterId);
-        List<Map<String,Object>> list = new ArrayList<>();
-        for (AdviserInfo temp:adviserInfos){
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (AdviserInfo temp : adviserInfos) {
             List<Integer> ids = stuTeaChService.queryStudentIdByAdviserId(temp.getId(), semesterId);
-            Map<String,Object> map= new HashMap<>();
-            map.put("name",teacherService.findById(temp.getTeacherId()).getName());
-            if (temp.getIsAccept()==(byte)1){
-                map.put("condition","已同意");
-            }else if(temp.getIsAccept()==(byte)0){
-                map.put("condition","未答复");
-            }else {
-                map.put("condition","已拒绝");
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", teacherService.findById(temp.getTeacherId()).getName());
+            if (temp.getIsAccept() == (byte) 1) {
+                map.put("condition", "已同意");
+            } else if (temp.getIsAccept() == (byte) 0) {
+                map.put("condition", "未答复");
+            } else {
+                map.put("condition", "已拒绝");
             }
-            map.put("studentName",studentService.queryStudentName(ids));
+            map.put("studentName", studentService.queryStudentName(ids));
             list.add(map);
         }
-        md.addAttribute("infos",list);
+        md.addAttribute("infos", list);
         return "/teacher/teacher_adviserQuery";
-
-
+    }
 
     /**
      * 指导老师确认学生列表 (等待确认的 列表)
