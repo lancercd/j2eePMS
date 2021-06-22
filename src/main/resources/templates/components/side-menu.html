@@ -2,38 +2,57 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 
+<!--学生的菜单-->
+<div th:if="${session.type} + '' eq 'STUDENT'" class="menu-wrap" th:fragment="size-menu-bar-student">
+    <div class="icon-list">
+        <a th:href="@{/student/selectAdviser}">
+            <span>选择指导老师</span>
+        </a>
+        <a th:href="@{/}">
+            <span>教师管理</span>
+        </a>
+        <a th:href="@{/}">
+            <span>Messages</span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--管理员的菜单-->
+<div th:if="${session.type} + '' eq 'ADMIN'" class="menu-wrap" th:fragment="size-menu-bar-admin">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>选择指导老师</span>
+        </a>
+        <a th:href="@{/}">
+            <span>教师管理</span>
+        </a>
+        <a th:href="@{/}">
+            <span>Messages</span>
+        </a>
+        <a th:href="@{/}">
+            <span>Comments</span>
+        </a>
+        <a th:href="@{/}">
+            <span>Analytics</span>
+        </a>
+        <a th:href="@{/}">
+            <span>Reading List</span>
+        </a>
+    </div>
+</div>
+
+
+
 
 <div class="menu-wrap" th:fragment="size-menu-bar">
     <link rel="stylesheet" th:href="@{/css/com/side-menu/normalize.css}" />
     <link rel="stylesheet" th:href="@{/css/com/side-menu/demo.css}" />
     <link rel="stylesheet" th:href="@{/css/com/side-menu/menu_sideslide.css}" />
     <nav class="menu">
-        <div class="icon-list">
-            <a href="#">
-                <i class="fa fa-fw fa-star-o"></i>
-                <span>Favorites</span>
-            </a>
-            <a href="#">
-                <i class="fa fa-fw fa-bell-o"></i>
-                <span>Alerts</span>
-            </a>
-            <a href="#">
-                <i class="fa fa-fw fa-envelope-o"></i>
-                <span>Messages</span>
-            </a>
-            <a href="#">
-                <i class="fa fa-fw fa-comment-o"></i>
-                <span>Comments</span>
-            </a>
-            <a href="#">
-                <i class="fa fa-fw fa-bar-chart-o"></i>
-                <span>Analytics</span>
-            </a>
-            <a href="#">
-                <i class="fa fa-fw fa-newspaper-o"></i>
-                <span>Reading List</span>
-            </a>
-        </div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-admin}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-student}"></div>
     </nav>
     <button class="close-button" id="close-button">Close Menu</button>
     <script th:src="@{/js/com/side-menu/classie.js}"></script>

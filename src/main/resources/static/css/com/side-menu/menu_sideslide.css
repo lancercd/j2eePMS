@@ -73,6 +73,7 @@
 	height: 1em;
 	position: absolute;
 	right: 1em;
+	z-index: 102;
 	top: 1em;
 	overflow: hidden;
 	text-indent: 1em;
