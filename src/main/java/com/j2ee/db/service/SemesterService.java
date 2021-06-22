@@ -62,4 +62,14 @@ public class SemesterService {
         return semesterMapper.deleteByPrimaryKey(id);
     }
 
+    public int getSemesterIdNow(){
+        SemesterExample example = new SemesterExample();
+        example.orderBy("id desc");
+        List<Semester> semesters = semesterMapper.selectByExample(example);
+        if (semesters.size()==0){
+            return 0;
+        }
+        return semesters.get(0).getId();
+    }
+
 }

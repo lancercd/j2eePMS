@@ -4,6 +4,7 @@ package com.j2ee.db.service;
 import com.j2ee.db.dao.AdviserInfoMapper;
 import com.j2ee.db.domain.AdviserInfo;
 import com.j2ee.db.domain.AdviserInfoExample;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -146,5 +147,24 @@ public class AdviserInfoService {
     }
 
 
+    public int agreeAdviser(Integer adviserId){
+        AdviserInfo adviserInfo = new AdviserInfo();
+        adviserInfo.setIsAccept((byte)1);
+        adviserInfo.setId(adviserId);
+        return adviserInfoMapper.updateByPrimaryKeySelective(adviserInfo);
+    }
+
+    public int disagreeAdviser(Integer adviserId){
+        AdviserInfo adviserInfo = new AdviserInfo();
+        adviserInfo.setIsAccept((byte)-1);
+        adviserInfo.setId(adviserId);
+        return adviserInfoMapper.updateByPrimaryKeySelective(adviserInfo);
+    }
+
+    public List<AdviserInfo> queryAdviserInfoBySemesterId(Integer semesterId){
+        AdviserInfoExample example = new AdviserInfoExample();
+        example.createCriteria().andSemesterIdEqualTo(semesterId);
+        return adviserInfoMapper.selectByExample(example);
+    }
 
 }

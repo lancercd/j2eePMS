@@ -4,10 +4,12 @@ package com.j2ee.db.service;
 import com.j2ee.db.dao.StuTeaChMapper;
 import com.j2ee.db.domain.StuTeaCh;
 import com.j2ee.db.domain.StuTeaChExample;
+import com.j2ee.db.domain.Teacher;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -169,7 +171,7 @@ public class StuTeaChService {
 
         return stuTeaChMapper.updateByPrimaryKey(stuTeaCh);
     }
-    
+
 
 
 
@@ -183,6 +185,26 @@ public class StuTeaChService {
         return stuTeaChMapper.logicalDeleteByPrimaryKey(id);
     }
 
+    public List<Integer> queryStudentIdByAdviserId(Integer adviserId,Integer semesterId){
+        StuTeaChExample stuTeaChExample = new StuTeaChExample();
+        stuTeaChExample.createCriteria().andSemesterIdEqualTo(semesterId).andIdEqualTo(adviserId).andIsDelEqualTo(false);
+        List<StuTeaCh> stuTeaChes = stuTeaChMapper.selectByExample(stuTeaChExample);
+        List<Integer> res = new ArrayList<>();
+        for(StuTeaCh temp:stuTeaChes){
+            res.add(temp.getId());
+        }
+        return res;
+    }
 
+    public Integer agreeStudent(Integer stuTeaChId,Boolean isAccept){
+        StuTeaCh stuTeaCh = new StuTeaCh();
+        stuTeaCh.setId(stuTeaChId);
+        if (isAccept){
+            stuTeaCh.setIsAccept((byte)1);
+        }else {
+            stuTeaCh.setIsAccept((byte)-1);
+        }
+        return stuTeaChMapper.updateByPrimaryKeySelective(stuTeaCh);
+    }
 
 }
