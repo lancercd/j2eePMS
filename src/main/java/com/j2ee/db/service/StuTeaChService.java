@@ -88,6 +88,22 @@ public class StuTeaChService {
 
 
     /**
+     * 通过老师id查找(等待确认的)
+     * @param teaId 老师id
+     * @return list of StuTeaCh
+     */
+    public List<StuTeaCh> queryByTeaId(Integer teaId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andTeacherIdEqualTo(teaId);
+        criteria.andIsAcceptEqualTo((byte) 0);
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
+    /**
      * 通过学期id 文档类型查询
      * @param semesterId 学期id
      * @param docId    文档类型
@@ -115,6 +131,24 @@ public class StuTeaChService {
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andStudentIdEqualTo(stuId);
+        criteria.andSemesterIdEqualTo(semesterId);
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
+    /**
+     * 通过老师id和学期id查找(等待确认的)
+     * @param teaId         老师id
+     * @param semesterId    学期id
+     * @return list of StuTeaCh
+     */
+    public List<StuTeaCh> queryByTeaIdAndSemester(Integer teaId, Integer semesterId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andTeacherIdEqualTo(teaId);
+        criteria.andIsAcceptEqualTo((byte) 0);
         criteria.andSemesterIdEqualTo(semesterId);
 
         return stuTeaChMapper.selectByExample(example);

@@ -22,13 +22,13 @@
 <div th:if="${session.type} + '' eq 'TEACHER'" class="menu-wrap" th:fragment="size-menu-bar-teacher">
     <div class="icon-list">
         <a th:href="@{/}">
-            <span>菜单名</span>
-        </a>
-        <a th:href="@{/}">
             <span>...</span>
         </a>
         <a th:href="@{/}">
             <span>...</span>
+        </a>
+        <a th:href="@{/teacher/confirm/student}">
+            <span>指导老师请求</span>
         </a>
     </div>
 </div>
