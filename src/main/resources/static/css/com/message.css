@@ -253,7 +253,7 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
-    max-width: 10px;
+    max-width: 1px;
     /* left: 0; */
     top: 0;
     left: 50%;
@@ -267,8 +267,8 @@
     align-items: center;
     justify-content: space-between;
     margin: 10px 0;
-    padding: 0 15px;
-    height: 38px;
+    padding: 5px 10px;
+    height: auto;
     min-width: 200px;
     box-shadow: 0 0 10px 0 #ccc;
     font-size: 14px;
@@ -278,9 +278,10 @@
     transition: height 0.2s ease-in-out, margin 0.2s ease-in-out;
 }
 #message-container .message .text {
-    padding: 0 5px;
+    padding: 5px 10px;
     color: #333;
     user-select: none;
+    text-align: center;
 }
 #message-container .message .close {
     font-size: 15px;
