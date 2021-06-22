@@ -2,10 +2,7 @@ package com.j2ee.controller;
 
 
 import com.j2ee.db.domain.*;
-import com.j2ee.db.service.DocumentTypeService;
-import com.j2ee.db.service.SemesterService;
-import com.j2ee.db.service.StudentService;
-import com.j2ee.db.service.TeacherService;
+import com.j2ee.db.service.*;
 import com.j2ee.service.StudentTeacherChoiceService;
 import com.j2ee.utils.ResponseUtil;
 import com.j2ee.utils.StringUtils;
@@ -38,6 +35,9 @@ public class AdminController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private AdminService adminService;
 
     /**
      * 学期管理界面
@@ -120,8 +120,13 @@ public class AdminController {
      * @param model
      * @return
      */
-    @GetMapping
+    @GetMapping("/adUser/admin")
     public String adminType(Integer id, Model model){
+        if(id != null && id != 0){
+            model.addAttribute("admins", adminService.findById(id));
+        } else {
+            model.addAttribute("admins", adminService.queryAll());
+        }
         return "admin/adUser/admin";
     }
 
