@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap4/bootstrap.css}">
+
+    <script th:src="@{/bootstrap4/bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/com/message.css}">
+    <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
+    <link rel="stylesheet" th:href="@{/css/student/selectAdviser.css}">
+</head>
+<body>
+
+<div th:replace="~{components/com::topbar}"></div>
+
+
+<div class="container-fluid">
+    <div class="title"><h3>用户管理列表——教师</h3></div>
+
+    <div class="row">
+        <div class="input-group column" style="display: flex; align-items: center; justify-content: center;width: 500px;margin-left: 15px">
+            <input type="text" class="form-control input-small" name="number" id="number" placeholder="请输入要搜索的教师工号" autocomplete="off">
+            <span class="input-group-addon btn btn-primary" id="seach" style="background-color:#e67e22; border: none">搜索</span>
+        </div>
+        <div class="input-group col-3 column">
+            <span class="input-group-addon btn btn-primary" id="add" style="background-color:#e67e22; border: none">添加教师</span>
+        </div>
+
+    </div>
+
+    <br>
+    <div class="row clearfix">
+        <div class="col-md-12 column" th:fragment="div1" th:id="div1" >
+            <table class="table align-content-center" id="scoreTable" style="text-align: center">
+                <thead class="">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">工号</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">密码</th>
+                    <th scope="col">添加时间</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="teacher:${teachers}">
+                    <th scope="row" th:text="${teacher.getId()}"></th>
+                    <td th:text="${teacher.getNumber()}"></td>
+                    <td th:text="${teacher.getName()}"></td>
+                    <td th:text="${teacher.getPwd()}"></td>
+                    <td th:text="${#temporals.format(teacher.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td>
+                        <span class="input-group-addon btn btn-primary select-adviser-btn" th:data-id="${teacher.id}" style="border: none">删除</span>
+                        <a class="btn btn-primary" th:href="@{'/admin/adUser/edit/teacher/'+${teacher.id}}" style="background-color:#e67e22; border: none">修改</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script type="module" th:src="@{/js/admin/adUser/adTeacher.js}"></script>
+</html>
