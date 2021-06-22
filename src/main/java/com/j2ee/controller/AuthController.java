@@ -4,8 +4,11 @@ package com.j2ee.controller;
 import com.j2ee.annotation.*;
 import com.j2ee.dto.LoginType;
 import com.j2ee.dto.UserLoginInfo;
+import com.j2ee.service.AuthService;
 import com.j2ee.utils.ResponseUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,32 +26,67 @@ import javax.validation.constraints.NotNull;
 @Controller
 public class AuthController {
 
+
+    @Autowired
+    private AuthService authService;
+
+
+
     @GetMapping("/login")
     public String login(){
         return "auth/login";
     }
 
 
+    /**
+     * 学生登录
+     * @return login
+     */
+    @GetMapping("/login/student")
+    public String loginStudent(Model model){
+        model.addAttribute("type", LoginType.STUDENT);
+        return "auth/login";
+    }
+
+
+    /**
+     * 老师登录
+     * @return login
+     */
+    @GetMapping("/login/teacher")
+    public String loginTeacher(Model model){
+        model.addAttribute("type", LoginType.TEACHER);
+        return "auth/login";
+    }
+
+
+    /**
+     * 教学秘书登录
+     * @return login
+     */
+    @GetMapping("/login/secretary")
+    public String loginSecretary(Model model){
+        model.addAttribute("type", LoginType.SECRETARY);
+        return "auth/login";
+    }
+
+
+    /**
+     * 管理员登录
+     * @return login
+     */
+    @GetMapping("/login/admin")
+    public String loginAdmin(Model model){
+        model.addAttribute("type", LoginType.ADMIN);
+        return "auth/login";
+    }
+
+
     @ResponseBody
     @PostMapping("/login")
-    public Object loginApi(@NotNull String username, @NotNull String pwd, HttpSession session){
+    public Object loginApi(LoginType type, @NotNull String username, @NotNull String pwd, HttpSession session){
 
-        String tmpUsername = "123";
-        String tmpPwd = "123456";
-
-        if(tmpUsername.equals(username)){
-            if(tmpPwd.equals(pwd)){
-                session.setAttribute("uid", 1);
-                session.setAttribute("type", LoginType.STUDENT);
-                session.setAttribute("username", username);
-                return ResponseUtil.ok("登录成功");
-            }
-            return ResponseUtil.fail(-1, "密码错误");
-        }
-
-
-        return ResponseUtil.fail(-1, "用户名不存在");
-
+        return authService.checkUser(type, username, pwd, session);
     }
 
 
