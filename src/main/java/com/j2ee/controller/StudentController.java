@@ -47,8 +47,6 @@ public class StudentController {
 
 
 
-
-
     /**
      * 学生选择导师页面(根据学期选择)
      *            导师列表

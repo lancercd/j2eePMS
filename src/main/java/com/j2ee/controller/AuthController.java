@@ -38,6 +38,19 @@ public class AuthController {
     }
 
 
+
+    @GetMapping("/login/logout")
+    public String logout(HttpSession session){
+
+        session.removeAttribute("uid");
+        session.removeAttribute("type");
+        session.removeAttribute("username");
+
+        session.invalidate();
+        return "redirect:/index";
+    }
+
+
     /**
      * 学生登录
      * @return login
