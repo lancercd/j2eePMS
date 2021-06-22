@@ -2,3 +2,23 @@
 .mg-bottom-15{
     margin-bottom: 15px;
 }
+
+.carousel-figure-btn{
+    background-color: transparent;
+    border:none;
+    height: 100px;
+}
+
+.carousel-figure-left {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.carousel-figure-right {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}

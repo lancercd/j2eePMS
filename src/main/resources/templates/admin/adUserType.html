@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户管理</title>
+    <title>用户类型管理列表</title>
 
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/bootstrap4/bootstrap.css}">
@@ -22,15 +22,15 @@
 
 
 <div class="container-fluid">
-    <div class="title"><h3>用户管理列表——教师</h3></div>
+    <div class="title"><h3>用户类型管理列表</h3></div>
 
     <div class="row">
         <div class="input-group column" style="display: flex; align-items: center; justify-content: center;width: 500px;margin-left: 15px">
-            <input type="text" class="form-control input-small" name="number" id="number" placeholder="请输入要搜索的教师工号" autocomplete="off">
+            <input type="text" class="form-control input-small" name="document" id="document" placeholder="请输入要搜索的用户类型" autocomplete="off">
             <span class="input-group-addon btn btn-primary" id="seach" style="background-color:#e67e22; border: none">搜索</span>
         </div>
         <div class="input-group col-3 column">
-            <span class="input-group-addon btn btn-primary" id="add" style="background-color:#e67e22; border: none">添加教师</span>
+            <span class="input-group-addon btn btn-primary" id="add" style="background-color:#e67e22; border: none">添加用户类型</span>
         </div>
 
     </div>
@@ -42,23 +42,17 @@
                 <thead class="">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">工号</th>
-                    <th scope="col">姓名</th>
-                    <th scope="col">密码</th>
-                    <th scope="col">添加时间</th>
+                    <th scope="col">资料类型</th>
                     <th scope="col">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="teacher:${teachers}">
-                    <th scope="row" th:text="${teacher.getId()}"></th>
-                    <td th:text="${teacher.getNumber()}"></td>
-                    <td th:text="${teacher.getName()}"></td>
-                    <td th:text="${teacher.getPwd()}"></td>
-                    <td th:text="${#temporals.format(teacher.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <tr th:each="userType:${userTypes}">
+                    <th scope="row" th:text="${userType.getId}"></th>
+                    <td th:text="${userType.getName}"></td>
                     <td>
-                        <span class="input-group-addon btn btn-primary select-adviser-btn" th:data-id="${teacher.id}" style="border: none">删除</span>
-                        <a class="btn btn-primary" th:href="@{'/admin/adUser/edit/teacher/'+${teacher.id}}" style="background-color:#e67e22; border: none">修改</a>
+                        <span class="input-group-addon btn btn-primary select-adviser-btn" th:data-id="${userType.id}" style="border: none">删除</span>
+                        <a class="btn btn-primary" th:href="@{'/admin/user/edit/'+${userType.id}}" style="background-color:#e67e22; border: none">修改</a>
                     </td>
                 </tr>
                 </tbody>
@@ -67,5 +61,5 @@
     </div>
 </div>
 </body>
-<script type="module" th:src="@{/js/admin/adUser/adTeacher.js}"></script>
+<script type="module" th:src="@{/js/admin/adUserType.js}"></script>
 </html>

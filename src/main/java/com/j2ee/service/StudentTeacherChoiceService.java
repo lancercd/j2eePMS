@@ -90,6 +90,24 @@ public class StudentTeacherChoiceService {
     }
 
 
+
+    /**
+     * 通过学期id 文档类型查询
+     * @param semesterId 学期id
+     * @param docId      文档
+     * @return list of StuTeaChDto
+     */
+    public List<StuTeaChDto> selectStuTeachDtoBySemesterIdAndDocId(@NotNull Integer semesterId, @NotNull Integer docId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryBySemesterIdDocId(semesterId, docId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
     /**
      * 通过学生id查询
      * @param stuId 学生id
@@ -134,8 +152,6 @@ public class StudentTeacherChoiceService {
     }
 
 
-
-
     /**
      * 查询所有学期信息
      * @return list of Semester
@@ -154,6 +170,15 @@ public class StudentTeacherChoiceService {
         return this.convertAdviserInfo(adviserInfos);
     }
 
+    /**
+     * 获取所有已接受的导师信息
+     * @return list of adviserInfo
+     */
+    public List<AdviserInfoDto> getAllStuTeaChAll(){
+        List<AdviserInfo> adviserInfos = adviserInfoService.queryAll();
+        return this.convertAdviserInfo(adviserInfos);
+    }
+
 
     /**
      * 获取所有已接受的导师信息
@@ -164,6 +189,7 @@ public class StudentTeacherChoiceService {
 
         return this.convertAdviserInfo(adviserInfos);
     }
+
 
     /**
      * list转换

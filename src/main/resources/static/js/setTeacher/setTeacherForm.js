@@ -2,35 +2,36 @@ import request from '../utils/request.js';
 import Message from '../utils/Message.js';
 
 
-const setTeacherForm = document.getElementById('setTeacherForm');
+const setAdviserInfo = document.getElementById('setAdviserInfo');
 
 const message = new Message();
 
-function onSetTeacherForm() {
-    const number = setTeacherForm.number.value;
+function onSetAdviserInfo() {
+    const semester = setAdviserInfo.addSemester.value;
 
-    const name = setTeacherForm.name.value;
+    const number = setAdviserInfo.number.value;
 
-    const pwd = setTeacherForm.pwd.value;
+    const name = setAdviserInfo.name.value;
 
+    console.log(semester+":"+number+":"+name);
 
     request({
-        url: '/secretary/setTeacherForm',
+        url: '/secretary/setAdviser',
         type: 'POST',
         data: {
+            semester,
             number,
-            name,
-            pwd
+            name
         }
     }).then(
         (msg) => {
-
+            console.log(semester+":"+number+":"+name)
             message.show({
                 type: 'success',
                 msg: msg.msg,
                 closeable: true
             });
-            window.location.href="/secretary/setTeacher";
+            window.location.href="/secretary/showSemester";
 
         },
         (msg) => {
@@ -45,4 +46,4 @@ function onSetTeacherForm() {
     return false;
 }
 
-setTeacherForm.onsubmit = onSetTeacherForm;
+setAdviserInfo.onsubmit =  onSetAdviserInfo;
