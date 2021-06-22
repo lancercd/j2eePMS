@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>发布公告</title>
+  <title>查询统计</title>
 
   <!-- Bootstrap core CSS-->
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -93,49 +93,60 @@
       <li class="breadcrumb-item">
         <a href="#">教学秘书</a>
       </li>
-      <li class="breadcrumb-item active">指导老师管理</li>
+      <li class="breadcrumb-item active">查询统计</li>
     </ol>
     <hr>
 
     <div class="container">
       <div class="card card-register mx-auto mt-5">
         <div class="card-body">
-          <form id="">
+          <form  method="post" th:action="@{/queryStatistics/queryStatisticsByCondition}">
             <div class="form-group">
               <div class="col-sm-6">
-                <label class="col-form-label" >担任学期:</label>
-                <select class="custom-select"  name="addSemester" id="addSemester">
-                  <option th:each="semseter:${semesters}" th:value="${semseter.id}" th:text="${semseter.name}"></option>
+                <label class="col-form-label" >查看学期:</label>
+                <select class="custom-select"  name="semesterId" id="semesterId">
+                  <option th:each="semester:${semesters}" th:value="${semester.getId()}" th:text="${semester.getName()}"></option>
                 </select>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-6">
                 <label class="col-form-label" >审核状态:</label>
-                <input type="text" name="type" id="type">
+                <select class="custom-select"  name="documentStatus" id="documentStatus">
+<!--                  <option th:each="document:${documents}" th:value="${document.getId()}" th:text="${document.getStatus()}"></option>-->
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-6">
                 <label class="col-form-label">教师姓名:</label>
-                <input type="text" id="teacher" name="teacher">
+                <select class="custom-select"  name="teacherId" id="teacherId">
+                  <option th:each="teacher:${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}"></option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-6">
                 <label class="col-form-label">学生姓名:</label>
-                <input type="text" name="student" id="student">
+                <select class="custom-select"  name="studentId" id="studentId">
+                  <option th:each="student:${students}" th:value="${student.getId()}" th:text="${student.getName()}"></option>
+                </select>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-6">
                 <label class="col-form-label">文档类型:</label>
-                <input type="text" name="documentType" id="documentType">
+                <select class="custom-select"  name="documentTypeId" id="documentTypeId">
+                  <option th:each="documentType:${documentTypes}" th:value="${documentType.getId()}" th:text="${documentType.getName()}"></option>
+                </select>
               </div>
             </div>
             <div>
               <button type="submit" class="btn btn-primary btn-publish myCenter" style="width: 100px;">
-                确定
+                查询
               </button>
               <br>
             </div>
@@ -144,8 +155,6 @@
       </div>
     </div>
   </div>
-
-
 
 
   <!--页面注脚-->

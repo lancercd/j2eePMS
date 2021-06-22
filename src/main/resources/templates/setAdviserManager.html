@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>设置导师</title>
+    <title>设置老师管理</title>
 
     <!-- Bootstrap core CSS-->
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -21,7 +21,6 @@
     <link rel="stylesheet" th:href="@{/css/com/message.css}">
     <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
 </head>
-
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 <!-- Navigation-->
 <!-- 教学秘书导航模块 -->
@@ -92,48 +91,66 @@
             <li class="breadcrumb-item">
                 <a href="#">教学秘书</a>
             </li>
-            <li class="breadcrumb-item active">设置指导老师</li>
+            <li class="breadcrumb-item active">指导老师管理</li>
         </ol>
         <hr>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-table"></i> 指导教师管理 </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>担任的学期</th>
+                            <th>文档类型</th>
+                            <th>教师姓名</th>
+                            <th>要求信息</th>
+                            <th>是否同意</th>
+                            <th>是否删除</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>担任的学期</th>
+                            <th>文档类型</th>
+                            <th>教师姓名</th>
+                            <th>要求信息</th>
+                            <th>是否同意</th>
+                            <th>是否删除</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        <tr th:each="">
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                        </tr>
+                        <tr>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>63</td>
+                            <td>2011/07/25</td>
+                            <td>$170,750</td>
+                        </tr>
+                        <tr>
+                            <td>Ashton Cox</td>
+                            <td>Junior Technical Author</td>
+                            <td>San Francisco</td>
+                            <td>66</td>
+                            <td>2009/01/12</td>
+                            <td>$86,000</td>
+                        </tr>
 
-        <div class="container">
-            <div class="card card-register mx-auto mt-5">
-                <div class="card-body">
-                    <form method="post" th:action="@{/secretary/addAdviserTeacher}">
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                            <label class="col-form-label" >担任学期:</label>
-                            <select class="custom-select"  name="semesterId" id="semesterId">
-                                <option th:each="semseter:${semesters}" th:value="${semseter.getId()}" th:text="${semseter.getName()}"></option>
-                            </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label class="col-form-label" >文档类型:</label>
-                                <select class="custom-select"  name="documentTypeId" id="documentTypeId">
-                                    <option th:each="documentType:${documentTypes}" th:value="${documentType.getId()}" th:text="${documentType.getName()}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">
-                                <label class="col-form-label" >导师姓名:</label>
-                                <select class="custom-select"  name="teacherId" id="teacherId">
-                                    <option th:each="teacher:${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getNumber() + ':' + teacher.getName()}"></option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-primary btn-publish myCenter" style="width: 100px;">
-                                确定
-                            </button>
-                            <br>
-                        </div>
-                    </form>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
     <!--页面注脚-->
@@ -189,5 +206,4 @@
 
 </div>
 </body>
-
 </html>
