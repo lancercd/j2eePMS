@@ -122,5 +122,12 @@ public class StudentService {
         return studentMapper.logicalDeleteByPrimaryKey(id);
     }
 
-    
+    /**
+     * 更新（按id）
+     * @param student
+     * @return
+     */
+    public int updateById(Student student){
+        return studentMapper.updateByPrimaryKey(student);
+    }
 }

@@ -124,5 +124,12 @@ public class TeacherService {
         return teacherMapper.logicalDeleteByPrimaryKey(id);
     }
 
-    
+    /**
+     * 修改教师信息（by id）
+     * @param teacher
+     * @return
+     */
+    public int updateById(Teacher teacher){
+        return teacherMapper.updateByPrimaryKey(teacher);
+    }
 }
