@@ -107,5 +107,14 @@ public class AdminService {
     public int delete(Integer id) {
         return adminMapper.logicalDeleteByPrimaryKey(id);
     }
+
+    /**
+     * 更新管理员（by id）
+     * @param admin
+     * @return
+     */
+    public int updateById(Admin admin){
+        return adminMapper.updateByPrimaryKey(admin);
+    }
     
 }

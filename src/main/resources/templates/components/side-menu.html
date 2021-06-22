@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<!--学生的菜单-->
+<div th:if="${session.type} + '' eq 'STUDENT'" class="menu-wrap" th:fragment="size-menu-bar-student">
+    <div class="icon-list">
+        <a th:href="@{/student/selectAdviser}">
+            <span>选择指导老师</span>
+        </a>
+        <a th:href="@{/}">
+            <span>教师管理</span>
+        </a>
+        <a th:href="@{/}">
+            <span>Messages</span>
+        </a>
+    </div>
+</div>
+
+
+<!--老师的菜单-->
+<div th:if="${session.type} + '' eq 'TEACHER'" class="menu-wrap" th:fragment="size-menu-bar-teacher">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>菜单名</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--教学秘书的菜单-->
+<div th:if="${session.type} + '' eq 'SECRETARY'" class="menu-wrap" th:fragment="size-menu-bar-secertary">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>菜单名</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+        <a th:href="@{/}">
+            <span>...</span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--管理员的菜单-->
+<div th:if="${session.type} + '' eq 'ADMIN'" class="menu-wrap" th:fragment="size-menu-bar-admin">
+    <div class="icon-list">
+        <a th:href="@{/admin/adUserType}">
+            <span>用户类型管理</span>
+        </a>
+        <!-- 用户管理（可以做成子菜单吗） -->
+        <a th:href="@{/admin/adUser/student}">
+            <span>学生信息管理</span>
+        </a>
+        <a th:href="@{/admin/adUser/teacher}">
+            <span>教师信息管理</span>
+        </a>
+        <a th:href="@{/admin/adUser/admin}">
+            <span>管理员信息管理</span>
+        </a>
+        <a th:href="@{/admin/adUser/secretary}">
+            <span>教学助理信息管理</span>
+        </a>
+        <a th:href="@{/admin/adSemester}">
+            <span>学期管理</span>
+        </a>
+        <a th:href="@{/admin/adDocumentType}">
+            <span>上传资料管理</span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--游客 未登录的菜单-->
+<div th:if="(${session.type} + '' != 'ADMIN') and (${session.type} + '' != 'SECRETARY') and (${session.type} + '' != 'TEACHER') and (${session.type} + '' != 'STUDENT')" class="menu-wrap" th:fragment="size-menu-bar-unLogin">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>首页</span>
+        </a>
+        <a th:href="@{/}">
+            <span>登录</span>
+        </a>
+        <a th:href="@{/}">
+            <span>注销</span>
+        </a>
+    </div>
+</div>
+
+
+
+<div class="menu-wrap" th:fragment="size-menu-bar">
+    <link rel="stylesheet" th:href="@{/css/com/side-menu/normalize.css}" />
+    <link rel="stylesheet" th:href="@{/css/com/side-menu/demo.css}" />
+    <link rel="stylesheet" th:href="@{/css/com/side-menu/menu_sideslide.css}" />
+    <nav class="menu">
+        <div  th:replace="~{components/side-menu::size-menu-bar-student}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-teacher}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-secertary}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-admin}"></div>
+        <div  th:replace="~{components/side-menu::size-menu-bar-unLogin}"></div>
+    </nav>
+    <button class="close-button" id="close-button">Close Menu</button>
+    <script th:src="@{/js/com/side-menu/classie.js}"></script>
+    <script th:src="@{/js/com/side-menu/main.js}"></script>
+</div>
+
+
+</html>
