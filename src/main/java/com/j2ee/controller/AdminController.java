@@ -67,9 +67,18 @@ public class AdminController {
      */
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
-        Semester byId = semesterService.findById(id);
-        model.addAttribute("semester", byId);
+        model.addAttribute("semester", semesterService.findById(id));
         return "admin/edit";
+    }
+
+    /**
+     * 添加学期
+     * @param model
+     * @return
+     */
+    @GetMapping("/add")
+    public String edit(Model model){
+        return "admin/add";
     }
 
     /**
@@ -82,14 +91,27 @@ public class AdminController {
     @ResponseBody
     @PostMapping("/edit")
     public Object editSubmit(Integer id, String name) throws IOException {
-        System.out.println(id);
-        System.out.println(name);
         Semester byId = semesterService.findById(id);
         if(byId == null){
             return ResponseUtil.fail("修改失败，记录不存在！");
         }
         byId.setName(name);
         semesterService.updateById(byId);
+        return ResponseUtil.ok("修改成功！");
+    }
+
+    /**
+     * 添加学期
+     * @param name
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/add")
+    public Object addSubmit(String name) throws IOException {
+        Semester semester = new Semester();
+        semester.setName(name);
+        semesterService.add(semester);
         return ResponseUtil.ok("修改成功！");
     }
 }

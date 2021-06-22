@@ -6,6 +6,10 @@ $('#seach').click(function () {
     window.location.href = "/admin/adSemester?semesterId="+semester;
 });
 
+$('#add').click(function () {
+    window.location.href = "/admin/add";
+});
+
 const delRoute = '/admin/del/';
 
 const selectBtns = document.querySelectorAll('.select-adviser-btn');
