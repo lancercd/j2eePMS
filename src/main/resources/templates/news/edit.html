@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻首页</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+
+    <link rel="stylesheet" th:href="@{/kindeditor/themes/default/default.css}"/>
+    <script charset="utf-8" th:src="@{/kindeditor/kindeditor-all.js}"></script>
+    <script charset="utf-8" th:src="@{/kindeditor/lang/zh-CN.js}"></script>
+
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+
+<div th:replace="~{components/com::admin-topbar}"></div>
+
+
+<div class="container">
+
+    <form method="post" th:action="@{/news/addOrUpdate}">
+        <input hidden="hidden" class="form-control" name="id" id="id" th:value="${item.getId()}">
+        <div class="form-group row" style="margin-bottom: 25px;">
+            <label for="title" class="col-sm-2 col-form-label">标题</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="title" name="title" th:value="${item.getTitle()}">
+            </div>
+        </div>
+        <fieldset class="form-group row" style="margin-bottom: 25px;">
+            <legend class="col-form-label col-sm-2 float-sm-left pt-0">是否启用</legend>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isActive" id="gridRadios1" value="1" th:checked="${item.getIsActive() == true}">
+                    <label class="form-check-label" for="gridRadios1">
+                        启用
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="isActive" id="gridRadios2" value="0" th:checked="${item.getIsActive() != true}">
+                    <label class="form-check-label" for="gridRadios2">
+                        关闭
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row" disabled style="margin-bottom: 25px;">
+            <label for="addTime" class="col-sm-2 col-form-label">添加时间</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="addTime" name="addTime" th:value="${#temporals.format(item.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}" disabled>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 25px;">
+            <label for="content" class="col-sm-2 col-form-label">内容</label>
+            <div class="col-sm-10">
+                <textarea class="form-check-input" style="width: 100%; height: 500px;" id="content" name="content" th:text="${item.getContent()}"></textarea>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 25px; padding: 0 10px">
+            <button type="submit" style="width: 100%;" class="btn btn-primary">提交</button>
+        </div>
+    </form>
+
+</div>
+</body>
+<script>
+    let editor;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="content"]', {
+            //是否允许浏览服务器已上传文件,默认是false
+            allowFileManager: true,
+            uploadJson :"/upload",
+            afterBlur: function(){this.sync();}
+        });
+    });
+
+</script>
+</html>

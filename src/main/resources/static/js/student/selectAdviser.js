@@ -26,7 +26,6 @@ selectBtns.forEach((el, index) => {
                     msg: data.data,
                     closeable: true,
                 });
-
         },
             (msg) => {
                 message.show({

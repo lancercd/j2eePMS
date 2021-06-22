@@ -1,10 +1,18 @@
 package com.j2ee.controller;
 
 
+import com.j2ee.annotation.TeachingSecretaryLogin;
 import com.j2ee.db.dao.TeacherMapper;
+
 import com.j2ee.db.domain.Semester;
 import com.j2ee.db.domain.Teacher;
 import com.j2ee.db.domain.TeachingSecretary;
+
+import com.j2ee.db.domain.AdviserInfo;
+import com.j2ee.db.domain.Teacher;
+import com.j2ee.db.domain.TeachingSecretary;
+import com.j2ee.db.service.AdviserInfoService;
+
 import com.j2ee.db.service.SemesterService;
 import com.j2ee.db.service.TeacherService;
 import com.j2ee.utils.ResponseUtil;
@@ -31,10 +39,17 @@ public class SecretaryController {
     @Autowired
     private TeacherService teacherService;
 
+
+
+
+    private AdviserInfoService adviserInfoService;
+
     @Autowired
     private SemesterService semesterService;
 
 
+
+    @TeachingSecretaryLogin
     @GetMapping("/setTeacher")
     public String setTeacher() {
         return "/setTeacher";
@@ -77,6 +92,25 @@ public class SecretaryController {
             teacherService.insert(teacher);
         }
         return ResponseUtil.ok("成功");
+    }
+
+    @ResponseBody
+    @PostMapping("/setAdviser")
+    public Object setAdviser(Integer teacherId){
+        AdviserInfo adviserInfo = new AdviserInfo();
+        adviserInfo.setTeacherId(teacherId);
+        adviserInfo.setSemesterId(semesterService.getSemesterIdNow());
+        int num = adviserInfoService.add(adviserInfo);
+        if (num==0) return ResponseUtil.updatedDataFailed();
+        return ResponseUtil.ok();
+    }
+
+    @ResponseBody
+    @PostMapping("/cancelAdviser")
+    public Object cancelAdviser(Integer adviserId){
+        int num = adviserInfoService.delete(adviserId);
+        if (num==0) return ResponseUtil.updatedDataFailed();
+        return ResponseUtil.ok();
     }
 
 }

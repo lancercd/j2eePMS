@@ -4,6 +4,7 @@ import { isLoginPage } from '../utils/url.js';
 
 const loginForm = document.getElementById("login");
 const registerForm = document.getElementById("register");
+const registerBtns = document.querySelectorAll('.signup');
 
 function toggleForm(){
     let container = document.querySelector('.container');
@@ -26,6 +27,7 @@ function redirect(){
 function onLogin(){
     const username = loginForm.username.value;
     const pwd = loginForm.pwd.value;
+    const type = loginForm.type.value;
     if(username.trim() === ''){
         message.show({msg: "请输入用户名", type: 'error', closeable: true});
         return false;
@@ -41,6 +43,7 @@ function onLogin(){
         url: '/login',
         type: 'post',
         data: {
+            type,
             username,
             pwd
         }
@@ -58,8 +61,11 @@ function onLogin(){
     return false;
 }
 
-
-
+registerBtns.forEach((el, index) => {
+    el.addEventListener('click', () => {
+        toggleForm();
+    }, false);
+})
 
 loginForm.onsubmit = onLogin;
 registerForm.onsubmit = () => {}

@@ -26,7 +26,7 @@
         <h2 style="display: flex; align-items: center; justify-content: center;">编辑信息</h2>
     </div>
 
-    <form>
+    <form id="edit-form">
         <input hidden="hidden" class="form-control" name="id" id="id" th:value="${id}">
         <div class="form-group row" style="margin-bottom: 25px;">
             <label class="col-sm-2 col-form-label">导师姓名</label>
@@ -48,18 +48,18 @@
             </div>
         </div>
         <div class="form-group row" disabled style="margin-bottom: 25px;">
-            <label for="addTime" class="col-sm-2 col-form-label">学期</label>
+            <label class="col-sm-2 col-form-label">学期</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="addTime" th:value="${info.getSemester().getName()}" disabled>
+                <input type="text" class="form-control" th:value="${info.getSemester().getName()}" disabled>
             </div>
         </div>
         <div class="form-group">
             <label for="exampleFormControlFile1">资料</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">自我介绍</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:value="${info.getIntro()}"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:text="${info.getIntro()}" name="intro"></textarea>
         </div>
         <div class="form-group row" style="margin-bottom: 25px; padding: 0 10px">
             <button type="submit" style="width: 100%;" class="btn btn-primary">提交</button>
@@ -69,7 +69,5 @@
 
 </div>
 </body>
-<script>
-
-</script>
+<script type="module" th:src="@{/js/student/edit.js}"></script>
 </html>

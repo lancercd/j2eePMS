@@ -81,6 +81,24 @@ public class ResponseUtil {
         return obj;
     }
 
+
+    public static Object uploadSuccess(Object url) {
+        Map<String, Object> obj = new HashMap<String, Object>();
+        obj.put("error", 0);
+        obj.put("url", url);
+        return obj;
+    }
+
+
+    public static Object uploadFail(String message) {
+        Map<String, Object> obj = new HashMap<String, Object>();
+        obj.put("error", 1);
+        obj.put("code", 400);
+        obj.put("message", message);
+        obj.put("msg", message);
+        return obj;
+    }
+
     public static Object badArgument() {
         return fail(401, "参数不对");
     }

@@ -124,5 +124,21 @@ public class TeacherService {
         return teacherMapper.logicalDeleteByPrimaryKey(id);
     }
 
-    
+    /**
+     * 修改教师信息（by id）
+     * @param teacher
+     * @return
+     */
+    public int updateById(Teacher teacher) {
+        return teacherMapper.updateByPrimaryKey(teacher);
+    }
+
+    public List<Teacher> queryAppraiser(Integer id){
+        TeacherExample teacherExample = new TeacherExample();
+        TeacherExample.Criteria criteria = teacherExample.createCriteria();
+        criteria.andLogicalDeleted(false).andIdNotEqualTo(id);
+        return teacherMapper.selectByExample(teacherExample);
+    }
+
+
 }

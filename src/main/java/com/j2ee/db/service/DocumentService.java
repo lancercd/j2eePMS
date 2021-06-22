@@ -57,8 +57,28 @@ public class DocumentService {
     public int add(Document doc) {
         doc.setStatus((byte)0);
         doc.setAddTime(LocalDateTime.now());
+        doc.setIsDel(false);
 
         return documentMapper.insert(doc);
+    }
+
+
+    /**
+     * update Selective
+     * @param doc doc
+     * @return int
+     */
+    public int updateSelective(Document doc){
+        return documentMapper.updateByPrimaryKeySelective(doc);
+    }
+
+    /**
+     * update all
+     * @param doc doc
+     * @return int
+     */
+    public int update(Document doc){
+        return documentMapper.updateByPrimaryKey(doc);
     }
 
 

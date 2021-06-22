@@ -1,10 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <title>首页</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-<h1>index</h1>
+
+<div th:replace="~{components/com::topbar}"></div>
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="input-group col-3 column">
+            <input type="text" class="form-control input-small" name="title" th:value="${title}"  id="title" placeholder="请输入要搜索的新闻标题" autocomplete="off">
+            <span class="input-group-addon btn btn-primary" id="titleBtn" style="background-color:#007bff; border: none">搜索</span>
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+    <div class="jumbotron" th:each="item:${lists}">
+
+        <div class="d-flex w-100 justify-content-between">
+            <h1 class="display-4 mb-1" th:text="${item.getTitle()}"></h1>
+            <small th:text="${#temporals.format(item.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></small>
+        </div>
+        <div class="lead overflow-hidden" style="max-height: 50px;" th:utext="${item.getContent()}"></div>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" style="background-color: #e74c3c; border-color: #e74c3c;" th:href="'/news' + @{/detail} + '?id=' + ${item.getId()}" role="button">more</a>
+    </div>
+    <!--    </div>-->
+
+</div>
 </body>
+<script>
+    $('#titleBtn').click(function () {
+        const title = $("#title").val();
+        console.log(title)
+        if(title !== ''){
+            window.location.href = "/index?title="+title;
+        }else{
+            window.location.href = "/index";
+        }
+    });
+
+</script>
 </html>
