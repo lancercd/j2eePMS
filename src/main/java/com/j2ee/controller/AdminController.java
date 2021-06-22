@@ -1,25 +1,21 @@
 package com.j2ee.controller;
 
-
 import com.j2ee.db.domain.*;
 import com.j2ee.db.service.*;
 import com.j2ee.service.StudentTeacherChoiceService;
 import com.j2ee.utils.ResponseUtil;
-import com.j2ee.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 管理员界面
  */
 @Controller
 @RequestMapping("admin")
+@SuppressWarnings({"all"})
 public class AdminController {
     @Autowired
     private StudentTeacherChoiceService studentTeacherChoiceService;
@@ -42,6 +38,8 @@ public class AdminController {
     @Autowired
     private TeachingSecretaryService teachingSecretaryService;
 
+    @Autowired
+    private UserTypeService userTypeService;
 
     /**
      * 学期管理界面
@@ -73,6 +71,22 @@ public class AdminController {
             model.addAttribute("documentTypes", documentTypeService.queryAll());
         }
         return "admin/adDocumentType";
+    }
+
+    /**
+     * 用户类型管理界面
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/adUserType")
+    public String userType(Integer id, Model model){
+        if(id != null && id != 0){
+            model.addAttribute("userTypes", userTypeService.findById(id));
+        } else {
+            model.addAttribute("userTypes", userTypeService.queryAll());
+        }
+        return "admin/adUserType";
     }
 
     /**
@@ -172,6 +186,22 @@ public class AdminController {
     }
 
     /**
+     * 删除用户类型
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/user/del/{id}")
+    public Object delUserType(@PathVariable Integer id){
+        UserType byId = userTypeService.findById(id);
+        if(byId == null){
+            return ResponseUtil.fail("未找到该记录！");
+        }
+        userTypeService.delete(id);
+        return ResponseUtil.ok("删除成功！");
+    }
+
+    /**
      * 删除学生类型
      * @param id
      * @return
@@ -260,6 +290,18 @@ public class AdminController {
     }
 
     /**
+     * 修改用户类型
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/user/edit/{id}")
+    public String userEdit(@PathVariable Integer id, Model model){
+        model.addAttribute("documentType", userTypeService.findById(id));
+        return "admin/user_edit";
+    }
+
+    /**
      * 修改学生类型
      * @param id
      * @param model
@@ -325,6 +367,16 @@ public class AdminController {
     @GetMapping("/doc/add")
     public String doc_edit(Model model){
         return "admin/doc_add";
+    }
+
+    /**
+     * 添加用户类型
+     * @param model
+     * @return
+     */
+    @GetMapping("/user/add")
+    public String user_edit(Model model){
+        return "admin/user_add";
     }
 
     /**
@@ -402,6 +454,25 @@ public class AdminController {
         }
         byId.setName(name);
         documentTypeService.updateById(byId);
+        return ResponseUtil.ok("修改成功！");
+    }
+
+    /**
+     * 修改用户类型
+     * @param id
+     * @param name
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/user/edit")
+    public Object docUserSubmit(Integer id, String name) throws IOException {
+        UserType byId = userTypeService.findById(id);
+        if(byId == null){
+            return ResponseUtil.fail("修改失败，记录不存在！");
+        }
+        byId.setName(name);
+        userTypeService.updateById(byId);
         return ResponseUtil.ok("修改成功！");
     }
 
@@ -496,6 +567,21 @@ public class AdminController {
         DocumentType documentType = new DocumentType();
         documentType.setName(name);
         documentTypeService.add(documentType);
+        return ResponseUtil.ok("修改成功！");
+    }
+
+    /**
+     * 添加用户类型
+     * @param name
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/user/add")
+    public Object userAddSubmit(String name) throws IOException{
+        UserType userType = new UserType();
+        userType.setName(name);
+        userTypeService.add(userType);
         return ResponseUtil.ok("修改成功！");
     }
 

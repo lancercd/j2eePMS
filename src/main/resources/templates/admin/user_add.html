@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>修改资料管理信息</title>
+    <title>修改用户类型信息</title>
 
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/bootstrap4/bootstrap.css}">
@@ -28,15 +28,15 @@
 
     <form id="edit-form">
         <div class="form-group row" style="margin-bottom: 25px;">
-            <label class="col-sm-2 col-form-label">资料类型id</label>
+            <label class="col-sm-2 col-form-label">用户类型id</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" value="-" disabled>
             </div>
         </div>
         <div class="form-group row" style="margin-bottom: 25px;">
-            <label class="col-sm-2 col-form-label">资料类型</label>
+            <label class="col-sm-2 col-form-label">用户类型</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="name" id="name" placeholder="请输入资料类型">
+                <input type="text" class="form-control" name="name" id="name" placeholder="请输入用户类型">
             </div>
         </div>
         <div class="form-group row" style="margin-bottom: 25px; padding: 0 10px">
@@ -46,5 +46,5 @@
 
 </div>
 </body>
-<script type="module" th:src="@{/js/admin/doc_add.js}"></script>
+<script type="module" th:src="@{/js/admin/user_add.js}"></script>
 </html>
