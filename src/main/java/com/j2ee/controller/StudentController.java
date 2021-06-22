@@ -4,10 +4,16 @@ package com.j2ee.controller;
 
 import com.j2ee.annotation.LoginUid;
 import com.j2ee.annotation.StudentLogin;
+import com.j2ee.db.domain.AdviserInfo;
+import com.j2ee.db.domain.Document;
 import com.j2ee.db.domain.StuTeaCh;
 import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.AdviserInfoService;
+import com.j2ee.db.service.DocumentService;
+import com.j2ee.db.service.StuTeaChService;
+import com.j2ee.utils.FileUploadUtil;
 import com.j2ee.utils.ResponseUtil;
+import com.j2ee.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +22,7 @@ import com.j2ee.service.StudentTeacherChoiceService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -29,7 +35,17 @@ public class StudentController {
 
 
     @Autowired
+    private StuTeaChService stuTeaChService;
+
+
+    @Autowired
     private AdviserInfoService adviserInfoService;
+
+
+    @Autowired
+    private DocumentService documentService;
+
+
 
 
 
@@ -169,12 +185,59 @@ public class StudentController {
     @PostMapping("/edit")
     public Object editSubmit(@LoginUid Integer uid, Integer id, String intro, MultipartFile file) throws IOException {
 
-        //TODO 验证信息 存进数据库
-        System.out.println(uid);
-        System.out.println(id);
-        System.out.println(intro);
-        System.out.println(file.getName());
-        System.out.println(file.getOriginalFilename());
+        if (file.getSize() == 0) {
+            return ResponseUtil.uploadFail("请选择文件");
+        }
+
+        if(StringUtils.isEmpty(intro)){
+            return ResponseUtil.fail("请输入自我介绍");
+        }
+
+        StuTeaCh info = studentTeacherChoiceService.findStuTeachById(id);
+        if(info == null || !info.getStudentId().equals(uid)){
+            return ResponseUtil.fail("未找到该记录!");
+        }
+
+        Integer docId = info.getDocumentId();
+        Document doc = null;
+        if(docId != null){
+            doc = documentService.findById(docId);
+            if(doc.getStatus() == (byte)1){
+                return ResponseUtil.fail("已审核,无法修改");
+            }
+        }
+
+        String path = null;
+
+        try {
+            path = FileUploadUtil.save(file);
+        } catch (Exception e) {
+            return ResponseUtil.uploadFail("上传文件失败!");
+        }
+
+
+        //编辑
+        if(doc != null){
+            doc.setPath(path);
+            doc.setStatus((byte)0);
+            documentService.update(doc);
+        }else{
+            doc = new Document();
+            AdviserInfo adv = adviserInfoService.findById(info.getAdviserInfo());
+            doc.setTypeId(adv.getDocTypeId() == null? 1 : adv.getDocTypeId());
+            doc.setStudentId(uid);
+            doc.setStatus((byte)0);
+            doc.setPath(path);
+            docId = documentService.add(doc);
+        }
+
+        info.setDocumentId(docId);
+        info.setIntro(intro);
+
+
+        if(stuTeaChService.update(info) == 0){
+            return ResponseUtil.fail("添加失败!");
+        }
 
 
         return ResponseUtil.ok("添加成功!");
