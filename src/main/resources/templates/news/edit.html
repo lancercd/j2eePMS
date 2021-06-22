@@ -53,7 +53,7 @@
         <div class="form-group row" disabled style="margin-bottom: 25px;">
             <label for="addTime" class="col-sm-2 col-form-label">添加时间</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="addTime" name="addTime" th:value="${item.getAddTime()}" disabled>
+                <input type="text" class="form-control" id="addTime" name="addTime" th:value="${#temporals.format(item.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}" disabled>
             </div>
         </div>
         <div class="form-group row" style="margin-bottom: 25px;">

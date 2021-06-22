@@ -35,7 +35,7 @@
 
         <div class="d-flex w-100 justify-content-between">
             <h1 class="display-4 mb-1" th:text="${item.getTitle()}"></h1>
-            <small th:text="${item.getAddTime()}"></small>
+            <small th:text="${#temporals.format(item.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></small>
         </div>
         <div class="lead overflow-hidden" style="max-height: 50px;" th:utext="${item.getContent()}"></div>
         <hr class="my-4">

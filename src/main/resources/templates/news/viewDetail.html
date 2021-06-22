@@ -26,7 +26,8 @@
             <h1 class="display-4" th:text="${item.getTitle()}"></h1>
             <hr class="my-4">
             <p class="lead" th:utext="${item.getContent()}"></p>
-            <small th:text="${item.getAddTime()}"></small>
+            
+            <small th:text="${#temporals.format(item.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></small>
         </div>
     </div>
 
