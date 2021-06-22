@@ -49,6 +49,7 @@ public class NewsService {
         NewsExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andTitleEqualTo(title);
+        example.orderBy("add_time DESC");
 
         return newsMapper.selectOneByExample(example);
     }
@@ -65,6 +66,7 @@ public class NewsService {
         NewsExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andTitleLike("%" + title + "%");
+        example.orderBy("add_time DESC");
 
         return newsMapper.selectByExample(example);
     }
@@ -82,6 +84,7 @@ public class NewsService {
         NewsExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andIsActiveEqualTo(isActive);
+        example.orderBy("add_time DESC");
 
         return newsMapper.selectByExample(example);
     }
@@ -97,7 +100,8 @@ public class NewsService {
         NewsExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andIsActiveEqualTo(true);
-        criteria.andTitleEqualTo(title);
+        criteria.andTitleLike("%" + title + "%");
+        example.orderBy("add_time DESC");
 
         return newsMapper.selectByExample(example);
     }
@@ -111,6 +115,7 @@ public class NewsService {
     public List<News> queryAll(){
         NewsExample example = new NewsExample();
         example.or().andLogicalDeleted(false);
+        example.orderBy("add_time DESC");
 
         return newsMapper.selectByExample(example);
     }

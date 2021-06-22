@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻管理列表</title>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+
+    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+
+<div th:replace="~{components/com::admin-topbar}"></div>
+
+
+<div class="container-fluid">
+    <div class="title"><h3>新闻列表</h3></div>
+
+    <div class="row">
+        <div class="input-group col-3 column">
+            <input type="text" class="form-control input-small" name="title" th:value="${title}" id="title" placeholder="请输入要搜索的新闻标题" autocomplete="off">
+            <span class="input-group-addon btn btn-primary" id="titleBtn" style="background-color:#007bff; border: none">搜索</span>
+        </div>
+        <div class="col-4 column">
+            <a class="btn btn-primary" th:href="@{/news/add}" style="background-color:#007bff; border: none">添加新闻</a>
+        </div>
+
+    </div>
+
+    <br>
+    <div class="row clearfix">
+        <div class="col-md-12 column" th:fragment="div1" th:id="div1" >
+            <table class="table align-content-center table-striped" id="scoreTable" style="text-align: center">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">标题</th>
+                    <th scope="col">内容</th>
+                    <th scope="col">是否开启</th>
+                    <th scope="col">添加时间</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr style="height: 10px!important; overflow: hidden;" th:each="list:${lists}">
+                        <th scope="row" th:text="${list.getId()}"></th>
+                        <td th:text="${list.getTitle()}"></td>
+                        <td  style="max-width: 200px; height: 10px; overflow: no-display;" th:text="${list.getContent}"></td>
+                        <td th:text="${list.getIsActive()}"></td>
+                        <td th:text="${ #temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{'/news/edit/'+${list.getId()}}" style="background-color:#e67e22; border: none">修改</a>
+                            <a class="btn btn-danger" th:href="@{'/news/delete/'+${list.getId()}}">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    $('#titleBtn').click(function () {
+        console.log("点击");
+        const title = $("#title").val();
+        console.log(title)
+        if(title !== ''){
+            window.location.href = "/news/admin/list?title="+title;
+        }else{
+            window.location.href = "/news/admin/list";
+        }
+    });
+
+</script>
+</html>
