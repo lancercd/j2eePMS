@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/teacher")
@@ -73,11 +75,18 @@ public class TeacherController {
         Teacher teacher = teacherService.findById(teacherId);
         int semesterIdNow = semesterService.getSemesterIdNow();
         AdviserInfo adviserInfo = adviserInfoService.queryAdviserInfo(teacherId, semesterIdNow);
-        List<Semester> semesters = semesterService.queryAll();
-        md.addAttribute("semesters",semesters);
+        Semester semester = semesterService.findById(semesterIdNow);
+        md.addAttribute("semester",semester);
         md.addAttribute("teacher",teacher);
+        if (adviserInfo==null) return "redirect:/teacher/error";
         md.addAttribute("adviserInfo",adviserInfo);
         return "/teacher/teacher_confirms";
+    }
+
+    @ResponseBody
+    @GetMapping("/error")
+    public Object error(){
+        return "<script>alert('您未被教学秘书指派为指导教师');window.history.go(-1)</script>";
     }
 
     @GetMapping("/guidanceSelect")
@@ -115,5 +124,51 @@ public class TeacherController {
         Integer res = adviserInfoService.updateReqInfo(teacherId, semesterIdNow, content);
         if (res==0) return ResponseUtil.updatedDataFailed();
         return ResponseUtil.ok();
+    }
+
+    @GetMapping("/guidanceInfo")
+    public String guidanceInfo(Model md,Integer semesterId){
+        if (semesterId==null) semesterId = semesterService.getSemesterIdNow();
+        List<Semester> semesters = semesterService.queryAll();
+        md.addAttribute("semesters",semesters);
+        List<AdviserInfo> adviserInfos = adviserInfoService.queryBySemesterId(semesterId);
+        List<Map<String,Object>> list = new ArrayList<>();
+        System.out.println(adviserInfos);
+        for (AdviserInfo temp:adviserInfos){
+            Map<String,Object> map = new HashMap<>();
+            Teacher teacher = teacherService.findById(temp.getTeacherId());
+            map.put("name",teacher.getName());
+            List<Integer> ids = stuTeaChService.queryStudentIdByAdviserId(teacher.getId(),semesterService.getSemesterIdNow());
+            String studentName = studentService.queryStudentName(ids);
+            map.put("studentName",studentName);
+            list.add(map);
+        }
+        md.addAttribute("infos",list);
+        return "/teacher/teacher_adviserInfo";
+    }
+
+    @GetMapping("/gudianceQuery")
+    public String gudianceQuery(Model md,Integer semesterId){
+        if (semesterId==null) semesterId=semesterService.getSemesterIdNow();
+        List<Semester> semesters = semesterService.queryAll();
+        md.addAttribute("semesters",semesters);
+        List<AdviserInfo> adviserInfos = adviserInfoService.queryAdviserInfoBySemesterId(semesterId);
+        List<Map<String,Object>> list = new ArrayList<>();
+        for (AdviserInfo temp:adviserInfos){
+            List<Integer> ids = stuTeaChService.queryStudentIdByAdviserId(temp.getId(), semesterId);
+            Map<String,Object> map= new HashMap<>();
+            map.put("name",teacherService.findById(temp.getTeacherId()).getName());
+            if (temp.getIsAccept()==(byte)1){
+                map.put("condition","已同意");
+            }else if(temp.getIsAccept()==(byte)0){
+                map.put("condition","未答复");
+            }else {
+                map.put("condition","已拒绝");
+            }
+            map.put("studentName",studentService.queryStudentName(ids));
+            list.add(map);
+        }
+        md.addAttribute("infos",list);
+        return "/teacher/teacher_adviserQuery";
     }
 }

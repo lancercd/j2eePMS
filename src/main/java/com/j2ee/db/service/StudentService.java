@@ -142,4 +142,16 @@ public class StudentService {
         return studentMapper.updateByPrimaryKey(student);
     }
 
+    public String queryStudentName(List<Integer> ids){
+        String res = "";
+        if(ids.size()==0) return res;
+        StudentExample studentExample = new StudentExample();
+        StudentExample.Criteria criteria = studentExample.createCriteria();
+        criteria.andIdIn(ids);
+        List<Student> students = studentMapper.selectByExample(studentExample);
+        for (Student temp:students){
+            res+=temp.getName()+"  ";
+        }
+        return res;
+    }
 }
