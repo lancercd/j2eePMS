@@ -3,8 +3,10 @@ import Message from '../utils/Message.js';
 
 $('#seach').click(function () {
     const semester = $("#semester").val();
-    window.location.href = "/student/selectAdviser?semesterId="+semester;
+    window.location.href = "/admin/adSemester?semesterId="+semester;
 });
+
+const delRoute = '/admin/del/';
 
 const selectBtns = document.querySelectorAll('.select-adviser-btn');
 const message = new Message();
@@ -13,10 +15,10 @@ selectBtns.forEach((el, index) => {
         const target = e.target;
         const id = target.dataset.id;
         request({
-            url: '/student/adviser/add',
+            url: delRoute + id,
             type: 'POST',
             data: {
-                adviserId: id
+                semesterId: id
             }
         }).then(
             (data) => {
@@ -26,14 +28,15 @@ selectBtns.forEach((el, index) => {
                     msg: data.data,
                     closeable: true,
                 });
-        },
+                window.location.reload();
+            },
             (msg) => {
                 message.show({
                     type: 'info',
                     msg: msg.msg,
                     closeable: true,
                 });
-        });
+            });
 
     })
 })

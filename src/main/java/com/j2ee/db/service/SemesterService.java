@@ -62,4 +62,8 @@ public class SemesterService {
         return semesterMapper.deleteByPrimaryKey(id);
     }
 
+    public int updateById(Semester semester){
+        return semesterMapper.updateByPrimaryKey(semester);
+    }
+
 }
