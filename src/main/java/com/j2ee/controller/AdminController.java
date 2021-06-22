@@ -1,5 +1,6 @@
 package com.j2ee.controller;
 
+import com.j2ee.annotation.AdminLogin;
 import com.j2ee.db.domain.*;
 import com.j2ee.db.service.*;
 import com.j2ee.service.StudentTeacherChoiceService;
@@ -46,6 +47,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adSemester")
     public String semesterType(Integer semesterId, Model model){
         if(semesterId != null && semesterId != 0){
@@ -63,6 +65,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adDocumentType")
     public String documentType(Integer id, Model model){
         if(id != null && id != 0){
@@ -79,6 +82,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUserType")
     public String userType(Integer id, Model model){
         if(id != null && id != 0){
@@ -95,6 +99,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/student")
     public String studentType(String number, Model model){
         if(number != null && number != ""){
@@ -111,6 +116,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/teacher")
     public String teacherType(String number, Model model){
         if(number != null && number != ""){
@@ -127,6 +133,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/secretary")
     public String secretaryType(Integer id, Model model){
         if(id != null && id != 0){
@@ -143,6 +150,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/admin")
     public String adminType(Integer id, Model model){
         if(id != null && id != 0){
@@ -271,6 +279,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         model.addAttribute("semester", semesterService.findById(id));
@@ -283,6 +292,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/doc/edit/{id}")
     public String docEdit(@PathVariable Integer id, Model model){
         model.addAttribute("documentType", documentTypeService.findById(id));
@@ -295,6 +305,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/user/edit/{id}")
     public String userEdit(@PathVariable Integer id, Model model){
         model.addAttribute("userType", userTypeService.findById(id));
@@ -307,6 +318,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/edit/student/{id}")
     public String studentEdit(@PathVariable Integer id, Model model){
         model.addAttribute("student", studentService.findById(id));
@@ -319,6 +331,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/edit/teacher/{id}")
     public String teacherEdit(@PathVariable Integer id, Model model){
         model.addAttribute("teacher", teacherService.findById(id));
@@ -331,6 +344,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/edit/admin/{id}")
     public String adminEdit(@PathVariable Integer id, Model model){
         model.addAttribute("admin", adminService.findById(id));
@@ -343,6 +357,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/edit/secretary/{id}")
     public String secretaryEdit(@PathVariable Integer id, Model model){
         model.addAttribute("secretary", teachingSecretaryService.findById(id));
@@ -354,6 +369,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/add")
     public String edit(Model model){
         return "admin/add";
@@ -364,6 +380,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/doc/add")
     public String doc_edit(Model model){
         return "admin/doc_add";
@@ -374,6 +391,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/user/add")
     public String user_edit(Model model){
         return "admin/user_add";
@@ -384,6 +402,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/addStudent")
     public String student_edit(Model model){
         return "admin/adUser/student_add";
@@ -394,6 +413,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/addTeacher")
     public String teacherEdit(Model model){
         return "admin/adUser/teacher_add";
@@ -404,6 +424,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/addAdmin")
     public String adminEdit(Model model){
         return "admin/adUser/admin_add";
@@ -414,6 +435,7 @@ public class AdminController {
      * @param model
      * @return
      */
+    @AdminLogin
     @GetMapping("/adUser/addSecretary")
     public String secretaryEdit(Model model){
         return "admin/adUser/secretary_add";

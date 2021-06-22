@@ -82,6 +82,20 @@
 
 
 
+<!--游客 未登录的菜单-->
+<div th:if="(${session.type} + '' != 'ADMIN') and (${session.type} + '' != 'SECRETARY') and (${session.type} + '' != 'TEACHER') and (${session.type} + '' != 'STUDENT')" class="menu-wrap" th:fragment="size-menu-bar-unLogin">
+    <div class="icon-list">
+        <a th:href="@{/}">
+            <span>首页</span>
+        </a>
+        <a th:href="@{/}">
+            <span>登录</span>
+        </a>
+        <a th:href="@{/}">
+            <span>注销</span>
+        </a>
+    </div>
+</div>
 
 
 
