@@ -297,7 +297,7 @@ public class AdminController {
      */
     @GetMapping("/user/edit/{id}")
     public String userEdit(@PathVariable Integer id, Model model){
-        model.addAttribute("documentType", userTypeService.findById(id));
+        model.addAttribute("userType", userTypeService.findById(id));
         return "admin/user_edit";
     }
 

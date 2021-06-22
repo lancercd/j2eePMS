@@ -1,15 +1,11 @@
 package com.j2ee.db.service;
 
-import com.j2ee.db.dao.DocumentMapper;
 import com.j2ee.db.dao.UserTypeMapper;
-import com.j2ee.db.domain.Document;
-import com.j2ee.db.domain.DocumentExample;
 import com.j2ee.db.domain.UserType;
 import com.j2ee.db.domain.UserTypeExample;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
