@@ -2,15 +2,15 @@ import request from '../utils/request.js';
 import Message from '../utils/Message.js';
 
 $('#seach').click(function () {
-    const semester = $("#semester").val();
-    window.location.href = "/admin/adSemester?semesterId="+semester;
+    const document = $("#document").val();
+    window.location.href = "/admin/adDocumentType?id="+document;
 });
 
 $('#add').click(function () {
-    window.location.href = "/admin/doc_add";
+    window.location.href = "/admin/doc/add";
 });
 
-const delRoute = '/admin/del/';
+const delRoute = '/admin/doc/del/';
 
 const selectBtns = document.querySelectorAll('.select-adviser-btn');
 const message = new Message();

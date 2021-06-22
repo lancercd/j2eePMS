@@ -5,17 +5,10 @@ import Message from '../utils/Message.js';
 const message = new Message();
 
 const editForm = document.getElementById('edit-form');
-const route = '/admin/add';
+const route = '/admin/doc/edit';
 
 function onSubmit() {
-    const name = editForm.name.value;
-    if(name.trim() === ''){
-        message.show({
-            msg: "学期内容不能为空！",
-            type: 'error',
-            closeable: true
-        });
-    }
+    console.log('submit');
 
     const formData = new FormData(editForm);
     request({
@@ -31,7 +24,7 @@ function onSubmit() {
                 msg: data.data,
                 closeable: true,
             });
-            window.location.href = '/admin/adSemester';
+            window.location.href = '/admin/adDocumentType';
 
         },
         (msg) => {
@@ -41,7 +34,6 @@ function onSubmit() {
                 closeable: true,
             });
         });
-
     return false;
 }
 
