@@ -67,6 +67,7 @@ public class DocumentTypeService {
         return documentTypeMapper.deleteByPrimaryKey(id);
     }
 
-
-
+    public int updateById(DocumentType type){
+        return documentTypeMapper.updateByPrimaryKey(type);
+    }
 }

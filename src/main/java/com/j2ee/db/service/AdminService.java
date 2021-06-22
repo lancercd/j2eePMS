@@ -4,6 +4,7 @@ package com.j2ee.db.service;
 import com.j2ee.db.dao.AdminMapper;
 import com.j2ee.db.domain.Admin;
 import com.j2ee.db.domain.AdminExample;
+import com.j2ee.db.domain.Semester;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -106,6 +107,5 @@ public class AdminService {
     public int delete(Integer id) {
         return adminMapper.logicalDeleteByPrimaryKey(id);
     }
-
     
 }

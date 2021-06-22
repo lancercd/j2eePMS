@@ -93,7 +93,7 @@ public class NewsController {
 
 
 
-//    @TeachingSecretaryLogin
+    @TeachingSecretaryLogin
     @GetMapping("/admin/list")
     public Object AdminNewsList(String title, Model model){
 
@@ -122,6 +122,7 @@ public class NewsController {
 
 
 
+    @TeachingSecretaryLogin
     @PostMapping("/addOrUpdate")
     public Object addOrUpdateNews(News news){
 
@@ -136,12 +137,14 @@ public class NewsController {
     }
 
 
+    @TeachingSecretaryLogin
     @GetMapping("/add")
     public Object detail(Model model){
 
         return "news/add";
     }
 
+    @TeachingSecretaryLogin
     @GetMapping("/edit/{id}")
     public Object edit(@PathVariable("id") Integer id, Model model){
 
@@ -160,6 +163,7 @@ public class NewsController {
     }
 
 
+    @TeachingSecretaryLogin
     @GetMapping("/delete/{id}")
     public Object delete(@PathVariable("id") Integer id){
         newsService.delete(id);
