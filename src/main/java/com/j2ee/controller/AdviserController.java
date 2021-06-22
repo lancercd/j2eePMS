@@ -68,4 +68,12 @@ public class AdviserController {
     public Object agreeStudent(Integer stuTeaId,Boolean isAccept){
             return stuTeaChService.agreeStudent(stuTeaId,isAccept);
     }
+
+    @ResponseBody
+    @PostMapping("/selectAppraiser")
+    public Object selectAppraiser(Integer teacherId,Integer stuTeaChId){
+        Integer num = stuTeaChService.selectAppraiser(teacherId, stuTeaChId);
+        if (num==0) return ResponseUtil.updatedDataFailed();
+        return ResponseUtil.ok();
+    }
 }

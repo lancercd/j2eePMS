@@ -135,4 +135,6 @@ public class TeacherService {
         criteria.andLogicalDeleted(false).andIdNotEqualTo(id);
         return teacherMapper.selectByExample(teacherExample);
     }
+
+
 }
