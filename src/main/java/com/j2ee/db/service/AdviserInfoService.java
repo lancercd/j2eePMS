@@ -66,7 +66,7 @@ public class AdviserInfoService {
         AdviserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andIsAcceptEqualTo((byte)1);
-        criteria.andSemesterIdEqualTo(semesterId);
+        if(semesterId!=0)criteria.andSemesterIdEqualTo(semesterId);
         example.orderBy("add_time DESC");
 
         return adviserInfoMapper.selectByExample(example);
@@ -186,7 +186,8 @@ public class AdviserInfoService {
     public AdviserInfo queryAdviserInfo(Integer teacherId,Integer semesterId){
         AdviserInfoExample example = new AdviserInfoExample();
         AdviserInfoExample.Criteria criteria = example.createCriteria();
-        criteria.andTeacherIdEqualTo(teacherId).andSemesterIdEqualTo(semesterId);
+        criteria.andTeacherIdEqualTo(teacherId);
+        if (semesterId!=null) criteria.andSemesterIdEqualTo(semesterId);
         return adviserInfoMapper.selectOneByExample(example);
 
     }
