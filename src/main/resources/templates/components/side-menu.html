@@ -50,8 +50,8 @@
 <!--教学秘书的菜单-->
 <div th:if="${session.type} + '' eq 'SECRETARY'" class="menu-wrap" th:fragment="size-menu-bar-secertary">
     <div class="icon-list">
-        <a th:href="@{/}">
-            <span>菜单名</span>
+        <a th:href="@{/news/admin/list}">
+            <span>新闻管理</span>
         </a>
         <a th:href="@{/}">
             <span>...</span>
