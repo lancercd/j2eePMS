@@ -92,12 +92,12 @@ public class StuTeaChService {
      * @param teaId 老师id
      * @return list of StuTeaCh
      */
-    public List<StuTeaCh> queryByTeaId(Integer teaId){
+    public List<StuTeaCh> queryByTeaId(Integer teaId, byte isAccept){
         StuTeaChExample example = new StuTeaChExample();
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andTeacherIdEqualTo(teaId);
-        criteria.andIsAcceptEqualTo((byte) 0);
+        criteria.andIsAcceptEqualTo(isAccept);
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -143,12 +143,12 @@ public class StuTeaChService {
      * @param semesterId    学期id
      * @return list of StuTeaCh
      */
-    public List<StuTeaCh> queryByTeaIdAndSemester(Integer teaId, Integer semesterId){
+    public List<StuTeaCh> queryByTeaIdAndSemester(Integer teaId, Integer semesterId, byte isAccept){
         StuTeaChExample example = new StuTeaChExample();
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andTeacherIdEqualTo(teaId);
-        criteria.andIsAcceptEqualTo((byte) 0);
+        criteria.andIsAcceptEqualTo(isAccept);
         criteria.andSemesterIdEqualTo(semesterId);
 
         return stuTeaChMapper.selectByExample(example);

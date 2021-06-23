@@ -1,10 +1,12 @@
 package com.j2ee.db.utils;
 
 import com.j2ee.db.domain.AdviserInfo;
+import com.j2ee.db.domain.AppraiseTeacher;
 import com.j2ee.db.domain.StuTeaCh;
 import com.j2ee.db.dto.AdviserInfoDto;
 import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.*;
+import com.j2ee.dto.AppraiseTeacherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +53,9 @@ public class Convertor {
         el.setStudent(studentService.findById(target.getStudentId()));
         el.setAdviserInfo(adviserInfoService.findById(target.getAdviserInfo()));
         el.setSemester(semesterService.findById(target.getSemesterId()));
-        el.setAppraiseTeacher(appraiseTeacherService.findById(target.getAppraiseId()));
+        AppraiseTeacher appTea = appraiseTeacherService.findById(target.getAppraiseId());
+        el.setAppraiseTeacher(appTea);
+        el.setAppTeacherDto(convertToAppraiseTeacherDto(appTea));
         el.setIntro(target.getIntro());
         el.setSuggestion(target.getSuggestion());
         el.setScore(target.getScore());
@@ -77,6 +81,24 @@ public class Convertor {
         el.setIsAccept(adviserInfo.getIsAccept());
         el.setIsDel(adviserInfo.getIsDel());
         el.setAddTime(adviserInfo.getAddTime());
+        return el;
+    }
+
+
+    public AppraiseTeacherDto convertToAppraiseTeacherDto(AppraiseTeacher target) {
+        if (null == target) {
+            return null;
+        }
+        AppraiseTeacherDto el = new AppraiseTeacherDto();
+        el.setId(target.getId());
+        el.setTeacher(teacherService.findById(target.getTeacherId()));
+        el.setStuTeaCh(stuTeaChService.findById(target.getStuTeaCh()));
+        el.setSuggestion(target.getSuggestion());
+        el.setScore(target.getScore());
+        el.setIsAccept(target.getIsAccept());
+        el.setIsDel(target.getIsDel());
+        el.setAddTime(target.getAddTime());
+
         return el;
     }
 }
