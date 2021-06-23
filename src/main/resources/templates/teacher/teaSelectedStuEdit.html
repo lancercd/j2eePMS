@@ -81,7 +81,7 @@
         </div>
 
         <div class="form-group" th:if="${info.getDocument() != null}">
-            <label for="selectAppTeacher">选择评阅教师</label>
+            <label for="selectAppTeacher">资料</label>
             <a th:href="${info.getDocument().getPath()}" th:download="${#strings.substring(info.getDocument().getPath(), 20)}" style="font-size: 25px; color: #e74c3c;">下载资料</a>
         </div>
 

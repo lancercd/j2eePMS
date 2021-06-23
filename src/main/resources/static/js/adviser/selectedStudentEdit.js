@@ -6,13 +6,12 @@ const message = new Message();
 
 const editForm = document.getElementById('edit-form');
 
-const route = '/teacher/selected/student/edit/';
+const route = '/adviser/selected/student/edit/';
 
 function onSubmit() {
     console.log('submit');
     const score = editForm.score.value;
     const sug = editForm.suggestion.value;
-    const teacherId = editForm.teacherId.value;
     const id = editForm.id.value;
     console.log(id);
     if(!score || score == 0){
@@ -46,7 +45,7 @@ function onSubmit() {
                 closeable: true,
             });
 
-            window.location.href = '/teacher/selected/student';
+            window.location.href = '/adviser/selected/student';
 
     },
         (msg) => {

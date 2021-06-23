@@ -207,11 +207,15 @@ public class AdviserController {
         model.addAttribute("semesters", studentTeacherChoiceService.getAllSemester());
         model.addAttribute("semesterId", semesterId);
 
+        List<AppraiseTeacher> appraiseTeachers = appraiseTeacherService.findByTeacherId(uid, 1);
+        model.addAttribute("lists", new ArrayList<List<StuTeaChDto>>(0));
+        if (appraiseTeachers.size() != 0) {
+            List<Integer> ids = new ArrayList<>();
+            for (AppraiseTeacher app :appraiseTeachers ) {
+                ids.add(app.getId());
+            }
 
-        if (semesterId != null && semesterId != 0) {
-            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByTeaIdAndSemester(uid, semesterId, (byte)1));
-        }else{
-            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByTeaId(uid, (byte) 1));
+            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByIdsAndSemester(ids, semesterId));
         }
 
         return "adviser/teaSelectedStu";
@@ -220,7 +224,7 @@ public class AdviserController {
 
 
     /**
-     * 指导老师打分 编辑信息 (信息编辑页面)
+     * 老师打分 编辑信息 (信息编辑页面)
      * @param uid   teaId
      * @param id    stuTeaChId
      * @return page
@@ -229,11 +233,8 @@ public class AdviserController {
     @GetMapping("/selected/student/edit/{id}")
     public String editSelected(@LoginUid Integer uid, @PathVariable Integer id, Model model){
         StuTeaChDto info = studentTeacherChoiceService.findStuTeachDtoById(id);
-        System.out.println(id);
-        System.out.println(info);
 
-
-        List<Teacher> teachers = teacherService.queryAll();
+        Teacher teacher = teacherService.findById(uid);
         Integer appTeaId = null;
         AppraiseTeacher appraiseTeacher = info.getAppraiseTeacher();
         if (appraiseTeacher != null) {
@@ -242,7 +243,7 @@ public class AdviserController {
 
         model.addAttribute("info", info);
         model.addAttribute("teaId", uid);
-        model.addAttribute("teachers", teachers);
+        model.addAttribute("teacher", teacher);
         model.addAttribute("appTeaId", appTeaId);
 
         return "adviser/teaSelectedStuEdit";
@@ -253,32 +254,19 @@ public class AdviserController {
      *  老师同意该学生  并填写信息
      * @param uid       该老师id
      * @param id        该记录id
-     * @param teacherId 指导老师id
      * @param suggestion 意见
      * @return page
      */
     @ResponseBody
     @PostMapping("/selected/student/edit/{id}")
-    public Object editSelectedApi(@LoginUid Integer uid, @PathVariable Integer id, Integer score, Integer teacherId, String suggestion){
-        if (teacherId == null) {
-            return ResponseUtil.fail("请选择评阅老师!");
-        }
-        StuTeaChDto infoDto = studentTeacherChoiceService.findStuTeachDtoById(id);
+    public Object editSelectedApi(@LoginUid Integer uid, @PathVariable Integer id, Integer score, String suggestion){
 
-        AppraiseTeacher appTea = new AppraiseTeacher();
-        appTea.setTeacherId(teacherId);
-        appTea.setStuTeaCh(id);
-        appTea.setIsAccept((byte)0);
-        appTea.setIsDel(false);
+        AppraiseTeacher appTea = appraiseTeacherService.findById(id);
 
-        int appId = appraiseTeacherService.add(appTea);
-
-        StuTeaCh info = stuTeaChService.findById(id);
-        info.setIsAccept((byte) 1);
-        info.setSuggestion(suggestion);
-        info.setAppraiseId(appId);
-        info.setScore(score);
-        stuTeaChService.update(info);
+        appTea.setIsAccept((byte)1);
+        appTea.setScore(score);
+        appTea.setSuggestion(suggestion);
+        appraiseTeacherService.update(appTea);
 
         return ResponseUtil.ok("成功!");
     }
