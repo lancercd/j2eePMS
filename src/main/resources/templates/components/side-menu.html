@@ -21,8 +21,14 @@
 <!--老师的菜单-->
 <div th:if="${session.type} + '' eq 'TEACHER'" class="menu-wrap" th:fragment="size-menu-bar-teacher">
     <div class="icon-list">
-        <a th:href="@{/}">
-            <span>...</span>
+        <a th:href="@{/teacher/gudianceQuery}">
+            <span>查询老师</span>
+        </a>
+        <a th:href="@{/teacher/guidanceAgree}">
+            <span>指导老师</span>
+        </a>
+        <a th:href="@{/teacher/guidanceInfo}">
+            <span>指导信息</span>
         </a>
         <a th:href="@{/teacher/selected/student}">
             <span>我的学生</span>
