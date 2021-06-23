@@ -143,6 +143,21 @@ public class StuTeaChService {
     }
 
 
+    public List<StuTeaCh> queryScoreByStuIdSemesterId(Integer stuId, Integer semesterId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andStudentIdEqualTo(stuId);
+        if (semesterId != null && semesterId != 0) {
+            criteria.andSemesterIdEqualTo(semesterId);
+        }
+        criteria.andIsAcceptEqualTo((byte) 1);
+        example.orderBy("add_time DESC");
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
     /**
      * 通过老师id和学期id查找(等待确认的)
      * @param teaId         老师id

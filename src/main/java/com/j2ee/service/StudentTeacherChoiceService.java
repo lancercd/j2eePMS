@@ -140,6 +140,17 @@ public class StudentTeacherChoiceService {
     }
 
 
+    public List<StuTeaChDto> selectedScore(@NotNull Integer stuId, Integer semesterId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryScoreByStuIdSemesterId(stuId, semesterId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
     /**
      * 通过老师id查询(等待确认的)
      * @param teaId 老师id

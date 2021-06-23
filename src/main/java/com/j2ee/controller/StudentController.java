@@ -241,4 +241,25 @@ public class StudentController {
         return ResponseUtil.ok("添加成功!");
     }
 
+
+
+
+    /**
+     * 学生查看选择信息
+     * @param uid   学生id 用户id
+     * @param model model
+     * @return  page
+     */
+    @StudentLogin
+    @GetMapping("/scoreList")
+    public String selectedScoreList(@LoginUid Integer uid, Integer semesterId, Model model){
+
+        model.addAttribute("semesters", studentTeacherChoiceService.getAllSemester());
+        model.addAttribute("semesterId", semesterId);
+
+        model.addAttribute("lists", studentTeacherChoiceService.selectedScore(uid, semesterId));
+
+        return "student/score";
+    }
+
 }
