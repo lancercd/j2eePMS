@@ -91,6 +91,4 @@ public class DocumentService {
         return documentMapper.logicalDeleteByPrimaryKey(id);
     }
 
-
-
 }

@@ -38,8 +38,6 @@ public class SecretaryController {
     @Autowired
     private TeacherService teacherService;
 
-
-
     @Autowired
     private AdviserInfoService adviserInfoService;
 
@@ -52,7 +50,6 @@ public class SecretaryController {
 
     @Autowired
     private StudentTeacherChoiceService studentTeacherChoiceService;
-
 
     @GetMapping("/teachingSecretary")
     public String teachingSecretary(){
@@ -96,12 +93,9 @@ public class SecretaryController {
         adviserInfo.setSemesterId(semesterId);
 
         adviserInfoService.add(adviserInfo);
-        return "";
+        return "/setAdviserManager";
     }
-
-
-
-
+    
     @ResponseBody
     @PostMapping("/setTeacherForm")
     public Object setTeacherForm(Teacher teacher){

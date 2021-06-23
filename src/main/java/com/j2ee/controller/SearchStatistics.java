@@ -2,6 +2,7 @@ package com.j2ee.controller;
 
 import com.j2ee.db.domain.*;
 import com.j2ee.db.dto.AdviserInfoDto;
+import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.*;
 import com.j2ee.service.StudentTeacherChoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,36 +40,33 @@ public class SearchStatistics {
     @Autowired
     private StudentTeacherChoiceService studentTeacherChoiceService;
 
-    /*@RequestMapping("/queryStatisticsByType")
-    public String queryStatisticsByType(){
-
-        return "/searchStatistics";
-    }*/
-
 
     @RequestMapping("/showStatistics")
-    public Object showSemester(Model model){
+    public Object showSemester(Integer semesterId,Integer docId,Model model){
 
         List<Semester> semesters = semesterService.queryAll();
         List<Document> documents = documentService.queryAll();
         List<Teacher> teachers = teacherService.queryAll();
         List<Student> students = studentService.queryAll();
         List<DocumentType> documentTypes = documentTypeService.queryAll();
+
         model.addAttribute("semesters",semesters);
         model.addAttribute("documents",documents);
         model.addAttribute("teachers",teachers);
         model.addAttribute("students",students);
         model.addAttribute("documentTypes",documentTypes);
-
         return "/searchStatistics";
     }
 
-    @RequestMapping("/queryStatisticsByCondition")
-    public String queryStatisticsByCondition(Integer semesterId,Integer documentId,Integer studentId){
+    @RequestMapping ("/queryStatisticsByCondition")
+    public String queryStatisticsByCondition(Integer semesterId,Integer documentTypeId,Model model){
+        Document serviceById = documentService.findById(documentTypeId);
+        int docId = serviceById.getId();
+
+        List<StuTeaChDto> stuTeaChDtos = studentTeacherChoiceService.selectStuTeachDtoBySemesterIdAndDocId(semesterId,docId);
 
 
-        List<AdviserInfoDto> allStuTeaChBySemester = studentTeacherChoiceService.getAllStuTeaChBySemester(semesterId);
-        
-        return "";
+        model.addAttribute("stuTeaChDtos",stuTeaChDtos);
+        return "/queryStatisticsByCondition";
     }
 }

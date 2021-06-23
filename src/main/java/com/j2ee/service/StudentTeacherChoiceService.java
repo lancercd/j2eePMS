@@ -92,7 +92,7 @@ public class StudentTeacherChoiceService {
 
 
     /**
-     * 通过学期id 文档类型查询
+     * 通过学期id 文档id查询
      * @param semesterId 学期id
      * @param docId      文档
      * @return list of StuTeaChDto
