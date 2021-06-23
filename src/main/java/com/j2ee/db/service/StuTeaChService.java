@@ -175,6 +175,21 @@ public class StuTeaChService {
     }
 
 
+    public List<StuTeaCh> queryByAppTeacherIds(List<Integer> ids, Integer semesterId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andAppraiseIdIn(ids);
+        if (semesterId != null && semesterId != 0) {
+            criteria.andSemesterIdEqualTo(semesterId);
+        }
+
+        example.orderBy("add_time DESC");
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
 
 
     /**

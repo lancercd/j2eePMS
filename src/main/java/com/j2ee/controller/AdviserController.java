@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -106,67 +107,55 @@ public class AdviserController {
         model.addAttribute("semesters", studentTeacherChoiceService.getAllSemester());
         model.addAttribute("semesterId", semesterId);
 
-        List<AppraiseTeacher> byTeacherId = appraiseTeacherService.findByTeacherId(uid, 0);
+        List<AppraiseTeacher> appraiseTeachers = appraiseTeacherService.findByTeacherId(uid, 0);
+        model.addAttribute("lists", new ArrayList<List<StuTeaChDto>>());
+        if (appraiseTeachers.size() != 0) {
+            List<Integer> ids = new ArrayList<>();
+            for (AppraiseTeacher app :appraiseTeachers ) {
+                ids.add(app.getId());
+            }
 
-
-        if (semesterId != null && semesterId != 0) {
-            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByTeaIdAndSemester(uid, semesterId, (byte) 0));
-        }else{
-            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByTeaId(uid, (byte) 0));
+            model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByIdsAndSemester(ids, semesterId));
         }
 
 
-
-        return "teacher/teaConfirmStu";
+        return "adviser/teaConfirmStu";
     }
 
 
-    @ResponseBody
-    @PostMapping("/confirm/student/unAccept/{id}")
-    public Object confirmStudentUnAccept(@LoginUid Integer uid, @PathVariable Integer id){
-        StuTeaCh info = stuTeaChService.findById(id);
+    @TeacherLogin
+    @GetMapping("/confirm/student/unAccept/{id}")
+    public String confirmStudentUnAccept(@LoginUid Integer uid, @PathVariable Integer id){
 
-        if(info == null || !info.getTeacherId().equals(uid)){
-            return ResponseUtil.fail("未找到该记录!");
+        AppraiseTeacher info = appraiseTeacherService.findById(id);
+
+        if(info != null){
+            info.setIsAccept((byte)-1);
+            appraiseTeacherService.update(info);
         }
 
-        info.setIsAccept((byte)-1);
-
-        if (stuTeaChService.update(info) == 0) {
-            return ResponseUtil.fail("更新失败!");
-        }
-
-        return ResponseUtil.ok("成功!");
+        return "redirect:/adviser/confirm/student";
     }
 
 
     /**
-     * 指导老师同意学生(信息编辑页面)
-     * @param uid  teaId
-     * @param id    stuTeaChId
+     * 同意担任评阅老师
+     * @param uid   teaId
+     * @param id    app
      * @return page
      */
     @TeacherLogin
-    @GetMapping("/confirm/student/edit/{id}")
-    public String editConfirm(@LoginUid Integer uid, @PathVariable Integer id, Model model){
-        StuTeaChDto info = studentTeacherChoiceService.findStuTeachDtoById(id);
-        System.out.println(id);
-        System.out.println(info);
+    @GetMapping("/confirm/student/accept/{id}")
+    public String editConfirm(@LoginUid Integer uid, @PathVariable Integer id){
+        AppraiseTeacher info = appraiseTeacherService.findById(id);
 
-
-        List<Teacher> teachers = teacherService.queryAll();
-        Integer appTeaId = null;
-        AppraiseTeacher appraiseTeacher = info.getAppraiseTeacher();
-        if (appraiseTeacher != null) {
-            appTeaId = appraiseTeacher.getTeacherId();
+        if(info != null){
+            info.setIsAccept((byte)1);
+            appraiseTeacherService.update(info);
         }
 
-        model.addAttribute("info", info);
-        model.addAttribute("teaId", uid);
-        model.addAttribute("teachers", teachers);
-        model.addAttribute("appTeaId", appTeaId);
 
-        return "teacher/teaConfirmStuEdit";
+        return "redirect:/adviser/selected/student";
     }
 
 
@@ -225,7 +214,7 @@ public class AdviserController {
             model.addAttribute("lists", studentTeacherChoiceService.selectStuTeachDtoByTeaId(uid, (byte) 1));
         }
 
-        return "teacher/teaSelectedStu";
+        return "adviser/teaSelectedStu";
     }
 
 
@@ -256,7 +245,7 @@ public class AdviserController {
         model.addAttribute("teachers", teachers);
         model.addAttribute("appTeaId", appTeaId);
 
-        return "teacher/teaSelectedStuEdit";
+        return "adviser/teaSelectedStuEdit";
     }
 
 
