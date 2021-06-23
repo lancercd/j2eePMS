@@ -49,9 +49,9 @@ public class AdminController {
      */
     @AdminLogin
     @GetMapping("/adSemester")
-    public String semesterType(Integer semesterId, Model model){
-        if(semesterId != null && semesterId != 0){
-            model.addAttribute("semesters",semesterService.findById(semesterId));
+    public String semesterType(String semesterId, Model model){
+        if(semesterId != null && semesterId != ""){
+            model.addAttribute("semesters",semesterService.findByIdLike(semesterId));
         } else {
             model.addAttribute("semesters", studentTeacherChoiceService.getAllSemester());
         }
@@ -67,9 +67,9 @@ public class AdminController {
      */
     @AdminLogin
     @GetMapping("/adDocumentType")
-    public String documentType(Integer id, Model model){
-        if(id != null && id != 0){
-            model.addAttribute("documentTypes", documentTypeService.findById(id));
+    public String documentType(String id, Model model){
+        if(id != null && id != ""){
+            model.addAttribute("documentTypes", documentTypeService.findByIdLike(id));
         } else {
             model.addAttribute("documentTypes", documentTypeService.queryAll());
         }
@@ -84,12 +84,8 @@ public class AdminController {
      */
     @AdminLogin
     @GetMapping("/adUserType")
-    public String userType(Integer id, Model model){
-        if(id != null && id != 0){
-            model.addAttribute("userTypes", userTypeService.findById(id));
-        } else {
-            model.addAttribute("userTypes", userTypeService.queryAll());
-        }
+    public String userType(String id, Model model){
+        model.addAttribute("userTypes", userTypeService.queryUserType(id));
         return "admin/adUserType";
     }
 
@@ -103,7 +99,7 @@ public class AdminController {
     @GetMapping("/adUser/student")
     public String studentType(String number, Model model){
         if(number != null && number != ""){
-            model.addAttribute("students", studentService.findByNumber(number));
+            model.addAttribute("students", studentService.findByNumberLike(number));
         } else {
             model.addAttribute("students", studentService.queryAll());
         }
@@ -120,7 +116,7 @@ public class AdminController {
     @GetMapping("/adUser/teacher")
     public String teacherType(String number, Model model){
         if(number != null && number != ""){
-            model.addAttribute("teachers", teacherService.findByNumber(number));
+            model.addAttribute("teachers", teacherService.findByNumberLike(number));
         } else {
             model.addAttribute("teachers", teacherService.queryAll());
         }
@@ -135,9 +131,9 @@ public class AdminController {
      */
     @AdminLogin
     @GetMapping("/adUser/secretary")
-    public String secretaryType(Integer id, Model model){
-        if(id != null && id != 0){
-            model.addAttribute("secretaries", teachingSecretaryService.findById(id));
+    public String secretaryType(String id, Model model){
+        if(id != null && id != ""){
+            model.addAttribute("secretaries", teachingSecretaryService.findByIdLike(id));
         } else {
             model.addAttribute("secretaries", teachingSecretaryService.queryAll());
         }
@@ -152,9 +148,9 @@ public class AdminController {
      */
     @AdminLogin
     @GetMapping("/adUser/admin")
-    public String adminType(Integer id, Model model){
-        if(id != null && id != 0){
-            model.addAttribute("admins", adminService.findById(id));
+    public String adminType(String id, Model model){
+        if(id != null && id != ""){
+            model.addAttribute("admins", adminService.findByIdLike(id));
         } else {
             model.addAttribute("admins", adminService.queryAll());
         }

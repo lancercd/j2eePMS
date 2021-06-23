@@ -33,6 +33,11 @@ public class DocumentTypeService {
         return documentTypeMapper.selectByPrimaryKey(id);
     }
 
+    public List<DocumentType> findByIdLike(String id) {
+        DocumentTypeExample documentTypeExample = new DocumentTypeExample();
+        documentTypeExample.createCriteria().andNameLike("%"+id+"%");
+        return documentTypeMapper.selectByExample(documentTypeExample);
+    }
 
 
     /**

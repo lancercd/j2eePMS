@@ -72,6 +72,16 @@ public class TeacherService {
         return teacherMapper.selectOneByExample(example);
     }
 
+    public List<Teacher> findByNumberLike(String number) {
+        TeacherExample example = new TeacherExample();
+        TeacherExample.Criteria criteria = example.createCriteria();
+
+        criteria.andLogicalDeleted(false);
+        criteria.andNumberLike("%"+number+"%");
+
+        return teacherMapper.selectByExample(example);
+    }
+
 
     /**
      * 查询所有老师信息(未删除的)

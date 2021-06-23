@@ -34,6 +34,12 @@ public class TeachingSecretaryService {
         return teachingSecretaryMapper.selectByPrimaryKeyWithLogicalDelete(id, false);
     }
 
+    public List<TeachingSecretary> findByIdLike(String id) {
+        TeachingSecretaryExample example = new TeachingSecretaryExample();
+        example.createCriteria().andLogicalDeleted(false).andUsernameLike("%"+id+"%");
+        return teachingSecretaryMapper.selectByExample(example);
+    }
+
 
     /**
      * 通过用户名查找

@@ -35,6 +35,12 @@ public class AdminService {
         return adminMapper.selectByPrimaryKeyWithLogicalDelete(id, false);
     }
 
+    public List<Admin> findByIdLike(String id) {
+        AdminExample example = new AdminExample();
+        example.createCriteria().andLogicalDeleted(false).andUsernameLike("%"+id+"%");
+        return adminMapper.selectByExample(example);
+    }
+
 
     /**
      * 通过用户名查找
@@ -116,5 +122,5 @@ public class AdminService {
     public int updateById(Admin admin){
         return adminMapper.updateByPrimaryKey(admin);
     }
-    
+
 }
