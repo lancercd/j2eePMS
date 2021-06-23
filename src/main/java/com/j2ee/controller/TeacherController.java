@@ -77,12 +77,12 @@ public class TeacherController {
 
     @TeacherLogin
     @GetMapping("/guidanceAgree")
-    public String guidanceAgree(Model md,@LoginUid Integer teacherId){//指导教师确认页面
+    public String guidanceAgree(Model md,@LoginUid Integer teacherId,Integer semesterId){//指导教师确认页面
         Teacher teacher = teacherService.findById(teacherId);
         int semesterIdNow = semesterService.getSemesterIdNow();
-        AdviserInfo adviserInfo = adviserInfoService.queryAdviserInfo(teacherId, semesterIdNow);
+        AdviserInfo adviserInfo = adviserInfoService.queryAdviserInfo(teacherId, semesterId);
         Semester semester = semesterService.findById(semesterIdNow);
-        md.addAttribute("semester",semester);
+        md.addAttribute("semesters",semesterService.queryAll());
         md.addAttribute("teacher",teacher);
         if (adviserInfo==null) return "redirect:/teacher/error";
         md.addAttribute("adviserInfo",adviserInfo);
@@ -120,6 +120,7 @@ public class TeacherController {
             List<Integer> ids = stuTeaChService.queryStudentIdByAdviserId(teacher.getId(),semesterService.getSemesterIdNow());
             String studentName = studentService.queryStudentName(ids);
             map.put("studentName",studentName);
+            map.put("semesterInfo",semesterService.findById(temp.getSemesterId()));
             list.add(map);
         }
         md.addAttribute("semesterId",semesterId);
@@ -138,13 +139,7 @@ public class TeacherController {
             List<Integer> ids = stuTeaChService.queryStudentIdByAdviserId(temp.getId(), semesterId);
             Map<String, Object> map = new HashMap<>();
             map.put("name", teacherService.findById(temp.getTeacherId()).getName());
-            if (temp.getIsAccept() == (byte) 1) {
-                map.put("condition", "已同意");
-            } else if (temp.getIsAccept() == (byte) 0) {
-                map.put("condition", "未答复");
-            } else {
-                map.put("condition", "已拒绝");
-            }
+            map.put("semesterInfo",semesterService.findById(temp.getSemesterId()));
             map.put("studentName", studentService.queryStudentName(ids));
             list.add(map);
         }

@@ -26,7 +26,8 @@
         <div class="templatemo-content-widget white-bg">
             <div class="panel panel-default no-border">
                 <div class="panel-heading border-radius-10 text-center">
-                    <h2 >指导教师确认信息&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher/guidanceInfo" method="get">学期选择：<select name="学期选择" style="background-color:#39ADB4;border:1px solid white;" id="items">
+                    <h2 >指导教师确认信息&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher/guidanceInfo" method="get">学期选择：<select name="semesterId" style="background-color:#39ADB4;border:1px solid white;" id="items">
+                        <option value="0" selected>所有学期</option>
                         <div th:each="semester:${semesters}">
                             <option th:text="${semester.name}" th:value="${semester.id}" th:selected="${semesterId} == ${semester.getId}"></option>
                         </div>
@@ -41,13 +42,15 @@
                                 <table class="table table-striped table-bordered templatemo-user-table">
                                     <thead>
                                     <tr>
-                                        <td style="width:50%"><a  class="white-text templatemo-sort-by">姓名 <span class="caret"></span></a></td>
-                                        <td style="width:50%"><a  class="white-text templatemo-sort-by">已选择学生<span class="caret"></span></a></td>
+                                        <td style="width:33%"><a  class="white-text templatemo-sort-by">姓名 <span class="caret"></span></a></td>
+                                        <td style="width:33%"><a  class="white-text templatemo-sort-by">学期 <span class="caret"></span></a></td>
+                                        <td style="width:33%"><a  class="white-text templatemo-sort-by">已选择学生<span class="caret"></span></a></td>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="info:${infos}">
                                         <td th:text="${info.name}"></td>
+                                        <td th:text="${info.semesterInfo.name}"></td>
                                         <td th:text="${info.studentName}"></td>
                                     </tr>
                                     </tbody>
