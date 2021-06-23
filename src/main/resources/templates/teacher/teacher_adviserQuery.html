@@ -19,13 +19,14 @@
 <body>
 
 <div th:replace="~{components/com::topbar}"></div>
+<div th:replace="~{components/side-menu::size-menu-bar}"></div>
 
 <div class="container-fluid">
     <div class="templatemo-content-container">
         <div class="templatemo-content-widget white-bg">
             <div class="panel panel-default no-border">
                 <div class="panel-heading border-radius-10 text-center">
-                    <h2 >指导教师查询&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher/gudianceQuery" method="get">学期选择：<select  style="background-color:#39ADB4;border:1px solid white;" id="item">
+                    <h2 >指导教师查询&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher/gudianceQuery" method="get">学期选择：<select  style="background-color:#39ADB4;border:1px solid white;" id="items">
                         <div th:each="semester:${semesters}">
                             <option th:text="${semester.name}" th:value="${semester.id}" th:selected="${semesterId} == ${semester.getId}"></option>
                         </div>

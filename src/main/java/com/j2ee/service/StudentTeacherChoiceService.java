@@ -156,6 +156,17 @@ public class StudentTeacherChoiceService {
     }
 
 
+    public List<StuTeaChDto> selectStuTeachDtoByIdsAndSemester(@NotNull List<Integer> ids, @NotNull Integer semesterId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByAppTeacherIds(ids, semesterId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
     /**
      * 通过指导老师id查找
      * @param adviserId 指导老师id

@@ -32,6 +32,11 @@ public class SemesterService {
         return semesterMapper.selectByPrimaryKey(id);
     }
 
+    public List<Semester> findByIdLike(String id){
+        SemesterExample example = new SemesterExample();
+        example.createCriteria().andNameLike("%"+id+"%");
+        return semesterMapper.selectByExample(example);
+    }
 
     /**
      * 查询所有学期信息

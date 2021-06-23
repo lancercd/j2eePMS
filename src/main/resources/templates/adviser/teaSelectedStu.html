@@ -67,13 +67,13 @@
                         <td th:text="${list.getAdviserInfo().getDocTypeId()}"></td>
                         <td th:text="${list.getAdviserInfo().getReqInfo()}"></td>
                         <td th:text="${list.getIntro()}"></td>
-                        <td th:text="${list.getScore()}"></td>
+                        <td th:text="${list.getAppraiseTeacher().getScore()}"></td>
                         <td th:if="${list.getIsAccept() == 0}" style="color: #3498db;">待回复</td>
                         <td th:if="${list.getIsAccept() == 1}" style="color: #1abc9c;">同意</td>
                         <td th:if="${list.getIsAccept() == -1}" style="color: #dc3545;">不同意</td>
                         <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
-                            <a class="input-group-addon btn btn-primary edit-adviser-btn" th:href="@{'/teacher/selected/student/edit/'+${list.getId()}}" style="border: none;">编辑</a>
+                            <a class="input-group-addon btn btn-primary edit-adviser-btn" th:href="@{'/adviser/selected/student/edit/'+${list.getId()}}" style="border: none;">编辑</a>
                         </td>
                     </tr>
                 </tbody>
@@ -82,5 +82,5 @@
     </div>
 </div>
 </body>
-<script type="module" th:src="@{/js/teacher/onSelectedStudent.js}"></script>
+<script type="module" th:src="@{/js/adviser/onSelectedStudent.js}"></script>
 </html>

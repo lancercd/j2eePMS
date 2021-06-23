@@ -17,6 +17,7 @@
 <body>
 
 <div th:replace="~{components/com::topbar}"></div>
+<div th:replace="~{components/side-menu::size-menu-bar}"></div>
 
 
 <div class="container-fluid">
@@ -49,13 +50,15 @@
 
                                         <tr style="text-align: center">
                                                 <td><a class=" templatemo-sort-by">指导老师要求</a>
-                                                    <input type="text" name="content" id="content">
+                                                    <input type="text" name="content" id="content" th:value="${adviserInfo.reqInfo}">
                                                 </td>
                                                 <td><input type="submit" value="提交要求" class="btn btn-warning" id="req"></td>
                                         </tr>
                                         <tr style="text-align: center">
-                                                <td colspan="2"><input type="submit" value="确认" class="btn btn-warning" id="confirm">
+                                                <td colspan="2" th:if="${adviserInfo.isAccept} ==0 "><input type="submit" value="确认" class="btn btn-warning" id="confirm">
                                                     <input type="submit" value="取消" class="btn btn-warning" id="unconfirm"></td>
+                                            <td colspan="2" th:if="${adviserInfo.isAccept} ==1 "><span>已同意</span></td>
+                                            <td colspan="2" th:if="${adviserInfo.isAccept} ==-1 "><span>已拒绝</span></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -95,6 +98,7 @@
             data,data,
             success:function (result){
                 alert("已成为指导教师")
+                location.reload();
             }
         })
     })
@@ -106,6 +110,7 @@
             data:data,
             success:function (result){
                 alert("已拒绝成为指导教师")
+                location.reload();
             }
         })
     })

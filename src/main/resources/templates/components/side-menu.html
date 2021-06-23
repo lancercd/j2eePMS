@@ -21,14 +21,26 @@
 <!--老师的菜单-->
 <div th:if="${session.type} + '' eq 'TEACHER'" class="menu-wrap" th:fragment="size-menu-bar-teacher">
     <div class="icon-list">
-        <a th:href="@{/}">
-            <span>...</span>
+        <a th:href="@{/teacher/gudianceQuery}">
+            <span>查询老师</span>
+        </a>
+        <a th:href="@{/teacher/guidanceAgree}">
+            <span>指导老师</span>
+        </a>
+        <a th:href="@{/teacher/guidanceInfo}">
+            <span>指导信息</span>
         </a>
         <a th:href="@{/teacher/selected/student}">
             <span>我的学生</span>
         </a>
         <a th:href="@{/teacher/confirm/student}">
             <span>指导老师请求</span>
+        </a>
+        <a th:href="@{/adviser/selected/student}">
+            <span>我评阅的学生</span>
+        </a>
+        <a th:href="@{/adviser/confirm/student}">
+            <span>评阅老师请求</span>
         </a>
     </div>
 </div>
@@ -38,8 +50,8 @@
 <!--教学秘书的菜单-->
 <div th:if="${session.type} + '' eq 'SECRETARY'" class="menu-wrap" th:fragment="size-menu-bar-secertary">
     <div class="icon-list">
-        <a th:href="@{/}">
-            <span>新闻</span>
+        <a th:href="@{/news/admin/list}">
+            <span>新闻管理</span>
         </a>
         <a th:href="@{/secretay/setTeacher}">
             <span>设置老师</span>

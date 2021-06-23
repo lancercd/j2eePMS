@@ -72,7 +72,7 @@
                         <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
                             <span class="input-group-addon btn btn-danger del-adviser-btn" th:data-id="${list.getId()}" style="border: none; margin-bottom: 5px;">不同意</span>
-                            <a class="input-group-addon btn btn-success edit-adviser-btn" th:href="@{'/teacher/confirm/student/edit/'+${1}}" style="border: none;margin-bottom: 5px;">同意</a>
+                            <a class="input-group-addon btn btn-success edit-adviser-btn" th:href="@{'/teacher/confirm/student/edit/' +  ${list.getId()}}" style="border: none;margin-bottom: 5px;">同意</a>
                         </td>
                     </tr>
                 </tbody>

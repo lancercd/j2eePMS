@@ -105,7 +105,7 @@ public class TeacherController {
         if (res==0) return ResponseUtil.updatedDataFailed();
         return ResponseUtil.ok();
     }
-
+    @TeacherLogin
     @GetMapping("/guidanceInfo") //指导教师确认信息页面
     public String guidanceInfo(Model md,Integer semesterId){
         if (semesterId==null) semesterId = semesterService.getSemesterIdNow();
@@ -113,7 +113,6 @@ public class TeacherController {
         md.addAttribute("semesters",semesters);
         List<AdviserInfo> adviserInfos = adviserInfoService.queryBySemesterId(semesterId);
         List<Map<String,Object>> list = new ArrayList<>();
-        System.out.println(adviserInfos);
         for (AdviserInfo temp:adviserInfos){
             Map<String,Object> map = new HashMap<>();
             Teacher teacher = teacherService.findById(temp.getTeacherId());
@@ -127,7 +126,7 @@ public class TeacherController {
         md.addAttribute("infos",list);
         return "/teacher/teacher_adviserInfo";
     }
-
+    @TeacherLogin
     @GetMapping("/gudianceQuery") //指导教师查询页面
     public String gudianceQuery(Model md,Integer semesterId) {
         if (semesterId == null) semesterId = semesterService.getSemesterIdNow();

@@ -3,6 +3,7 @@ package com.j2ee.db.service;
 import com.j2ee.db.dao.UserTypeMapper;
 import com.j2ee.db.domain.UserType;
 import com.j2ee.db.domain.UserTypeExample;
+import com.j2ee.utils.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -64,4 +65,9 @@ public class UserTypeService {
         return userTypeMapper.insert(userType);
     }
 
+    public List<UserType> queryUserType(String str){
+        UserTypeExample example = new UserTypeExample();
+        if (!StringUtils.isEmpty(str)) example.createCriteria().andNameLike("%"+str+"%");
+        return userTypeMapper.selectByExample(example);
+    }
 }

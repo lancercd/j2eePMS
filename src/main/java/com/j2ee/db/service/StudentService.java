@@ -76,6 +76,15 @@ public class StudentService {
         return studentMapper.selectOneByExample(example);
     }
 
+    public List<Student> findByNumberLike(String number) {
+        StudentExample example = new StudentExample();
+        StudentExample.Criteria criteria = example.createCriteria();
+
+        criteria.andLogicalDeleted(false);
+        criteria.andNumberLike("%"+number+"%");
+
+        return studentMapper.selectByExample(example);
+    }
 
 
     /**
@@ -149,8 +158,11 @@ public class StudentService {
         StudentExample.Criteria criteria = studentExample.createCriteria();
         criteria.andIdIn(ids);
         List<Student> students = studentMapper.selectByExample(studentExample);
+        boolean flag  = false;
         for (Student temp:students){
-            res+=temp.getName()+"  ";
+            if (flag) res+=" , ";
+            res+=temp.getName();
+            flag = true;
         }
         return res;
     }

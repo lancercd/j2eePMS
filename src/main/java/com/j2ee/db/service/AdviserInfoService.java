@@ -50,6 +50,7 @@ public class AdviserInfoService {
         AdviserInfoExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andIsAcceptEqualTo(isAccept.byteValue());
+        example.orderBy("add_time DESC");
 
         return adviserInfoMapper.selectByExample(example);
     }
@@ -66,6 +67,7 @@ public class AdviserInfoService {
         criteria.andLogicalDeleted(false);
         criteria.andIsAcceptEqualTo((byte)1);
         criteria.andSemesterIdEqualTo(semesterId);
+        example.orderBy("add_time DESC");
 
         return adviserInfoMapper.selectByExample(example);
     }
@@ -79,6 +81,8 @@ public class AdviserInfoService {
      */
     public List<AdviserInfo> queryAll(){
         AdviserInfoExample example = new AdviserInfoExample();
+        example.createCriteria().andIsDelEqualTo(false);
+        example.orderBy("add_time DESC");
 
         return adviserInfoMapper.selectByExample(example);
     }
@@ -162,7 +166,10 @@ public class AdviserInfoService {
 
     public List<AdviserInfo> queryAdviserInfoBySemesterId(Integer semesterId){
         AdviserInfoExample example = new AdviserInfoExample();
-        example.createCriteria().andSemesterIdEqualTo(semesterId);
+        AdviserInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andSemesterIdEqualTo(semesterId);
+        criteria.andLogicalDeleted(false);
+        example.orderBy("add_time DESC");
         return adviserInfoMapper.selectByExample(example);
     }
 

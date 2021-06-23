@@ -50,6 +50,7 @@ public class StuTeaChService {
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andIsAcceptEqualTo(isAccept.byteValue());
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -66,6 +67,7 @@ public class StuTeaChService {
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andAdviserInfoEqualTo(adviserId);
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectOneByExample(example);
     }
@@ -82,6 +84,7 @@ public class StuTeaChService {
         StuTeaChExample.Criteria criteria = example.createCriteria();
         criteria.andLogicalDeleted(false);
         criteria.andStudentIdEqualTo(stuId);
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -98,6 +101,7 @@ public class StuTeaChService {
         criteria.andLogicalDeleted(false);
         criteria.andTeacherIdEqualTo(teaId);
         criteria.andIsAcceptEqualTo(isAccept);
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -115,6 +119,7 @@ public class StuTeaChService {
         criteria.andLogicalDeleted(false);
         criteria.andSemesterIdEqualTo(semesterId);
         criteria.andDocumentIdEqualTo(docId);
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -132,6 +137,7 @@ public class StuTeaChService {
         criteria.andLogicalDeleted(false);
         criteria.andStudentIdEqualTo(stuId);
         criteria.andSemesterIdEqualTo(semesterId);
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -163,6 +169,22 @@ public class StuTeaChService {
     public List<StuTeaCh> queryAll(){
         StuTeaChExample example = new StuTeaChExample();
         example.or().andLogicalDeleted(false);
+        example.orderBy("add_time DESC");
+
+        return stuTeaChMapper.selectByExample(example);
+    }
+
+
+    public List<StuTeaCh> queryByAppTeacherIds(List<Integer> ids, Integer semesterId){
+        StuTeaChExample example = new StuTeaChExample();
+        StuTeaChExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andAppraiseIdIn(ids);
+        if (semesterId != null && semesterId != 0) {
+            criteria.andSemesterIdEqualTo(semesterId);
+        }
+
+        example.orderBy("add_time DESC");
 
         return stuTeaChMapper.selectByExample(example);
     }
@@ -239,6 +261,7 @@ public class StuTeaChService {
     public List<Integer> queryStudentIdByAdviserId(Integer adviserId,Integer semesterId){
         StuTeaChExample stuTeaChExample = new StuTeaChExample();
         stuTeaChExample.createCriteria().andSemesterIdEqualTo(semesterId).andAdviserInfoEqualTo(adviserId).andIsDelEqualTo(false);
+        stuTeaChExample.orderBy("add_time DESC");
         List<StuTeaCh> stuTeaChes = stuTeaChMapper.selectByExample(stuTeaChExample);
         List<Integer> res = new ArrayList<>();
         for(StuTeaCh temp:stuTeaChes){
@@ -268,6 +291,7 @@ public class StuTeaChService {
     public List<Integer> queryStudentIdByTeacherId(Integer adviserId,Integer semesterId){
         StuTeaChExample example = new StuTeaChExample();
         StuTeaChExample.Criteria criteria = example.createCriteria();
+        example.orderBy("add_time DESC");
         criteria.andSemesterIdEqualTo(semesterId).andAdviserInfoEqualTo(adviserId);
         List<StuTeaCh> stuTeaChes = stuTeaChMapper.selectByExample(example);
         List<Integer> list = new ArrayList<>();

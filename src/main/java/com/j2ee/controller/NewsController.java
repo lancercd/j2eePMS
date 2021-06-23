@@ -46,53 +46,6 @@ public class NewsController {
 
 
 
-//    @GetMapping("/setNews")
-//    public String setNews(){
-//        return "/setNews";
-//    }
-
-
-//    @ResponseBody
-//    @PostMapping("/addOrUpdate")
-//    public Object addOrUpdate(News news){
-//        if(StringUtils.isEmpty(news.getTitle())){
-//            return ResponseUtil.fail(400, "请填写标题");
-//        }
-//
-//        if(StringUtils.isEmpty(news.getContent())){
-//            return ResponseUtil.fail(400, "请填写内容");
-//        }
-//
-//
-//        if(news.getId() == null){
-//            newsService.insert(news);
-//        }
-//        else {
-//            newsService.update(news);
-//        }
-//
-//        return ResponseUtil.ok("成功");
-//    }
-//
-//    @GetMapping("/indexNews")
-//    public String indexNews(){
-//        return "/indexNews";
-//    }
-//
-//    @GetMapping("/browseNews")
-//    public Object browseNews(String title,String content){
-//        List<News> news;
-//
-//        return "";
-//    }
-
-
-
-
-
-
-
-
     @TeachingSecretaryLogin
     @GetMapping("/admin/list")
     public Object AdminNewsList(String title, Model model){
