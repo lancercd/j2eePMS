@@ -90,6 +90,22 @@ public class StudentTeacherChoiceService {
     }
 
 
+    /**
+     * 通过老师id查询(等待确认的)
+     * @param teaId 老师id
+     * @return list of StuTeaChDto
+     */
+    public List<StuTeaChDto> selectStuTeachDtoByTeaId(@NotNull Integer teaId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByTeaId(teaId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
 
     /**
      * 通过学期id 文档id查询
@@ -115,6 +131,22 @@ public class StudentTeacherChoiceService {
      */
     public List<StuTeaChDto> selectStuTeachDtoByStuIdAndSemester(@NotNull Integer stuId, @NotNull Integer semesterId) {
         List<StuTeaCh> stuTeaChes = stuTeaChService.queryByStuIdAndSemester(stuId, semesterId);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
+    /**
+     * 通过老师id查询(等待确认的)
+     * @param teaId 老师id
+     * @return list of StuTeaChDto
+     */
+    public List<StuTeaChDto> selectStuTeachDtoByTeaIdAndSemester(@NotNull Integer teaId, @NotNull Integer semesterId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByTeaIdAndSemester(teaId, semesterId);
         List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
         for (StuTeaCh ch : stuTeaChes) {
             stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));

@@ -8,8 +8,8 @@
         <a th:href="@{/student/selectAdviser}">
             <span>选择指导老师</span>
         </a>
-        <a th:href="@{/}">
-            <span>教师管理</span>
+        <a th:href="@{/student/selected}">
+            <span>我的导师</span>
         </a>
         <a th:href="@{/}">
             <span>Messages</span>
@@ -22,13 +22,13 @@
 <div th:if="${session.type} + '' eq 'TEACHER'" class="menu-wrap" th:fragment="size-menu-bar-teacher">
     <div class="icon-list">
         <a th:href="@{/}">
-            <span>菜单名</span>
-        </a>
-        <a th:href="@{/}">
             <span>...</span>
         </a>
         <a th:href="@{/}">
             <span>...</span>
+        </a>
+        <a th:href="@{/teacher/confirm/student}">
+            <span>指导老师请求</span>
         </a>
     </div>
 </div>
