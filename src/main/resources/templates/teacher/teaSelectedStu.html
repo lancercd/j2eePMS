@@ -73,7 +73,7 @@
                         <td th:if="${list.getIsAccept() == -1}" style="color: #dc3545;">不同意</td>
                         <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
-                            <a class="input-group-addon btn btn-primary edit-adviser-btn" th:href="@{'/teacher/selected/student/edit/'+${1}}" style="border: none;">编辑</a>
+                            <a class="input-group-addon btn btn-primary edit-adviser-btn" th:href="@{'/teacher/selected/student/edit/'+${list.getId()}}" style="border: none;">编辑</a>
                         </td>
                     </tr>
                 </tbody>
