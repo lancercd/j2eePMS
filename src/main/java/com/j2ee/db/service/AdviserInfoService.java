@@ -94,7 +94,7 @@ public class AdviserInfoService {
     public int add(AdviserInfo adviserInfo) {
         adviserInfo.setAddTime(LocalDateTime.now());
         adviserInfo.setIsAccept((byte)0);
-        adviserInfo.setReqInfo(null);
+        adviserInfo.setReqInfo(adviserInfo.getReqInfo());
         adviserInfo.setIsDel(false);
 
 
