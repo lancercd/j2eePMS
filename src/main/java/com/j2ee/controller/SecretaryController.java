@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -81,21 +82,25 @@ public class SecretaryController {
     }
 
     @RequestMapping("/addAdviserTeacher")
-    public String addAdviserTeacher(Integer semesterId, Integer documentTypeId, Integer teacherId){
+    public String addAdviserTeacher(Integer semesterId, Integer documentTypeId, Integer teacherId, HttpServletRequest request){
 
         Semester semesters = semesterService.findById(semesterId);
         DocumentType documentTypes = documentTypeService.findById(documentTypeId);
         Teacher teacher = teacherService.findById(teacherId);
 
+
         AdviserInfo adviserInfo = new AdviserInfo();
         adviserInfo.setTeacherId(teacherId);
         adviserInfo.setDocTypeId(documentTypeId);
         adviserInfo.setSemesterId(semesterId);
+        String reqInfo = request.getParameter("reqInfo");
+        adviserInfo.setReqInfo(reqInfo);
+
 
         adviserInfoService.add(adviserInfo);
-        return "/setAdviserManager";
+        return "redirect:/secretary/setAdviserManager";
     }
-    
+
     @ResponseBody
     @PostMapping("/setTeacherForm")
     public Object setTeacherForm(Teacher teacher){
@@ -113,7 +118,6 @@ public class SecretaryController {
         }
         return ResponseUtil.ok("成功");
     }
-
 
 
     @ResponseBody

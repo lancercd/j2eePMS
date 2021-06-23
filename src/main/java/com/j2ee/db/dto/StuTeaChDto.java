@@ -2,6 +2,7 @@ package com.j2ee.db.dto;
 
 
 import com.j2ee.db.domain.*;
+import com.j2ee.dto.AppraiseTeacherDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,11 @@ public class StuTeaChDto {
      * 评阅老师
      */
     AppraiseTeacher appraiseTeacher;
+
+    /**
+     * 评阅老师
+     */
+    AppraiseTeacherDto appTeacherDto;
 
 
     /**

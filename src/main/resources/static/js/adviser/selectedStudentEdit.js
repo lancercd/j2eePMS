@@ -6,17 +6,18 @@ const message = new Message();
 
 const editForm = document.getElementById('edit-form');
 
-const route = '/teacher/confirm/student/edit/';
+const route = '/teacher/selected/student/edit/';
 
 function onSubmit() {
     console.log('submit');
+    const score = editForm.score.value;
     const sug = editForm.suggestion.value;
     const teacherId = editForm.teacherId.value;
     const id = editForm.id.value;
     console.log(id);
-    if(!req || req == 0){
+    if(!score || score == 0){
         message.show({
-            msg: "请选择评阅老师!",
+            msg: "请输入分数!",
             type: 'error',
             closeable: true
         });

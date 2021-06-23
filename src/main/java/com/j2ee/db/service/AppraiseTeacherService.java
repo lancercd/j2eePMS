@@ -37,6 +37,24 @@ public class AppraiseTeacherService {
     }
 
 
+    /**
+     * 通过id查找
+     * @param teacherId 评阅老师id
+     * @param isAccept  接受信息
+     * @return AppraiseTeacher
+     */
+    public List<AppraiseTeacher> findByTeacherId(Integer teacherId, Integer isAccept) {
+        AppraiseTeacherExample example = new AppraiseTeacherExample();
+        AppraiseTeacherExample.Criteria criteria = example.createCriteria();
+        criteria.andLogicalDeleted(false);
+        criteria.andTeacherIdEqualTo(teacherId);
+        criteria.andIsAcceptEqualTo(isAccept.byteValue());
+        example.orderBy("add_time DESC");
+
+        return appraiseTeacherMapper.selectByExample(example);
+    }
+
+
 
     /**
      * 通过isAccept查找
@@ -61,6 +79,7 @@ public class AppraiseTeacherService {
      */
     public List<AppraiseTeacher> queryAll(){
         AppraiseTeacherExample example = new AppraiseTeacherExample();
+        example.orderBy("add_time DESC");
 
         return appraiseTeacherMapper.selectByExample(example);
     }
@@ -68,6 +87,7 @@ public class AppraiseTeacherService {
     public List<AppraiseTeacher> queryAll(Integer id){
         AppraiseTeacherExample example = new AppraiseTeacherExample();
         example.createCriteria().andTeacherIdNotEqualTo(id);
+        example.orderBy("add_time DESC");
         return appraiseTeacherMapper.selectByExample(example);
     }
 

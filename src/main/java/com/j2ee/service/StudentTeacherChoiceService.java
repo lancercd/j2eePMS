@@ -95,8 +95,8 @@ public class StudentTeacherChoiceService {
      * @param teaId 老师id
      * @return list of StuTeaChDto
      */
-    public List<StuTeaChDto> selectStuTeachDtoByTeaId(@NotNull Integer teaId) {
-        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByTeaId(teaId);
+    public List<StuTeaChDto> selectStuTeachDtoByTeaId(@NotNull Integer teaId, byte isAccept) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByTeaId(teaId, isAccept);
         List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
         for (StuTeaCh ch : stuTeaChes) {
             stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
@@ -145,8 +145,19 @@ public class StudentTeacherChoiceService {
      * @param teaId 老师id
      * @return list of StuTeaChDto
      */
-    public List<StuTeaChDto> selectStuTeachDtoByTeaIdAndSemester(@NotNull Integer teaId, @NotNull Integer semesterId) {
-        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByTeaIdAndSemester(teaId, semesterId);
+    public List<StuTeaChDto> selectStuTeachDtoByTeaIdAndSemester(@NotNull Integer teaId, @NotNull Integer semesterId, byte isAccept) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByTeaIdAndSemester(teaId, semesterId, isAccept);
+        List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
+        for (StuTeaCh ch : stuTeaChes) {
+            stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));
+        }
+
+        return stuTeaChDtos;
+    }
+
+
+    public List<StuTeaChDto> selectStuTeachDtoByIdsAndSemester(@NotNull List<Integer> ids, @NotNull Integer semesterId) {
+        List<StuTeaCh> stuTeaChes = stuTeaChService.queryByAppTeacherIds(ids, semesterId);
         List<StuTeaChDto> stuTeaChDtos = new ArrayList<StuTeaChDto>(stuTeaChes.size());
         for (StuTeaCh ch : stuTeaChes) {
             stuTeaChDtos.add(convertor.convertToStuTeaChDto(ch));

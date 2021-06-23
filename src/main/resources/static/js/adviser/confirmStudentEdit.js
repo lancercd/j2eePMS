@@ -6,7 +6,7 @@ const message = new Message();
 
 const editForm = document.getElementById('edit-form');
 
-const route = '/teacher/confirm/student/edit/';
+const route = '/adviser/confirm/student/edit/';
 
 function onSubmit() {
     console.log('submit');
