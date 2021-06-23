@@ -39,13 +39,13 @@
 <div th:if="${session.type} + '' eq 'SECRETARY'" class="menu-wrap" th:fragment="size-menu-bar-secertary">
     <div class="icon-list">
         <a th:href="@{/}">
-            <span>菜单名</span>
+            <span>新闻</span>
         </a>
-        <a th:href="@{/}">
-            <span>...</span>
+        <a th:href="@{/secretay/setTeacher}">
+            <span>设置老师</span>
         </a>
-        <a th:href="@{/}">
-            <span>...</span>
+        <a th:href="@{/queryStatistics/showStatistics}">
+            <span>查询统计</span>
         </a>
     </div>
 </div>

@@ -135,8 +135,6 @@ public class AdviserInfoService {
         return adviserInfoMapper.updateByPrimaryKey(adviserInfo);
     }
 
-
-
     /**
      * 通过id删除
      *      逻辑删除

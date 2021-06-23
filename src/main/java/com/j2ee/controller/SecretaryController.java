@@ -94,8 +94,18 @@ public class SecretaryController {
         adviserInfo.setDocTypeId(documentTypeId);
         adviserInfo.setSemesterId(semesterId);
         String reqInfo = request.getParameter("reqInfo");
-        adviserInfo.setReqInfo(reqInfo);
+        Byte isAcceptNum = Byte.valueOf(request.getParameter("isAcceptNum"));
+//        System.out.println(isAcceptNum);
 
+        adviserInfo.setReqInfo(reqInfo);
+        adviserInfo.setIsAccept(isAcceptNum);
+
+        if (isAcceptNum == 0|| isAcceptNum==-1){
+            adviserInfo.setIsDel(false);
+        }
+        if(isAcceptNum==1){
+            adviserInfo.setIsDel(true);
+        }
 
         adviserInfoService.add(adviserInfo);
         return "redirect:/secretary/setAdviserManager";

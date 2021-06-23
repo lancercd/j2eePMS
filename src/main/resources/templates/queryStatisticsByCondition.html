@@ -117,17 +117,18 @@
                             <td th:text="${stuTeaChDto.getTeacher().getName()}"></td>
                             <td th:text="${stuTeaChDto.getStudent().getName()}"></td>
                             <td>
-                                <a class="btn btn-info" th:href="@{/}">查看</a>
+                                <a class="btn btn-info" th:href="@{http://localhost:10010/checkFile?fileName=1.doc}">查看</a>
                             </td>
                             <td>
-                                <a class="btn btn-info" th:href="@{/}">下载</a>
+                                <!--<a class="btn btn-info" th:href="@{http://localhost:10010/downloadFile?fileName=1.doc}">下载</a>-->
+                                <a class="btn btn-info" th:href="${stuTeaChDto.getDocument().getPath()}" th:download="${#strings.substring(stuTeaChDto.getDocument().getPath(),2)}">下载</a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!--            <div class="card-footer small text-muted">Updated yesterday at </div>-->
+
         </div>
     </div>
     <!--页面注脚-->
