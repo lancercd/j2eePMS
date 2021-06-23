@@ -119,6 +119,7 @@ public class TeacherController {
             map.put("studentName",studentName);
             list.add(map);
         }
+        md.addAttribute("semesterId",semesterId);
         md.addAttribute("infos",list);
         return "/teacher/teacher_adviserInfo";
     }
@@ -144,6 +145,7 @@ public class TeacherController {
             map.put("studentName", studentService.queryStudentName(ids));
             list.add(map);
         }
+        md.addAttribute("semesterId",semesterId);
         md.addAttribute("infos", list);
         return "/teacher/teacher_adviserQuery";
     }
