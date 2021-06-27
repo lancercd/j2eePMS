@@ -108,7 +108,7 @@ public class TeacherController {
     @TeacherLogin
     @GetMapping("/guidanceInfo") //指导教师确认信息页面
     public String guidanceInfo(Model md,Integer semesterId){
-        if (semesterId==null) semesterId = semesterService.getSemesterIdNow();
+        if (semesterId==null) semesterId = 0;
         List<Semester> semesters = semesterService.queryAll();
         md.addAttribute("semesters",semesters);
         List<AdviserInfo> adviserInfos = adviserInfoService.queryBySemesterId(semesterId);

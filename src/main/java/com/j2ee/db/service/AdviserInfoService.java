@@ -67,7 +67,7 @@ public class AdviserInfoService {
         criteria.andLogicalDeleted(false);
         criteria.andIsAcceptEqualTo((byte)1);
         if(semesterId!=0)criteria.andSemesterIdEqualTo(semesterId);
-        example.orderBy("add_time DESC");
+        example.orderBy("semester_id,add_time");
 
         return adviserInfoMapper.selectByExample(example);
     }
