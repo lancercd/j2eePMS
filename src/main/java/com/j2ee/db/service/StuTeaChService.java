@@ -260,8 +260,12 @@ public class StuTeaChService {
 
     public List<Integer> queryStudentIdByAdviserId(Integer adviserId,Integer semesterId){
         StuTeaChExample stuTeaChExample = new StuTeaChExample();
-        stuTeaChExample.createCriteria().andSemesterIdEqualTo(semesterId).andAdviserInfoEqualTo(adviserId).andIsDelEqualTo(false);
-        stuTeaChExample.orderBy("add_time DESC");
+        StuTeaChExample.Criteria criteria = stuTeaChExample.createCriteria();
+        criteria.andAdviserInfoEqualTo(adviserId).andIsDelEqualTo(false);
+        if (semesterId!=0){
+            criteria.andSemesterIdEqualTo(semesterId);
+        }
+        stuTeaChExample.orderBy("semester_id,add_time asc");
         List<StuTeaCh> stuTeaChes = stuTeaChMapper.selectByExample(stuTeaChExample);
         List<Integer> res = new ArrayList<>();
         for(StuTeaCh temp:stuTeaChes){

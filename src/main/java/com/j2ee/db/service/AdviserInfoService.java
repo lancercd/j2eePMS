@@ -167,9 +167,11 @@ public class AdviserInfoService {
     public List<AdviserInfo> queryAdviserInfoBySemesterId(Integer semesterId){
         AdviserInfoExample example = new AdviserInfoExample();
         AdviserInfoExample.Criteria criteria = example.createCriteria();
-        criteria.andSemesterIdEqualTo(semesterId);
+        if(semesterId != 0){
+            criteria.andSemesterIdEqualTo(semesterId);
+        }
         criteria.andLogicalDeleted(false);
-        example.orderBy("add_time DESC");
+        example.orderBy("semester_id,add_time asc");
         return adviserInfoMapper.selectByExample(example);
     }
 

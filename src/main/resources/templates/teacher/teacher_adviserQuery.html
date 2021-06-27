@@ -26,13 +26,12 @@
         <div class="templatemo-content-widget white-bg">
             <div class="panel panel-default no-border">
                 <div class="panel-heading border-radius-10 text-center">
-                    <h2 >指导教师查询&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher/gudianceQuery" method="get">学期选择：<select  style="background-color:#39ADB4;border:1px solid white;" id="items">
+                    <h2 >指导教师查询&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher/gudianceQuery" method="get">学期选择：<select  style="background-color:#39ADB4;border:1px solid white;" id="items" name="semesterId">
                         <option value="0" selected>所有学期</option>
                         <div th:each="semester:${semesters}">
                             <option th:text="${semester.name}" th:value="${semester.id}" th:selected="${semesterId} == ${semester.getId}"></option>
                         </div>
                     </select>
-                        <input type="hidden" id="hidden" name="semesterId">
                         <input type="submit" value="查询" id="select"></form></h2>
                     </div>
                 <div class="panel-body">
@@ -70,8 +69,8 @@
 </div>
 </body>
 <script>
-    $('#select').click(function (){
-        $('#hidden').val($('#items').val())
-    })
+    // $('#select').click(function (){
+    //     $('#hidden').val($('#items').val())
+    // })
 </script>
 </html>

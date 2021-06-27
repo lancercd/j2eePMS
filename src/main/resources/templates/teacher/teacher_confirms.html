@@ -27,12 +27,11 @@
             <div class="templatemo-content-widget white-bg">
                 <div class="panel panel-default no-border">
                     <div class="panel-heading border-radius-10 text-center">
-                        <h2 >指导教师确认信息&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher//guidanceAgree" method="get">学期选择：<select name="学期选择" style="background-color:#39ADB4;border:1px solid white;" id="items">
+                        <h2 >指导教师确认信息&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher//guidanceAgree" method="get">学期选择：<select name="semesterId" style="background-color:#39ADB4;border:1px solid white;" id="items">
                             <div th:each="semester:${semesters}">
                                 <option th:text="${semester.name}" th:value="${semester.id}" th:selected="${semesterId} == ${semester.getId}"></option>
                             </div>
                         </select>
-                            <input type="hidden" id="hidden" name="semesterId">
                             <input type="submit" value="查询" id="select"></form></h2>
                     </div>
                     <div class="panel-body text-center">
@@ -54,21 +53,24 @@
                                             <td></td>
                                         </tr>
 
-                                        <tr style="text-align: center">
+                                        <tr style="text-align: center" th:if="${adviserInfo != null}">
                                                 <td><a class=" templatemo-sort-by">指导老师要求</a>
                                                     <input type="text" name="content" id="content" th:value="${adviserInfo.reqInfo}">
                                                 </td>
                                                 <td><input type="submit" value="提交要求" class="btn btn-warning" id="req"></td>
                                         </tr>
-                                        <tr style="text-align: center">
+                                        <tr style="text-align: center" th:if="${adviserInfo != null}">
                                                 <td colspan="2" th:if="${adviserInfo.isAccept} ==0 "><input type="submit" value="确认" class="btn btn-warning" id="confirm">
                                                     <input type="submit" value="取消" class="btn btn-warning" id="unconfirm"></td>
                                             <td colspan="2" th:if="${adviserInfo.isAccept} ==1 "><span>已同意</span></td>
                                             <td colspan="2" th:if="${adviserInfo.isAccept} ==-1 "><span>已拒绝</span></td>
                                         </tr>
+                                        <tr style="text-align: center" th:if="${adviserInfo == null}">
+                                            <td colspan="2" ><span>当前学期您未被教学秘书指定为指导教师</span></td>
+                                        </tr>
                                         </tbody>
                                     </table>
-                                    <input type="hidden" th:value="${adviserInfo.id}" name="adviserId" id="adviserId">
+                                    <input type="hidden" th:value="${adviserInfo.id}" name="adviserId" id="adviserId" th:if="${adviserInfo} != null">
                                 </div>
 
                             </div>
@@ -121,8 +123,8 @@
         })
     })
 
-    $('#select').click(function (){
-        $('#hidden').val($('#items').val())
-    })
+    // $('#select').click(function (){
+    //     $('#hidden').val($('#items').val())
+    // })
 </script>
 </html>

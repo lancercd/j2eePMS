@@ -82,10 +82,10 @@ public class TeacherController {
         int semesterIdNow = semesterService.getSemesterIdNow();
         AdviserInfo adviserInfo = adviserInfoService.queryAdviserInfo(teacherId, semesterId);
         Semester semester = semesterService.findById(semesterIdNow);
+        md.addAttribute("semesterId",semesterId);
         md.addAttribute("semesters",semesterService.queryAll());
         md.addAttribute("teacher",teacher);
-        if (adviserInfo==null) return "redirect:/teacher/error";
-        md.addAttribute("adviserInfo",adviserInfo);
+        md.addAttribute("adviserInfo",adviserInfo);;
         return "/teacher/teacher_confirms";
     }
 
@@ -130,7 +130,7 @@ public class TeacherController {
     @TeacherLogin
     @GetMapping("/gudianceQuery") //指导教师查询页面
     public String gudianceQuery(Model md,Integer semesterId) {
-        if (semesterId == null) semesterId = semesterService.getSemesterIdNow();
+        if (semesterId == null) semesterId = 0;
         List<Semester> semesters = semesterService.queryAll();
         md.addAttribute("semesters", semesters);
         List<AdviserInfo> adviserInfos = adviserInfoService.queryAdviserInfoBySemesterId(semesterId);

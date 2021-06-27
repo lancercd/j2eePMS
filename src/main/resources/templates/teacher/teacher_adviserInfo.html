@@ -32,7 +32,6 @@
                             <option th:text="${semester.name}" th:value="${semester.id}" th:selected="${semesterId} == ${semester.getId}"></option>
                         </div>
                     </select>
-                        <input type="hidden" id="hidden" name="semesterId">
                         <input type="submit" value="查询" id="select"></form></h2>
                 </div>
                 <div class="panel-body">
@@ -67,9 +66,9 @@
 </div>
 </body>
 <script>
-    $('#select').click(function (){
-        $('#hidden').val($('#items').val())
-    })
+    // $('#select').click(function (){
+    //     $('#hidden').val($('#items').val())
+    // })
 
 </script>
 </html>
