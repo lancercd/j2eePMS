@@ -76,7 +76,7 @@ public class NewsController {
 
 
     @TeachingSecretaryLogin
-    @PostMapping("/addOrUpdate")
+    @RequestMapping("/addOrUpdate")
     public Object addOrUpdateNews(News news){
 
 

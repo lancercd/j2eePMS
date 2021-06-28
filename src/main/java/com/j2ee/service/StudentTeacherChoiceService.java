@@ -224,6 +224,11 @@ public class StudentTeacherChoiceService {
         return this.convertAdviserInfo(adviserInfos);
     }
 
+    public List<AdviserInfoDto> getAllStuTeaCh1(){
+        List<AdviserInfo> adviserInfos = adviserInfoService.queryAll();
+        return this.convertAdviserInfo(adviserInfos);
+    }
+
     /**
      * 获取所有已接受的导师信息
      * @return list of adviserInfo

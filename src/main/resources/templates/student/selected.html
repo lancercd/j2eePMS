@@ -68,8 +68,7 @@
                         <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
                             <span th:if="${list.getIsAccept() != 1}" class="input-group-addon btn btn-danger del-adviser-btn" th:data-id="${list.getId()}" style="border: none">删除</span>
-                            <a th:if="${list.getIsAccept() != 1}" class="input-group-addon btn btn-success edit-adviser-btn" th:href="@{'/student/edit/'+${1}}" style="border: none">编辑</a>
-<!--                            <a class="btn btn-primary" th:href="@{'/toAddScore/'+${1}}" style="background-color:#e67e22; border: none">修改</a>-->
+                            <a th:if="${list.getIsAccept() != 1}" class="input-group-addon btn btn-success edit-adviser-btn" th:href="@{'/student/edit/'+${list.getId()}}" style="border: none">编辑</a>
                         </td>
                     </tr>
                 </tbody>

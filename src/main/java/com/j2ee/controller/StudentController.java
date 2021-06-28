@@ -7,6 +7,7 @@ import com.j2ee.annotation.StudentLogin;
 import com.j2ee.db.domain.AdviserInfo;
 import com.j2ee.db.domain.Document;
 import com.j2ee.db.domain.StuTeaCh;
+import com.j2ee.db.dto.AdviserInfoDto;
 import com.j2ee.db.dto.StuTeaChDto;
 import com.j2ee.db.service.AdviserInfoService;
 import com.j2ee.db.service.DocumentService;
@@ -22,6 +23,7 @@ import com.j2ee.service.StudentTeacherChoiceService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -64,7 +66,7 @@ public class StudentController {
         if (semesterId != null && semesterId != 0) {
             model.addAttribute("lists", studentTeacherChoiceService.getAllStuTeaChBySemester(semesterId));
         }else{
-            model.addAttribute("lists", studentTeacherChoiceService.getAllStuTeaCh());
+            model.addAttribute("lists", studentTeacherChoiceService.getAllStuTeaCh1());
         }
 
         return "student/selectAdviser";
