@@ -264,6 +264,7 @@ public class TeacherController {
         }
         StuTeaChDto infoDto = studentTeacherChoiceService.findStuTeachDtoById(id);
 
+        //指导老师
         AppraiseTeacher appTea = new AppraiseTeacher();
         appTea.setTeacherId(teacherId);
         appTea.setStuTeaCh(id);
@@ -272,11 +273,12 @@ public class TeacherController {
 
         int appId = appraiseTeacherService.add(appTea);
 
+        //更新信息
         StuTeaCh info = stuTeaChService.findById(id);
         info.setIsAccept((byte) 1);
         info.setAppraiseId(teacherId);
         info.setSuggestion(suggestion);
-        info.setAppraiseId(appId);
+        info.setAppraiseId(appTea.getId());
         stuTeaChService.update(info);
 
         return ResponseUtil.ok("成功!");

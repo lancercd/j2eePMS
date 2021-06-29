@@ -14,7 +14,7 @@ function onSubmit() {
     const teacherId = editForm.teacherId.value;
     const id = editForm.id.value;
     console.log(id);
-    if(!req || req == 0){
+    if(!teacherId || teacherId == 0){
         message.show({
             msg: "请选择评阅老师!",
             type: 'error',
