@@ -261,7 +261,8 @@ public class AdviserController {
     @PostMapping("/selected/student/edit/{id}")
     public Object editSelectedApi(@LoginUid Integer uid, @PathVariable Integer id, Integer score, String suggestion){
 
-        AppraiseTeacher appTea = appraiseTeacherService.findById(id);
+        StuTeaCh stuTeaCh = stuTeaChService.findById(id);
+        AppraiseTeacher appTea = appraiseTeacherService.findById(stuTeaCh.getAppraiseId());
 
         appTea.setIsAccept((byte)1);
         appTea.setScore(score);
