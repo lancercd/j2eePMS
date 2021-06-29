@@ -63,7 +63,8 @@
                         <td th:text="${list.getStudent().getName()}"></td>
                         <td th:text="${list.getStudent().getNumber()}"></td>
                         <td th:text="${list.getSemester().getName()}"></td>
-                        <td th:text="${list.getAppTeacherDto().getTeacher().getName()}"></td>
+                        <td th:if="${list.getAppTeacherDto() != null}" th:text="${list.getAppTeacherDto().getTeacher().getName()}"></td>
+                        <td th:if="${list.getAppTeacherDto() == null}"></td>
                         <td th:text="${list.getAdviserInfo().getDocTypeId()}"></td>
                         <td th:text="${list.getAdviserInfo().getReqInfo()}"></td>
                         <td th:text="${list.getIntro()}"></td>
