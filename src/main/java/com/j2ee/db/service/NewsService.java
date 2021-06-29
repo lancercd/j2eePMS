@@ -141,8 +141,7 @@ public class NewsService {
         news.setIsActive(true);
         news.setIsDel(false);
 
-
-        return newsMapper.insert(news);
+        return newsMapper.insertSelective(news);
     }
 
 
@@ -187,7 +186,7 @@ public class NewsService {
             return 0;
         }
 
-        return newsMapper.updateByPrimaryKey(news);
+        return newsMapper.updateByPrimaryKeySelective(news);
     }
 
 
