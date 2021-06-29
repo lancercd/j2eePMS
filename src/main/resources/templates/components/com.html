@@ -21,9 +21,8 @@
     <button class="menu-button" id="open-button">Open Menu</button>
     <h5 class="my-0 mr-md-auto ml-5 font-weight-normal">论文管理系统V2</h5>
     <nav class="my-2 my-md-0 mr-md-3" >
-        <a class="p-2" href="/" style="color:#e67e22">首页</a>
-        <a class="p-2" href="/admin/" style="color:#e67e22">新闻列表</a>
-        <a class="p-2" href="/admin/add" style="color:#e67e22">添加</a>
+        <a class="p-2" th:href="@{/}" style="color:#e67e22">首页</a>
+        <a class="p-2" th:if="${session.uid != null}" th:href="@{/login/logout}" style="color:#e67e22">退出</a>
     </nav>
     <div th:replace="~{components/sign::sign}"></div>
 </div>
