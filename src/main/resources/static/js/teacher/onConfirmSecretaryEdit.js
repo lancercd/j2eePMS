@@ -6,47 +6,48 @@ const message = new Message();
 
 const editForm = document.getElementById('edit-form');
 
-const route = '/student/edit';
+const route = '/teacher/guidanceAgree/agree/edit/';
 
 function onSubmit() {
     console.log('submit');
-    const intro = editForm.intro.value;
+    const reqInfo = editForm.reqInfo.value;
     const id = editForm.id.value;
     console.log(id);
-    if(intro.trim() === ''){
+    if(reqInfo.trim() === ''){
         message.show({
-            msg: "请填写自我介绍",
+            msg: "请填写要求!",
             type: 'error',
             closeable: true
         });
         return false;
     }
 
-
-    const formData = new FormData(editForm);
     request({
-        url: route,
+        url: route + id,
         type: 'POST',
-        is_form_data: true,
-        data: formData
+        data: {
+            id,
+            reqInfo
+        }
     }).then(
         (data) => {
             console.log(data);
             message.show({
                 type: 'success',
-                msg: data.data,
+                msg: data.msg,
                 closeable: true,
             });
-            window.location.href = '/student/selected';
 
-    },
+            window.location.href = '/teacher/guidanceAgree';
+
+        },
         (msg) => {
             message.show({
-                type: 'info',
+                type: 'error',
                 msg: msg.msg,
                 closeable: true,
             });
-    });
+        });
 
     return false;
 

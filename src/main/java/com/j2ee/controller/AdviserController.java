@@ -52,8 +52,8 @@ public class AdviserController {
 
     @ResponseBody
     @PostMapping("/disagreeAdviser")
-    public Object disagreeAdviser(Integer adviserId,Integer studentId){
-        int num = adviserInfoService.disagreeAdviser(adviserId);
+    public Object disagreeAdviser(Integer id){
+        int num = adviserInfoService.disagreeAdviser(id);
         if (num==0) return ResponseUtil.updatedDataFailed();
         return ResponseUtil.ok();
     }

@@ -10,6 +10,9 @@ import com.j2ee.dto.AppraiseTeacherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class Convertor {
@@ -82,6 +85,29 @@ public class Convertor {
         el.setIsDel(adviserInfo.getIsDel());
         el.setAddTime(adviserInfo.getAddTime());
         return el;
+    }
+
+    public List<AdviserInfoDto> convertToAdviserInfoDto(List<AdviserInfo> lists) {
+        if(lists == null  || lists.size() == 0) return null;
+
+        List<AdviserInfoDto> adviserInfoDtos = new ArrayList<>();
+
+        for (AdviserInfo adviserInfo : lists) {
+            AdviserInfoDto el = new AdviserInfoDto();
+            el.setId(adviserInfo.getId());
+            el.setTeacher(teacherService.findById(adviserInfo.getTeacherId()));
+            el.setSemester(semesterService.findById(adviserInfo.getSemesterId()));
+            el.setDocType(documentTypeService.findById(adviserInfo.getDocTypeId()));
+            el.setReqInfo(adviserInfo.getReqInfo());
+            el.setIsAccept(adviserInfo.getIsAccept());
+            el.setIsDel(adviserInfo.getIsDel());
+            el.setAddTime(adviserInfo.getAddTime());
+
+            adviserInfoDtos.add(el);
+        }
+
+
+        return adviserInfoDtos;
     }
 
 

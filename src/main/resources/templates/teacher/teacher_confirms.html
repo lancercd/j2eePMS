@@ -5,13 +5,14 @@
     <title>指导教师确认</title>
 
     <script th:src="@{/bootstrap/js/jquery-1.11.2.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap4/bootstrap.css}">
 
-    <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
+    <script th:src="@{/bootstrap4/bootstrap.js}"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/com/message.css}">
+    <link rel="stylesheet" th:href="@{/font/message/iconfont.css}">
 
 </head>
 <body>
@@ -21,110 +22,58 @@
 
 
 <div class="container-fluid">
+    <div class="title"><h3>指派您为指导老师的</h3></div>
 
-    <div style="border: 1px black solid">
-        <div class="templatemo-content-container">
-            <div class="templatemo-content-widget white-bg">
-                <div class="panel panel-default no-border">
-                    <div class="panel-heading border-radius-10 text-center">
-                        <h2 >指导教师确认信息&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <form action="/teacher//guidanceAgree" method="get">学期选择：<select name="semesterId" style="background-color:#39ADB4;border:1px solid white;" id="items">
-                            <div th:each="semester:${semesters}">
-                                <option th:text="${semester.name}" th:value="${semester.id}" th:selected="${semesterId} == ${semester.getId}"></option>
-                            </div>
-                        </select>
-                            <input type="submit" value="查询" id="select"></form></h2>
-                    </div>
-                    <div class="panel-body text-center">
-                        <div class="templatemo-flex-row flex-content-row margin-bottom-30">
-                            <div class="col-12">
-                                <div id="gauge_div" class="templatemo-chart">
-                                    <table class="table table-striped table-bordered templatemo-user-table">
-                                        <thead>
-                                        <tr>
-                                            <td style="width:50%"><a class="white-text templatemo-sort-by">姓名:<span
-                                                    class="caret" th:text="${teacher.name}"></span></a></td>
-                                            <td style="width:50%"><a class="white-text templatemo-sort-by">信息<span
-                                                    class="caret"></span></a></td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-
-                                        <tr style="text-align: center" th:if="${adviserInfo != null}">
-                                                <td><a class=" templatemo-sort-by">指导老师要求</a>
-                                                    <input type="text" name="content" id="content" th:value="${adviserInfo.reqInfo}">
-                                                </td>
-                                                <td><input type="submit" value="提交要求" class="btn btn-warning" id="req"></td>
-                                        </tr>
-                                        <tr style="text-align: center" th:if="${adviserInfo != null}">
-                                                <td colspan="2" th:if="${adviserInfo.isAccept} ==0 "><input type="submit" value="确认" class="btn btn-warning" id="confirm">
-                                                    <input type="submit" value="取消" class="btn btn-warning" id="unconfirm"></td>
-                                            <td colspan="2" th:if="${adviserInfo.isAccept} ==1 "><span>已同意</span></td>
-                                            <td colspan="2" th:if="${adviserInfo.isAccept} ==-1 "><span>已拒绝</span></td>
-                                        </tr>
-                                        <tr style="text-align: center" th:if="${adviserInfo == null}">
-                                            <td colspan="2" ><span>当前学期您未被教学秘书指定为指导教师</span></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <input type="hidden" th:value="${adviserInfo.id}" name="adviserId" id="adviserId" th:if="${adviserInfo} != null">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="input-group column" style="display: flex; align-items: center; justify-content: center;width: 500px;margin-left: 15px">
+            <select class="form-control" id="semester" >
+                <option value="">所有学期</option>
+                <option th:each="semester:${semesters}" th:value="${semester.getId()}" th:text="${semester.getName()}" th:selected="${semesterId} == ${semester.getId}"></option>
+            </select>
+            <span class="input-group-addon btn btn-primary" id="seach" style="background-color:#e67e22; border: none">搜索</span>
         </div>
+        <div class="input-group col-3 column">
+        </div>
+
     </div>
 
+    <br>
+    <div class="row clearfix">
+        <div class="col-md-12 column" th:fragment="div1" th:id="div1" >
+            <table class="table align-content-center" id="scoreTable" style="text-align: center">
+                <thead class="">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">老师姓名</th>
+                    <th scope="col">学期</th>
+                    <th scope="col">资料类型</th>
+                    <th scope="col" style="width: 200px">要求</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">时间</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="list:${lists}">
+                    <th scope="row" th:text="${list.getId()}"></th>
+                    <td th:text="${list.getTeacher().getName()}"></td>
+                    <td th:text="${list.getSemester().getName()}"></td>
+                    <td th:text="${list.getDocType().getName()}"></td>
+                    <td th:text="${list.getReqInfo()}"></td>
+                    <td th:if="${list.getIsAccept() == 0}" style="color: #3498db;">待回复</td>
+                    <td th:if="${list.getIsAccept() == 1}" style="color: #1abc9c;">同意</td>
+                    <td th:if="${list.getIsAccept() == -1}" style="color: #dc3545;">不同意</td>
+                    <td th:text="${#temporals.format(list.getAddTime(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td>
+                        <a th:if="${list.getIsAccept() == 0}" class="input-group-addon btn btn-primary edit-adviser-btn" th:href="@{'/teacher/guidanceAgree/agree/edit/' +  ${list.getId()}}" style="border: none;margin-bottom: 5px;">同意</a>
+                        <span th:if="${list.getIsAccept() == 0}" class="input-group-addon btn btn-danger del-adviser-btn" th:data-id="${list.getId()}" style="border: none; margin-bottom: 5px;">不同意</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
-<script>
-    $('#req').click(function () {
-        var content={content:$('#content').val()}
-        console.log(content)
-        $.ajax({
-            url: "/teacher/updateTeacherReq",
-            data:content,
-            type:"post",
-            sync:true,
-            success:function(result){
-                alert("要求保存成功")
-            }
-        })
-    });
-
-    $('#confirm').click(function (){
-        var data = {adviserId : $('#adviserId').val()}
-        $.ajax({
-            url:"/adviser/agreeAdviser",
-            type:"post",
-            data,data,
-            success:function (result){
-                alert("已成为指导教师")
-                location.reload();
-            }
-        })
-    })
-    $('#unconfirm').click(function (){
-        var data = {adviserId : $('#adviserId').val()}
-        $.ajax({
-            url:"/adviser/disagreeAdviser",
-            type:"post",
-            data:data,
-            success:function (result){
-                alert("已拒绝成为指导教师")
-                location.reload();
-            }
-        })
-    })
-
-    // $('#select').click(function (){
-    //     $('#hidden').val($('#items').val())
-    // })
-</script>
+<script type="module" th:src="@{/js/teacher/onConfirmSecretary.js}"></script>
 </html>

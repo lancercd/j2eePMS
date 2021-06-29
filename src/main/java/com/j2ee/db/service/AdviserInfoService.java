@@ -5,6 +5,8 @@ import com.j2ee.db.dao.AdviserInfoMapper;
 import com.j2ee.db.domain.AdviserInfo;
 import com.j2ee.db.domain.AdviserInfoExample;
 import com.j2ee.db.domain.Teacher;
+import com.j2ee.db.dto.AdviserInfoDto;
+import com.j2ee.db.utils.Convertor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,9 @@ public class AdviserInfoService {
     @Resource
     private AdviserInfoMapper adviserInfoMapper;
 
+    @Autowired
+    private Convertor convertor;
+
 
 
 
@@ -36,6 +41,11 @@ public class AdviserInfoService {
      */
     public AdviserInfo findById(Integer id) {
         return adviserInfoMapper.selectByPrimaryKeyWithLogicalDelete(id, false);
+    }
+
+
+    public AdviserInfoDto findByIdDto(Integer id) {
+        return convertor.convertToAdviserInfoDto(this.findById(id));
     }
 
 
@@ -189,6 +199,19 @@ public class AdviserInfoService {
         criteria.andTeacherIdEqualTo(teacherId);
         if (semesterId!=null) criteria.andSemesterIdEqualTo(semesterId);
         return adviserInfoMapper.selectOneByExample(example);
+
+    }
+
+    public List<AdviserInfoDto> queryAdviserInfoByTeachId(Integer teacherId, Integer semesterId){
+        AdviserInfoExample example = new AdviserInfoExample();
+        AdviserInfoExample.Criteria criteria = example.createCriteria();
+        if (semesterId != null && semesterId != 0) {
+            criteria.andSemesterIdEqualTo(semesterId);
+        }
+        criteria.andTeacherIdEqualTo(teacherId);
+        example.orderBy("`add_time` DESC");
+
+        return convertor.convertToAdviserInfoDto(adviserInfoMapper.selectByExample(example));
 
     }
 }

@@ -9,6 +9,7 @@ import com.j2ee.db.service.*;
 import com.j2ee.service.AppraiseTeacherDtoService;
 import com.j2ee.service.StudentTeacherChoiceService;
 import com.j2ee.utils.ResponseUtil;
+import com.j2ee.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,16 +79,42 @@ public class TeacherController {
     @TeacherLogin
     @GetMapping("/guidanceAgree")
     public String guidanceAgree(Model md,@LoginUid Integer teacherId,Integer semesterId){//指导教师确认页面
-        Teacher teacher = teacherService.findById(teacherId);
-        int semesterIdNow = semesterService.getSemesterIdNow();
-        AdviserInfo adviserInfo = adviserInfoService.queryAdviserInfo(teacherId, semesterId);
-        Semester semester = semesterService.findById(semesterIdNow);
-        md.addAttribute("semesterId",semesterId);
-        md.addAttribute("semesters",semesterService.queryAll());
-        md.addAttribute("teacher",teacher);
-        md.addAttribute("adviserInfo",adviserInfo);;
+
+        md.addAttribute("semesters", studentTeacherChoiceService.getAllSemester());
+        md.addAttribute("semesterId", semesterId);
+
+        md.addAttribute("lists",adviserInfoService.queryAdviserInfoByTeachId(teacherId, semesterId));;
         return "/teacher/teacher_confirms";
     }
+
+    @TeacherLogin
+    @GetMapping("/guidanceAgree/agree/edit/{id}")
+    public String guidanceAgreeEdit(@LoginUid Integer teacherId, @PathVariable Integer id, Model model){//指导教师确认页面
+
+        model.addAttribute("info", adviserInfoService.findByIdDto(id));
+
+        return "/teacher/teacher_confirms_edit";
+    }
+
+
+    @TeacherLogin
+    @ResponseBody
+    @PostMapping("/guidanceAgree/agree/edit/{id}")
+    public Object guidanceAgreeEditApi(@PathVariable Integer id, String reqInfo){//指导教师确认页面
+
+        if(StringUtils.isEmpty(reqInfo)){
+            return ResponseUtil.fail("请填写要求!");
+        }
+        AdviserInfo info = adviserInfoService.findById(id);
+        info.setIsAccept((byte) 1);
+        info.setReqInfo(reqInfo);
+        adviserInfoService.update(info);
+
+        return ResponseUtil.ok();
+    }
+
+
+
 
     @ResponseBody
     @GetMapping("/error")
