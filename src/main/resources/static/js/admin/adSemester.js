@@ -7,7 +7,7 @@ $('#seach').click(function () {
 });
 
 $('#add').click(function () {
-    window.location.href = "/admin/doc_add";
+    window.location.href = "/admin/add";
 });
 
 const delRoute = '/admin/del/';
