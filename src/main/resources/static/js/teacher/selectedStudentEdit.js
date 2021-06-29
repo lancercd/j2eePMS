@@ -21,6 +21,7 @@ function onSubmit() {
             type: 'error',
             closeable: true
         });
+        return false;
     }
     if(sug.trim() === ''){
         message.show({
@@ -28,6 +29,7 @@ function onSubmit() {
             type: 'error',
             closeable: true
         });
+        return false;
     }
 
 

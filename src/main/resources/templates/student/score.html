@@ -61,8 +61,10 @@
                         <td th:text="${list.getSemester().getName()}"></td>
                         <td th:text="${list.getScore()}"></td>
                         <td th:text="${list.getSuggestion()}"></td>
-                        <td th:text="${list.getAppTeacherDto().getScore()}"></td>
-                        <td th:text="${list.getAppTeacherDto().getSuggestion()}"></td>
+                        <td th:if="${list.getAppTeacherDto() == null}"></td>
+                        <td th:if="${list.getAppTeacherDto() != null}" th:text="${list.getAppTeacherDto().getScore()}"></td>
+                        <td th:if="${list.getAppTeacherDto() == null}"></td>
+                        <td th:if="${list.getAppTeacherDto() != null}" th:text="${list.getAppTeacherDto().getSuggestion()}"></td>
                         <td th:if="${list.getIsAccept() == 0}" style="color: #3498db;">待回复</td>
                         <td th:if="${list.getIsAccept() == 1}" style="color: #1abc9c;">同意</td>
                         <td th:if="${list.getIsAccept() == -1}" style="color: #dc3545;">不同意</td>

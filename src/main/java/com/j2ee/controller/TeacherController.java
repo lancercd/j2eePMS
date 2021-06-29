@@ -367,7 +367,7 @@ public class TeacherController {
         StuTeaCh info = stuTeaChService.findById(id);
         info.setIsAccept((byte) 1);
         info.setSuggestion(suggestion);
-        info.setAppraiseId(appId);
+        info.setAppraiseId(appTea.getId());
         info.setScore(score);
         stuTeaChService.update(info);
 
